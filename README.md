@@ -10,7 +10,7 @@ Existing scaffolding algorithms using Hi-C data is good in finding orders of con
 
 ## Dependencies:
 * Python 3.7
- Python dependencies can be installed with pip:
+Python dependencies can be installed with pip:
  
  `
  pip install -r requirements.txt
