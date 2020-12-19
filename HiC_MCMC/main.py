@@ -1,7 +1,7 @@
-from .load import get_contigs_and_pairs
-from .prob import density
-from .model import MCMC
-from .tools import get_orientation
+from load import get_contigs_and_pairs
+from prob import density
+from model import MCMC
+from tools import get_orientation
 
 
 if __name__ == "__main__":
@@ -19,7 +19,7 @@ if __name__ == "__main__":
 
     print("MCMC is running...")
     get_orientation([1 for i in range(len(contigs))], pairs, contigs)
-    MCMC(pairs, contigs, P, 80, True, n_chains=1)
+    MCMC(pairs, contigs, P, 100, n_chains=1)
     print("Have found follow orientation:", [contigs[i].o for i in range(len(contigs))])
 
     with open("../data/final.layout.txt", "w") as file:

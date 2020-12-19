@@ -1,7 +1,7 @@
-from .load import get_contigs_and_pairs
-from .prob import toy_density
-from .model import MCMC
-from .tools import get_orientation, simulation
+from load import get_contigs_and_pairs
+from prob import toy_density
+from model import MCMC
+from tools import get_orientation, simulation
 
 
 if __name__ == "__main__":
@@ -22,5 +22,5 @@ if __name__ == "__main__":
 
     get_orientation([0 for i in range(len(contigs))], pairs, contigs)
     print("MCMC is running...")
-    MCMC(pairs, contigs, P, 500, True, n_chains=1)
+    MCMC(pairs, contigs, P, 500, n_chains=1)
     print("Have found follow orientations:", [contigs[i].o for i in range(len(contigs))])

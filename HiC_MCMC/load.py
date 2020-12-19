@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from .tools import _distance_matrix
+from tools import _distance_matrix
 
 
 class Contig():
