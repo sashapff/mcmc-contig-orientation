@@ -24,12 +24,15 @@ Python dependencies can be installed with pip:
 
 ## Input data:
 Data has to contain information about HiC reads in to follow a format
+
 1) pairs.txt
 
 | * | name of contig which contains the first piece of read | position first piece of read in contigs | name of contig which contains the second piece of read | position second  piece of read in contigs | * | * |
+
 2) len.tsv
 
 | name of contig | his length |
+
 3) layout.txt has to contain order of contigs with the current orientation
 
 (see data)
