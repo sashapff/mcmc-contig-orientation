@@ -1,10 +1,10 @@
 import numpy as np
 import pandas as pd
-from tools import _distance_matrix
+from .tools import _distance_matrix
 
 
 class Contig():
-    def __init__(self, name, lenght, orientation):
+    def __init__(self, name, lenght, orientation, ):
         """
         class of contig
         :param name: name
@@ -20,8 +20,8 @@ class Contig():
         return self.lenght
 
     def define_reads_in_contig(self, pairs, index):
-        self.reads_ind = \
-        np.argwhere(((pairs[:, 0] == index) | (pairs[:, 2] == index)) & (pairs[:, 0] != pairs[:, 2])).T[0]
+        self.reads_ind = np.argwhere(((pairs[:, 0] == index) | (pairs[:, 2] == index))
+                                     & (pairs[:, 0] != pairs[:, 2])).T[0]
 
 
 def _clear_layout(path_layout, path_lens, min_len=10e+5):

@@ -3,7 +3,7 @@ import pandas as pd
 from scipy.stats import expon
 
 
-def get_distance_bw_contig(i, j, contigs):
+def _get_distance_bw_contig(i, j, contigs):
     """
     Calculating distance between 2 contigs
     """
@@ -35,7 +35,7 @@ def _distance_matrix(contigs):
 
     for i in range(len(contigs)):
         for j in range(len(contigs)):
-            D[i, j] = get_distance_bw_contig(i, j, contigs)
+            D[i, j] = _get_distance_bw_contig(i, j, contigs)
 
     return D
 

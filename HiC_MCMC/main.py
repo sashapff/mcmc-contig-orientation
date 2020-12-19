@@ -1,9 +1,7 @@
-import numpy as np
-import pandas as pd
-from load import get_contigs_and_pairs
-from prob import density, toy_density
-from model import MCMC
-from tools import get_orientation, log_likelihood
+from .load import get_contigs_and_pairs
+from .prob import density
+from .model import MCMC
+from .tools import get_orientation
 
 
 if __name__ == "__main__":
