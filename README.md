@@ -6,8 +6,11 @@ Existing scaffolding algorithms using Hi-C data is good in finding orders of con
 
 ## Usage:
 I. load data with function get_contigs_and_pairs
+
 II. estimate density of distance between pieces of reads
+
 III. run the MSMS algorithm
+
 (see HiC_MCMC/main)
 
 ## Dependencies:
@@ -22,10 +25,13 @@ Python dependencies can be installed with pip:
 ## Input data:
 Data has to contain information about HiC reads in to follow a format
 1) pairs.txt
+
 | * | name of contig which contains the first piece of read | position first piece of read in contigs | name of contig which contains the second piece of read | position second  piece of read in contigs | * | * |
 2) len.tsv
+
 | name of contig | his length |
 3) layout.txt has to contain order of contigs with the current orientation
+
 (see data)
 
 ## Links 
