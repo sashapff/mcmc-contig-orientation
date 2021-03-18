@@ -33,6 +33,6 @@ if __name__ == "__main__":
         file.write(",".join([contig.name + sign(contig.o) for contig in contigs]))
     print("Result has been saved")
 
-    # print("Count correctness...")
-    # correct_number = np.array([contig.o == correct_contigs[id_contig[contig.name]] for contig in contigs]).sum()
-    # print(f"{correct_number}/{len(contigs)} contigs were oriented correctly ({correct_number / len(contigs) * 100}%)")
+    print("Count correctness...")
+    correct_number = np.array([contig.o == correct_contigs[id_contig[contig.name]] for contig in contigs]).sum()
+    print(f"{correct_number}/{len(contigs)} contigs were oriented correctly ({correct_number / len(contigs) * 100}%)")
