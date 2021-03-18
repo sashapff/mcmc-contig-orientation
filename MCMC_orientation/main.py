@@ -1,8 +1,8 @@
-# from load import get_contigs_and_pairs
-# from prob import density
-# from model import MCMC
-# from tools import get_orientation
-# import numpy as np
+from load import get_contigs_and_pairs
+from prob import density
+from model import MCMC
+from tools import get_orientation
+import numpy as np
 
 
 if __name__ == "__main__":
