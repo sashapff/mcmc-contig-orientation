@@ -6,9 +6,10 @@ from tools import get_orientation
 
 if __name__ == "__main__":
     # Example
-    path_layout = "/Users/hlibisev/Desktop/hic/chr1.layout.txt"
-    path_lens = "/Users/hlibisev/Desktop/hic/comp18_lens.tsv"
-    path_pairs = "/Users/hlibisev/Desktop/hic/pairs18.txt"
+    path = "../data/"
+    path_layout = path + "chr1.layout.txt"
+    path_lens = path + "comp18_lens.tsv"
+    path_pairs = path + "pairs18.txt"
 
     # longest_contig
     pairs, contigs, id_contig, longest_contig = get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=True)
