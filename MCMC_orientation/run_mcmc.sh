@@ -5,6 +5,5 @@
 
 
 module load python
-module load pandas
 
 python --version
