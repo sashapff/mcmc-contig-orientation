@@ -1,5 +1,5 @@
 if __name__ == "__main__":
-    chr_indexes = [1]
+    chr_indexes = [1, 2, 3]
     contigs2chr = {}
     # chr_pairs = {}
 
