@@ -28,7 +28,7 @@ if __name__ == "__main__":
     print("Have found follow orientation:", [contigs[i].o for i in range(len(contigs))])
 
 
-    with open(path + "final.layout.txt", "w") as file:
+    with open("/lustre/groups/cbi/Users/aeliseev/aivanova/data/final.layout.txt", "w") as file:
         sign = lambda x: "+" if x == 1 else "-"
         file.write(",".join([contig.name + sign(contig.o) for contig in contigs]))
     print("Result has been saved")
