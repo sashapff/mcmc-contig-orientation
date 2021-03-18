@@ -9,7 +9,11 @@ if __name__ == "__main__":
     # path_output = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/pairs"
 
     for ind in chr_indexes:
-        with open(path_layouts + "/chr" + ind + ".layout.txt", "r") as f:
+        if ind != "9":
+            filename = path_layouts + "/chr" + ind + ".layout.txt"
+        else:
+            filename = path_layouts + "chr9.partial_layout.txt"
+        with open(filename, "r") as f:
             lines = f.read().splitlines()
         for line in lines:
             chr_name, contigs = line.split(" ")
