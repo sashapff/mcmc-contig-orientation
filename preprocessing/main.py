@@ -32,7 +32,6 @@ if __name__ == "__main__":
             contig_1 = s[1]
             contig_2 = s[3]
             if contig_1 in contigs2chr and contig_2 in contigs2chr and contigs2chr[contig_1] == contigs2chr[contig_2]:
-                print("Adding pair...")
                 chr_pairs[contigs2chr[contig_1]].write(line)
 
     for ind in chr_indexes:
