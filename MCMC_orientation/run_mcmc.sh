@@ -6,4 +6,4 @@
 
 module load python
 
-python --version
+python main.py
