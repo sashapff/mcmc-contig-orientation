@@ -5,5 +5,6 @@
 
 
 module load python
+module load pandas
 
 python main.py
