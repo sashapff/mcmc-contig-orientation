@@ -7,4 +7,4 @@
 module load python
 module load pandas
 
-python main.py
+python --version
