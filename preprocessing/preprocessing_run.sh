@@ -1,7 +1,7 @@
 #!/bin/sh
 # one hour timelimit:
 #SBATCH --time 6:00:00
-#SBATCH -p defq
+#SBATCH -p tiny
 #SBATCH -o output.txt
 
 
