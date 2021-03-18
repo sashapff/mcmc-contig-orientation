@@ -40,10 +40,6 @@ def _clear_layout(path_layout, path_lens, min_len=10e+5):
 
     s = (s.split(" ")[1]).split(",")
 
-    for i in range(len(s)):
-        if s[i][-1] == "\n":
-            s[i] = s[i][:-1]
-
     i = 0
     while i != len(s):
         if int(lenght.loc[lenght[0] == s[i][:-1], 1]) < min_len:
