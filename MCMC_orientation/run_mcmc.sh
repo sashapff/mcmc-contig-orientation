@@ -3,7 +3,4 @@
 #SBATCH -p debug-gpu
 #SBATCH -o output.txt
 
-conda create --name pandas
-conda activate pandas
-
 python main.py
