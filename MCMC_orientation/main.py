@@ -6,6 +6,7 @@ import numpy as np
 
 
 if __name__ == "__main__":
+    print("Start!")
     # Example
 
     path_layout = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/layouts/chr1.layout.txt"

@@ -28,7 +28,7 @@ def _clear_layout(path_layout, path_lens, min_len=10e+5):
     """
     Reading layout and deleting contigs which less than min_len
     """
-    with open(path_layout) as f:
+    with open(path_layout, "r") as f:
         s_lines = f.read().splitlines()
 
     lenght = pd.read_csv(path_lens, sep="\t", header=None)
