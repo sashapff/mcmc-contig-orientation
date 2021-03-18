@@ -12,7 +12,7 @@ if __name__ == "__main__":
         if ind != "9":
             filename = path_layouts + "/chr" + ind + ".layout.txt"
         else:
-            filename = path_layouts + "chr9.partial_layout.txt"
+            filename = path_layouts + "/chr9.partial_layout.txt"
         with open(filename, "r") as f:
             lines = f.read().splitlines()
         for line in lines:
