@@ -3,6 +3,6 @@
 #SBATCH -p debug-gpu
 #SBATCH -o output.txt
 
-module load Anaconda2
+module load anaconda3
 
 python main.py
