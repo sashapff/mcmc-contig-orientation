@@ -32,6 +32,7 @@ def _clear_layout(path_layout, path_lens, min_len=10e+5):
         s_lines = f.read().splitlines()
 
     lenght = pd.read_csv(path_lens, sep="\t", header=None)
+    print("COULD ^C")
 
     s = s_lines[0]
     for line in s_lines:
