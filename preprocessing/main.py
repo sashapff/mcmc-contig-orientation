@@ -1,10 +1,10 @@
 if __name__ == "__main__":
     chr_indexes = [1, 2, 3]
     contigs2chr = {}
-    chr_pairs = {}
+    # chr_pairs = {}
 
     path_layouts = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/layouts"
-    path_output = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/pairs"
+    # path_output = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/pairs"
 
     for ind in chr_indexes:
         with open(path_layouts + "/chr" + str(ind) + ".layout.txt", "r") as f:
@@ -14,7 +14,7 @@ if __name__ == "__main__":
             contigs = contigs.split(",")
             for contig in contigs:
                 contigs2chr[contig[:-1]] = ind
-        chr_pairs[ind] = open(path_output + "/chr_pairs" + str(ind) + ".txt", "w")
+        # chr_pairs[ind] = open(path_output + "/chr_pairs" + str(ind) + ".txt", "w")
 
     print(contigs2chr)
 
