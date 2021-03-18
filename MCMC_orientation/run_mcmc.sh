@@ -3,6 +3,6 @@
 #SBATCH -p debug-gpu
 #SBATCH -o output.txt
 
-module load anaconda3
+conda create --name pandas
 
 python main.py
