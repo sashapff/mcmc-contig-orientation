@@ -1,7 +1,7 @@
 #!/bin/sh
 # one hour timelimit:
-#SBATCH --time 6:00:00
-#SBATCH -p tiny
+#SBATCH --time 4:00:00
+#SBATCH -p debug-gpu
 #SBATCH -o output.txt
 
 
