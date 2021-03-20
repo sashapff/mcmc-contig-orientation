@@ -7,11 +7,13 @@ import numpy as np
 
 if __name__ == "__main__":
     print("Start!")
+    chr_ind = sys.argv[1]
+
     # Example
 
-    path_layout = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/layouts/chr1.layout.txt"
-    path_lens = "/lustre/groups/cbi/Users/aeliseev/aivanova/test_data/comp18_lens.tsv"
-    path_pairs = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/pairs/chr_pairs1.txt"
+    path_layout = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/layouts/chr" + chr_ind + "1.layout.txt"
+    path_lens = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/contig.length.txt"
+    path_pairs = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/pairs/chr_pairs" + chr_ind + ".txt"
 
     # longest_contig
     pairs, contigs, id_contig, longest_contig = get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=True)
@@ -28,7 +30,7 @@ if __name__ == "__main__":
     print("Have found follow orientation:", [contigs[i].o for i in range(len(contigs))])
 
 
-    with open("/lustre/groups/cbi/Users/aeliseev/aivanova/data/final.layout.txt", "w") as file:
+    with open("/lustre/groups/cbi/Users/aeliseev/aivanova/data/final" + chr_ind + ".layout.txt", "w") as file:
         sign = lambda x: "+" if x == 1 else "-"
         file.write(",".join([contig.name + sign(contig.o) for contig in contigs]))
     print("Result has been saved")
