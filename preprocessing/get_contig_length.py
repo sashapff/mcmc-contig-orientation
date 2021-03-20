@@ -2,7 +2,7 @@ import h5py
 import numpy as np
 
 if __name__ == "__main__":
-    matrix_filename = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/chm13.draft_v0.9.matrix.cool"
+    matrix_filename = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/chm13.draft_v1.0.cool"
     output_file = open("/lustre/groups/cbi/Users/aeliseev/aivanova/data/contig.length.txt", "w")
 
     with h5py.File(matrix_filename, "r") as f:
