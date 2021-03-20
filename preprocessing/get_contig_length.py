@@ -6,7 +6,7 @@ if __name__ == "__main__":
     output_file = open("/lustre/groups/cbi/Users/aeliseev/aivanova/data/contig.length.txt", "w")
 
     with h5py.File(matrix_filename, "r") as f:
-        print(f['resolutions'].keys())
+        print(f['resolutions']['50000'].keys())
         # for i in range(len(f['resolutions']['50000']['chroms']['length'][:])):
         #     string_to_write = (f['resolutions']['50000']['chroms']['name'][:][i]).decode("utf-8")  + '\t' \
         #                       + str(f['resolutions']['50000']['chroms']['length'][:][i]) + '\n'
