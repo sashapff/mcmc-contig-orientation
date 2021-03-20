@@ -38,7 +38,8 @@ if __name__ == "__main__":
         for i in range(len(f['chroms']['length'][:])):
             contig_name = (f['chroms']['name'][:][i]).decode("utf-8")
             string_to_write = contig_name  + '\t' + str(f['chroms']['length'][:][i]) + '\n'
-            output_files[contigs2chr[contig_name]].write(string_to_write)
+            if contig_name in contigs2chr:
+                output_files[contigs2chr[contig_name]].write(string_to_write)
 
     for ind in chr_indexes:
         output_files[ind].close()
