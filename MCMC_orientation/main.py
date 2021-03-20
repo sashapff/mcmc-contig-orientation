@@ -3,6 +3,7 @@ from prob import density
 from model import MCMC
 from tools import get_orientation
 import numpy as np
+import sys
 
 
 if __name__ == "__main__":
