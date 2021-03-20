@@ -13,7 +13,7 @@ if __name__ == "__main__":
     with h5py.File(matrix_filename, "r") as f:
         for i in range(len(f['chroms']['length'][:])):
             string_to_write = (f['chroms']['name'][:][i]).decode("utf-8")  + '\t' \
-                              + str(f['resolutions']['50000']['bins']['length'][:][i]) + '\n'
+                              + str(f['chroms']['length'][:][i]) + '\n'
             output_file.write(string_to_write)
 
     output_file.close()
