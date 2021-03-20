@@ -12,8 +12,8 @@ if __name__ == "__main__":
 
     # Example
 
-    path_layout = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/layouts/chr" + chr_ind + "1.layout.txt"
-    path_lens = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/contig.length.txt"
+    path_layout = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/layouts/chr" + chr_ind + ".layout.txt"
+    path_lens = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/contig_length/contig.length." + chr_ind + ".txt"
     path_pairs = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/pairs/chr_pairs" + chr_ind + ".txt"
 
     # longest_contig
