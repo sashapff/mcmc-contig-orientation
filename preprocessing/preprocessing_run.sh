@@ -1,6 +1,6 @@
 #!/bin/sh
-#SBATCH --time 4:00:00
-#SBATCH -p debug-gpu
+#SBATCH --time 1:00:00
+#SBATCH -p debug
 #SBATCH -o output.txt
 
 

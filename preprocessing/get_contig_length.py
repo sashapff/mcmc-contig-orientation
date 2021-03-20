@@ -32,6 +32,8 @@ if __name__ == "__main__":
                 contigs2chr[contig[:-1]] = ind
         output_files[ind] = open(path_output + "/contig.length." + ind + ".txt", "w")
 
+    print(len(contigs2chr))
+
     with h5py.File(matrix_filename, "r") as f:
         for i in range(len(f['chroms']['length'][:])):
             contig_name = (f['chroms']['name'][:][i]).decode("utf-8")
