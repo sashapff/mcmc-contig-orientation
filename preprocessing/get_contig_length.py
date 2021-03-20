@@ -40,6 +40,8 @@ if __name__ == "__main__":
             string_to_write = contig_name  + '\t' + str(f['chroms']['length'][:][i]) + '\n'
             if contig_name in contigs2chr:
                 output_files[contigs2chr[contig_name]].write(string_to_write)
+            else:
+                write(contig_name)
 
     for ind in chr_indexes:
         output_files[ind].close()
