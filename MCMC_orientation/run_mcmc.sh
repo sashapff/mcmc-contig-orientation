@@ -3,4 +3,4 @@
 #SBATCH -p debug-cpu
 #SBATCH -o output.txt
 
-python main.py
+python main.py 1
