@@ -1,5 +1,5 @@
 #!/bin/sh
-#SBATCH --time 1:00:00:00
+#SBATCH --time 1-00:00:00
 #SBATCH -p short
 #SBATCH -o output.txt
 
