@@ -1,6 +1,6 @@
 #!/bin/sh
-#SBATCH --time 1-00:00:00
-#SBATCH -p short
+#SBATCH --time 8:00:00
+#SBATCH -p tiny
 #SBATCH -o output.txt
 
 echo "CHROMOSOME 2"
