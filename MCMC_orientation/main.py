@@ -45,4 +45,4 @@ if __name__ == "__main__":
     print(f"{correct_number}/{len(contigs)} contigs were oriented correctly ({correct_number / len(contigs) * 100}%)")
 
     with open("/lustre/groups/cbi/Users/aeliseev/aivanova/data/stat." + chr_ind + ".txt", "w") as file:
-        file.write(f"{correct_number}/{len(contigs)} contigs were oriented correctly ({correct_number / len(contigs) * 100}%)")
+        file.write(f"{correct_number}/{len(contigs)} contigs were oriented correctly ({correct_number / len(contigs) * 100}%)\n")
