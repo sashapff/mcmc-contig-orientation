@@ -41,7 +41,7 @@ if __name__ == "__main__":
             if contig_name in contigs2chr:
                 output_files[contigs2chr[contig_name]].write(string_to_write)
             else:
-                write(contig_name)
+                print(contig_name)
 
     for ind in chr_indexes:
         output_files[ind].close()
