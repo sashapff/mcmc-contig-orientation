@@ -7,7 +7,7 @@ import numpy as np
 
 if __name__ == "__main__":
     print("Start!")
-    chr_ind = sys.argv[1]
+    # chr_ind = sys.argv[1]
 
     # Example
 
