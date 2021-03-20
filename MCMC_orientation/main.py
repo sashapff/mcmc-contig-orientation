@@ -39,3 +39,6 @@ if __name__ == "__main__":
     print("Count correctness...")
     correct_number = np.array([contig.o == correct_contigs[id_contig[contig.name]] for contig in contigs]).sum()
     print(f"{correct_number}/{len(contigs)} contigs were oriented correctly ({correct_number / len(contigs) * 100}%)")
+
+    with open("/lustre/groups/cbi/Users/aeliseev/aivanova/data/stat." + chr_ind + ".txt", "w") as file:
+        f.write(f"{correct_number}/{len(contigs)} contigs were oriented correctly ({correct_number / len(contigs) * 100}%)")
