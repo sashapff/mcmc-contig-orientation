@@ -3,28 +3,28 @@
 #SBATCH -p debug-cpu
 #SBATCH -o output.txt
 
-echo "CHROMOSOME 1"
-python main.py 1
-
-echo "CHROMOSOME 2"
-python main.py 2
-
-echo "CHROMOSOME 3"
-python main.py 3
-
-echo "CHROMOSOME 4"
-python main.py 4
-
-#echo "CHROMOSOME 5"
-#python main.py 5
+#echo "CHROMOSOME 1"
+#python main.py 1
 #
-#echo "CHROMOSOME 6"
-#python main.py 6
+#echo "CHROMOSOME 2"
+#python main.py 2
 #
-#echo "CHROMOSOME 7"
-#python main.py 7
+#echo "CHROMOSOME 3"
+#python main.py 3
 #
-#echo "CHROMOSOME 8"
+#echo "CHROMOSOME 4"
+#python main.py 4
+
+echo "CHROMOSOME 5"
+python main.py 5
+
+echo "CHROMOSOME 6"
+python main.py 6
+
+echo "CHROMOSOME 7"
+python main.py 7
+
+echo "CHROMOSOME 8"
 #python main.py 8
 #
 #echo "CHROMOSOME 9"
