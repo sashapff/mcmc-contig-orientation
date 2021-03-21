@@ -50,7 +50,7 @@ def _clear_layout(path_layout, path_lens, min_len=10e+5):
     return s
 
 
-def get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=False, all_contigs=False, min_len=10e+4):
+def get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=False, all_contigs=False, min_len=50_000):
     """
     Reading all data from file in essential format
     :param path_layout: the path to the start layout
