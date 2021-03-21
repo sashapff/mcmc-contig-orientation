@@ -3,6 +3,9 @@
 #SBATCH -p tiny
 #SBATCH -o output.txt
 
+echo "CHROMOSOME 1"
+python main.py 1
+
 echo "CHROMOSOME 2"
 python main.py 2
 
