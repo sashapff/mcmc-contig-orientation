@@ -15,35 +15,35 @@
 #echo "CHROMOSOME 4"
 #python main.py 4
 
-echo "CHROMOSOME 5"
-python main.py 5
-
-echo "CHROMOSOME 6"
-python main.py 6
-
-echo "CHROMOSOME 7"
-python main.py 7
+#echo "CHROMOSOME 5"
+#python main.py 5
+#
+#echo "CHROMOSOME 6"
+#python main.py 6
+#
+#echo "CHROMOSOME 7"
+#python main.py 7
 
 echo "CHROMOSOME 8"
-#python main.py 8
-#
-#echo "CHROMOSOME 9"
-#python main.py 9
-#
-#echo "CHROMOSOME 10"
-#python main.py 10
-#
-#echo "CHROMOSOME 11"
-#python main.py 11
-#
-#echo "CHROMOSOME 12"
-#python main.py 12
-#
-#echo "CHROMOSOME 13"
-#python main.py 13
-#
-#echo "CHROMOSOME 14"
-#python main.py 14
+python main.py 8
+
+echo "CHROMOSOME 9"
+python main.py 9
+
+echo "CHROMOSOME 10"
+python main.py 10
+
+echo "CHROMOSOME 11"
+python main.py 11
+
+echo "CHROMOSOME 12"
+python main.py 12
+
+echo "CHROMOSOME 13"
+python main.py 13
+
+echo "CHROMOSOME 14"
+python main.py 14
 #
 #echo "CHROMOSOME 15"
 #python main.py 15
