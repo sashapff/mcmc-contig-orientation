@@ -1,7 +1,9 @@
 import numpy as np
 import random
 from tqdm import tqdm
-from tools import log_likelihood, change_log_likelihood, change_orientation, get_orientation
+from orientation.orientation_tools import change_orientation, get_orientation
+from orientation.tools import change_log_likelihood
+from utils.tools import log_likelihood
 
 
 def MCMC(pairs, contigs, P, number_it=500, n_chains=1):
@@ -10,8 +12,8 @@ def MCMC(pairs, contigs, P, number_it=500, n_chains=1):
     :param pairs: array of reads
     :param contigs: list of contigs
     :param P: density
-    :param number_it: number of itterations
-    :param n_chains: number of changing for one itterations
+    :param number_it: number of iterations
+    :param n_chains: number of changing for one iterations
     :return None, change on place
     """
     lk_old = log_likelihood(pairs, contigs, P)

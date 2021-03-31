@@ -1,23 +1,25 @@
 import numpy as np
 import pandas as pd
-from tools import _distance_matrix
+from utils.tools import _distance_matrix
 
 
 class Contig():
-    def __init__(self, name, lenght, orientation, ):
+    def __init__(self, name, length, orientation, position):
         """
         class of contig
         :param name: name
-        :param lenght: lenght of contig
+        :param length: length of contig
         :param orientation: orientation of contig
+        TODO
         """
         self.name = name
-        self.lenght = lenght
+        self.length = length
         self.o = orientation
+        self.pos = position
         self.reads_ind = None
 
     def __len__(self):
-        return self.lenght
+        return self.length
 
     def define_reads_in_contig(self, pairs, index):
         self.reads_ind = np.argwhere(((pairs[:, 0] == index) | (pairs[:, 2] == index))
@@ -31,7 +33,7 @@ def _clear_layout(path_layout, path_lens, min_len=10e+5):
     with open(path_layout, "r") as f:
         s_lines = f.read().splitlines()
 
-    lenght = pd.read_csv(path_lens, sep="\t", header=None)
+    length = pd.read_csv(path_lens, sep="\t", header=None)
     print("COULD ^C")
 
     s = s_lines[0]
@@ -43,14 +45,14 @@ def _clear_layout(path_layout, path_lens, min_len=10e+5):
 
     i = 0
     while i != len(s):
-        if int(lenght.loc[lenght[0] == s[i][:-1], 1]) < min_len:
+        if int(length.loc[length[0] == s[i][:-1], 1]) < min_len:
             s.remove(s[i])
         else:
             i += 1
     return s
 
 
-def get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=False, all_contigs=False, min_len=50_000):
+def get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=False, all_contigs=False, min_len=100_000):
     """
     Reading all data from file in essential format
     :param path_layout: the path to the start layout
@@ -62,7 +64,7 @@ def get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=False,
     :return: required reads, list of contigs, dict{"name": index contig in list},
              long_contig if True, all_contigs if True
     """
-    lenght = pd.read_csv(path_lens, sep="\t", header=None)
+    length = pd.read_csv(path_lens, sep="\t", header=None)
     answer = []
 
     s = _clear_layout(path_layout, path_lens, min_len=min_len)
@@ -71,7 +73,7 @@ def get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=False,
     pairs = pd.read_csv(path_pairs, "\t", names=["name", "X1", "P1", "X2", "P2", "orientation1", "orientation2"])
 
     # list of contigs with right layout
-    contigs = [Contig(s[i][:-1], int(lenght[lenght[0] == s[i][:-1]][1]), int(s[i][-1] == "+")) for i in
+    contigs = [Contig(s[i][:-1], int(length[length[0] == s[i][:-1]][1]), int(s[i][-1] == "+"), i) for i in
                range(0, len(s))]
 
     # dict "name contig" -> id contig in contigs
@@ -115,7 +117,7 @@ def get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=False,
     np_pairs[:, 3] = pairs["P2"].to_numpy()
     np_pairs[:, 4] = pairs["X1"].apply(lambda x: contigs[id_contig[x]].o).to_numpy()
     np_pairs[:, 5] = pairs["X2"].apply(lambda x: contigs[id_contig[x]].o).to_numpy()
-    np_pairs[:, 6] = np.array([D[int(np_pairs[i, 0]), int(np_pairs[int(i), 2])] for i in range(len(pairs))])
+    np_pairs[:, 6] = np.array([D[int(np_pairs[i, 0]), int(np_pairs[i, 2])] for i in range(len(pairs))])
 
     # id_contig1 < id_contig2
     ind = (np_pairs[:, 0] >= np_pairs[:, 2])

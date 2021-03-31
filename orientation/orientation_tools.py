@@ -2,44 +2,6 @@ import numpy as np
 import pandas as pd
 from scipy.stats import expon
 
-
-def _get_distance_bw_contig(i, j, contigs):
-    """
-    Calculating distance between 2 contigs
-    """
-    distance_bw_contig = 0
-    if i > j:
-        i, j = j, i
-    for k in range(i + 1, j):
-        distance_bw_contig += len(contigs[k])
-
-    return distance_bw_contig
-
-
-def get_distance(pairs, contigs):
-    """
-    Calculating distances between all reads
-    """
-    L1 = np.array([len(contigs[int(pairs[i, 0])]) for i in range(len(pairs))])
-    L2 = np.array([len(contigs[int(pairs[i, 2])]) for i in range(len(pairs))])
-
-    S1 = pairs[:, 1] * (1 - pairs[:, 4]) + (L1 - pairs[:, 1] + 1) * (pairs[:, 4])
-    S2 = (pairs[:, 3] + 1) * pairs[:, 5] + (L2 - pairs[:, 3]) * (1 - pairs[:, 5])
-
-    S = S1 + S2 + pairs[:, 6]
-    return S
-
-
-def _distance_matrix(contigs):
-    D = np.zeros((len(contigs), len(contigs)))
-
-    for i in range(len(contigs)):
-        for j in range(len(contigs)):
-            D[i, j] = _get_distance_bw_contig(i, j, contigs)
-
-    return D
-
-
 def get_orientation(orientation, pairs, contigs):
     """
     Set up some orientation
@@ -48,15 +10,6 @@ def get_orientation(orientation, pairs, contigs):
     for i in range(len(contigs)):
         if contigs[i].o != orientation[i]:
             change_orientation(i, pairs, contigs)
-
-
-def log_likelihood(pairs, contigs, P):
-    """
-    Calculating full log_lokelihood for our orientation
-    """
-    log_likelihood = P(get_distance(pairs, contigs)).sum()
-    return log_likelihood
-
 
 def change_orientation(number_changed_contig, pairs, contigs):
     """
@@ -71,18 +24,6 @@ def change_orientation(number_changed_contig, pairs, contigs):
 
     pairs[ind[indx_1], 4] = -pairs[ind[indx_1], 4] + 1
     pairs[ind[indx_2], 5] = -pairs[ind[indx_2], 5] + 1
-
-
-def change_log_likelihood(last_log_likelihood, number_changed_contig, pairs, contigs, P):
-    """
-    P(new_orientation) = P(old_orientation) + P(difference in orientation)
-    """
-    last_log_likelihood -= P(get_distance(pairs[contigs[number_changed_contig].reads_ind], contigs)).sum()
-    change_orientation(number_changed_contig, pairs, contigs)
-    new_lk = last_log_likelihood + P(get_distance(pairs[contigs[number_changed_contig].reads_ind], contigs)).sum()
-
-    return new_lk
-
 
 def simulation(max_len=1000, n_reads=10, n_contigs=2, p_distr=expon):
     """
