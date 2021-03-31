@@ -20,10 +20,6 @@ if __name__ == "__main__":
     min_contig_length = 100_000
     min_contig_length_name = '100k'
 
-    f = open(f"/lustre/groups/cbi/Users/aeliseev/aivanova/data/stat_{min_contig_length_name}.txt", 'r+')
-    f.truncate(0)
-    f.close()
-
     for chr_ind in chromosomes:
         print(f'Chromosome {chr_ind}')
 
@@ -47,8 +43,16 @@ if __name__ == "__main__":
         correct_contigs_arr.append(correct_contigs)
 
     print("Estimation of density...")
-    print(longest_contig_arr)
-    P, f = density(sorted(longest_contig_arr, key=lambda contig: contig[0].length, reverse=True)[0])
+
+    longest_contig = sorted(longest_contig_arr, key=lambda contig: contig.length, reverse=True)[0].name
+    indx = (pairs["X1"] == longest_contig) & (pairs["X2"] == longest_contig)
+    longest_pairs_numpy = np.zeros((indx.sum(), 2))
+
+    longest_pairs_numpy[:, 0] = pairs[indx]["P1"].to_numpy()
+    longest_pairs_numpy[:, 1] = pairs[indx]["P2"].to_numpy()
+
+    del indx
+    P, f = density(longest_pairs_numpy)
     print("Estimation of density is done")
 
     for (j, chr_ind) in enumerate(chromosomes):
