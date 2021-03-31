@@ -45,6 +45,7 @@ if __name__ == "__main__":
     print("Estimation of density...")
 
     longest_contig = sorted(longest_contig_arr, key=lambda contig: contig.length, reverse=True)[0].name
+    print(longest_contig)
     indx = (pairs["X1"] == longest_contig) & (pairs["X2"] == longest_contig)
     longest_pairs_numpy = np.zeros((indx.sum(), 2))
 
