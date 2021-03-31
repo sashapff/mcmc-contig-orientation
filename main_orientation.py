@@ -13,7 +13,7 @@ if __name__ == "__main__":
     # chromosomes = ['1', '2', '3', '4', '5', '6', '7', '8', '10', '11', '12', '13',
     #                '14', '15', '16', '17', '18', '19', '20', '21', '22', 'MT', 'X']
 
-    chromosomes = ['2', '3']
+    chromosomes = ['3']
 
     pairs_arr, contigs_arr, id_contig_arr, longest_contig_arr, correct_contigs_arr = [], [], [], [], []
 
@@ -44,13 +44,20 @@ if __name__ == "__main__":
 
     print("Estimation of density...")
 
-    longest_contig = sorted(longest_contig_arr, key=lambda contig: contig.length, reverse=True)[0].name
+    j = 0
+    longest_contig_length = 0
+    for i in range(len(longest_contig_arr)):
+        if longest_contig_arr[i].length > longest_contig_length:
+            longest_contig_length = longest_contig_arr[i].length
+            j = i
+    longest_contig = longest_contig_arr[j].name
+
     print(longest_contig)
-    indx = (pairs["X1"] == longest_contig) & (pairs["X2"] == longest_contig)
+    indx = (pairs_arr[j]["X1"] == longest_contig) & (pairs_arr[j]["X2"] == longest_contig)
     longest_pairs_numpy = np.zeros((indx.sum(), 2))
 
-    longest_pairs_numpy[:, 0] = pairs[indx]["P1"].to_numpy()
-    longest_pairs_numpy[:, 1] = pairs[indx]["P2"].to_numpy()
+    longest_pairs_numpy[:, 0] = pairs_arr[j][indx]["P1"].to_numpy()
+    longest_pairs_numpy[:, 1] = pairs_arr[j][indx]["P2"].to_numpy()
 
     del indx
     P, f = density(longest_pairs_numpy)
