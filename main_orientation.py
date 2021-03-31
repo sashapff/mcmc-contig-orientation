@@ -47,7 +47,8 @@ if __name__ == "__main__":
         correct_contigs_arr.append(correct_contigs)
 
     print("Estimation of density...")
-    P, f = density(sorted(longest_contig_arr, key=lambda contig: contig.length, reverse=True)[0])
+    print(longest_contig_arr)
+    P, f = density(sorted(longest_contig_arr, key=lambda contig: contig[0].length, reverse=True)[0])
     print("Estimation of density is done")
 
     for (j, chr_ind) in enumerate(chromosomes):
