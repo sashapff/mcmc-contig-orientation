@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from scipy.stats import expon
 
-from utils.tools import get_distance
+from tools.tools import get_distance
 
 
 def get_orientation(orientation, pairs, contigs):

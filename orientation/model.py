@@ -3,7 +3,7 @@ import random
 from tqdm import tqdm
 from orientation.orientation_tools import change_orientation, get_orientation
 from orientation.tools import change_log_likelihood
-from utils.tools import log_likelihood
+from tools.tools import log_likelihood
 
 
 def MCMC(pairs, contigs, P, number_it=500, n_chains=1):

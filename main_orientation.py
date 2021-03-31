@@ -1,7 +1,7 @@
-from utils.load import get_contigs_and_pairs
+from tools.load import get_contigs_and_pairs
 from orientation.model import MCMC
 from orientation.orientation_tools import get_orientation
-from utils.prob import density, toy_density
+from tools.prob import density
 import numpy as np
 
 if __name__ == "__main__":
