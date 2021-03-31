@@ -3,6 +3,7 @@ from orientation.model import MCMC
 from orientation.orientation_tools import get_orientation
 from tools.prob import density
 import numpy as np
+import matplotlib.pyplot as plt
 
 if __name__ == "__main__":
     print("Start!")
@@ -52,7 +53,7 @@ if __name__ == "__main__":
 
         print("MCMC is running...")
         get_orientation([1 for i in range(len(contigs))], pairs, contigs)
-        MCMC(pairs, contigs, P, 100, n_chains=1)
+        accuracy_arr = MCMC(pairs, contigs, P, 100, n_chains=1, id_contig=id_contig)
         print("Have found follow orientation:", [contigs[i].o for i in range(len(contigs))])
 
         with open("/lustre/groups/cbi/Users/aeliseev/aivanova/data/final" + chr_ind + ".layout.txt", "w") as file:
