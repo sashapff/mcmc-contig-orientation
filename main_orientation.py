@@ -22,6 +22,7 @@ if __name__ == "__main__":
 
     f = open(f"/lustre/groups/cbi/Users/aeliseev/aivanova/data/stat_{min_contig_length_name}.txt", 'r+')
     f.truncate(0)
+    f.close()
 
     for chr_ind in chromosomes:
         print(f'Chromosome {chr_ind}')
@@ -75,6 +76,8 @@ if __name__ == "__main__":
 
         correct_total += correct_number
         contigs_total += len(contigs)
+
+        plt.plot(accuracy_arr)
 
     with open(f"/lustre/groups/cbi/Users/aeliseev/aivanova/data/stat_{min_contig_length_name}.txt", "a") as file:
         file.write(f"TOTAL ACCURACY\n")
