@@ -3,5 +3,5 @@
 #SBATCH -p debug-cpu
 #SBATCH -o output.txt
 
-python main.py
+python main_ortientation.py
 
