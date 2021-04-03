@@ -10,10 +10,10 @@ if __name__ == "__main__":
 
     correct_total = 0
     contigs_total = 0
-    # chromosomes = ['1', '2', '3', '4', '5', '6', '7', '8', '10', '11', '12', '13',
-    #                '14', '15', '16', '17', '18', '19', '20', '21', '22', 'MT', 'X']
+    chromosomes = ['1', '2', '3', '4', '5', '6', '7', '8', '10', '11', '12', '13',
+                   '14', '15', '16', '17', '18', '19', '20', '21', '22']
 
-    chromosomes = ['2', '3']
+    # chromosomes = ['2', '3']
 
     pairs_arr, contigs_arr, id_contig_arr, longest_contig_arr, longest_contig_name_arr, correct_contigs_arr = [], [], [], [], [], []
 
@@ -105,6 +105,7 @@ if __name__ == "__main__":
         contigs_total += len(contigs)
 
         print(accuracy_arr)
+        plt.clf()
         plt.plot(accuracy_arr)
         plt.savefig(f'accuracy_{chr_ind}.png')
 
