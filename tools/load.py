@@ -82,9 +82,16 @@ def get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=False,
     print("Cleaning pairs...")
     # to remove pairs inside of contigs and which in contigs are not suitable for the length
     if long_contig:
-        longest_contig = max(contigs, key=len)
+        longest_contig = max(contigs, key=len).name
+        indx = (pairs["X1"] == longest_contig) & (pairs["X2"] == longest_contig)
+        longest_pairs_numpy = np.zeros((indx.sum(), 2))
 
-        answer.append(longest_contig)
+        longest_pairs_numpy[:, 0] = pairs[indx]["P1"].to_numpy()
+        longest_pairs_numpy[:, 1] = pairs[indx]["P2"].to_numpy()
+
+        del indx
+        answer.append(longest_pairs_numpy)
+        answer.append(max(contigs, key=len))
 
     if all_contigs:
         contigs_list = []
