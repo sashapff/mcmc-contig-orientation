@@ -13,7 +13,7 @@ if __name__ == "__main__":
     # chromosomes = ['1', '2', '3', '4', '5', '6', '7', '8', '10', '11', '12', '13',
     #                '14', '15', '16', '17', '18', '19', '20', '21', '22', 'MT', 'X']
 
-    chromosomes = ['3', '1']
+    chromosomes = ['3']
 
     pairs_arr, contigs_arr, id_contig_arr, longest_contig_arr, longest_contig_name_arr, correct_contigs_arr = [], [], [], [], [], []
 
@@ -106,7 +106,7 @@ if __name__ == "__main__":
 
         print(accuracy_arr)
         plt.plot(accuracy_arr)
-        plt.show()
+        plt.savefig(f'accuracy_{chr_ind}.png')
 
     with open(f"/lustre/groups/cbi/Users/aeliseev/aivanova/data/stat_{min_contig_length_name}.txt", "a") as file:
         file.write(f"TOTAL ACCURACY\n")
