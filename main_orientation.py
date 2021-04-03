@@ -17,8 +17,8 @@ if __name__ == "__main__":
 
     pairs_arr, contigs_arr, id_contig_arr, longest_contig_arr, longest_contig_name_arr, correct_contigs_arr = [], [], [], [], [], []
 
-    min_contig_length = 50_000
-    min_contig_length_name = '50k'
+    min_contig_length = 25_000
+    min_contig_length_name = '25k'
 
     for chr_ind in chromosomes:
         print(f'Chromosome {chr_ind}')
