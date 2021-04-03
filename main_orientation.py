@@ -32,8 +32,10 @@ if __name__ == "__main__":
         path_pairs = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/pairs/chr_pairs" + chr_ind + ".txt"
 
         # longest_contig
-        pairs, contigs, id_contig, longest_contig, longest_contig_name = get_contigs_and_pairs(path_layout, path_lens, path_pairs,
-                                                                          long_contig=True, min_len=min_contig_length)
+        pairs, contigs, id_contig, longest_contig, longest_contig_name = get_contigs_and_pairs(path_layout, path_lens,
+                                                                                               path_pairs,
+                                                                                               long_contig=True,
+                                                                                               min_len=min_contig_length)
 
         # # path_layout = "/Users/alexandra/bioinf/mcmc/data/chr1.layout.txt"
         # path_layout = "/Users/alexandra/bioinf/mcmc/data/simulation.layout.txt"
@@ -83,7 +85,8 @@ if __name__ == "__main__":
 
         print("MCMC is running...")
         get_orientation([0 for i in range(len(contigs))], pairs, contigs)
-        accuracy_arr = MCMC(pairs, contigs, P, number_it=200, n_chains=1, id_contig=id_contig, correct_contigs=correct_contigs)
+        accuracy_arr = MCMC(pairs, contigs, P, number_it=200, n_chains=1, id_contig=id_contig,
+                            correct_contigs=correct_contigs)
         print("Have found follow orientation:", [contigs[i].o for i in range(len(contigs))])
 
         with open("/lustre/groups/cbi/Users/aeliseev/aivanova/data/final" + chr_ind + ".layout.txt", "w") as file:
@@ -107,7 +110,7 @@ if __name__ == "__main__":
         print(accuracy_arr)
         plt.clf()
         plt.plot(accuracy_arr)
-        plt.savefig(f'accuracy_{chr_ind}.png')
+        plt.savefig(f'/lustre/groups/cbi/Users/aeliseev/aivanova/data/plots/accuracy_chr{chr_ind}_{min_contig_length_name}.png')
 
     with open(f"/lustre/groups/cbi/Users/aeliseev/aivanova/data/stat_{min_contig_length_name}.txt", "a") as file:
         file.write(f"TOTAL ACCURACY\n")

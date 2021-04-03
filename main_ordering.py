@@ -1,7 +1,7 @@
 from tools.load import get_contigs_and_pairs
 from ordering.model import MCMC
 from ordering.tools import get_ordering
-from tools.prob import density
+from tools.prob import density, toy_density
 import numpy as np
 
 if __name__ == "__main__":
@@ -9,27 +9,27 @@ if __name__ == "__main__":
     # chr_ind = sys.argv[1]
     # Example
 
-    path_layout = "/Users/alexandra/bioinf/mcmc/data/chr1.layout.txt"
-    # path_layout = "/Users/alexandra/bioinf/mcmc/data/simulation.layout.txt"
+    # path_layout = "/Users/alexandra/bioinf/mcmc/data/chr1.layout.txt"
+    path_layout = "/Users/alexandra/bioinf/mcmc/data/simulation.layout.txt"
 
-    path_lens = "/Users/alexandra/bioinf/mcmc/data/comp18_lens.tsv"
-    # path_lens = "/Users/alexandra/bioinf/mcmc/data/simulation.lens.tsv"
+    # path_lens = "/Users/alexandra/bioinf/mcmc/data/comp18_lens.tsv"
+    path_lens = "/Users/alexandra/bioinf/mcmc/data/simulation.lens.tsv"
 
-    path_pairs = "/Users/alexandra/bioinf/mcmc/data/pairs18.txt"
-    # path_pairs = "/Users/alexandra/bioinf/mcmc/data/simulation.pairs.txt"
+    # path_pairs = "/Users/alexandra/bioinf/mcmc/data/pairs18.txt"
+    path_pairs = "/Users/alexandra/bioinf/mcmc/data/simulation.pairs.txt"
 
     # longest_contig
-    pairs, contigs, id_contig, longest_contig = get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=True)
-    # pairs, contigs, id_contig, longest_contig, in_contigs = get_contigs_and_pairs(path_layout, path_lens, path_pairs,
-    #                                                                               long_contig=True,
-    #                                                                               all_contigs=True,
-    #                                                                               min_len=0)
+    # pairs, contigs, id_contig, longest_contig = get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=True)
+    pairs, contigs, id_contig, longest_contig, in_contigs = get_contigs_and_pairs(path_layout, path_lens, path_pairs,
+                                                                                  long_contig=True,
+                                                                                  all_contigs=True,
+                                                                                  min_len=0)
 
     correct_contigs = [contig.pos for contig in contigs]
 
     print("Estimation of density...")
-    P, f = density(longest_contig)
-    # P, f = toy_density(longest_contig)
+    # P, f = density(longest_contig)
+    P, f = toy_density(longest_contig)
     print("Estimation of density is done")
 
     print("MCMC is running...")
