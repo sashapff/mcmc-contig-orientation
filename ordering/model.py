@@ -18,6 +18,8 @@ def MCMC(pairs, contigs, P, number_it=500, n_chains=1):
     lk_old = log_likelihood(pairs, contigs, P)
     new_contigs = [contig.pos for contig in contigs]
 
+    log_likelihood_arr = []
+
     for _ in tqdm(range(number_it)):
         numbers_changed_contig = np.random.randint(0, len(contigs), n_chains)
         shifts_changed_contig = np.random.randint(-5, 5, n_chains)
@@ -36,6 +38,8 @@ def MCMC(pairs, contigs, P, number_it=500, n_chains=1):
             lk_old = lk_new
             new_contigs = [contig.pos for contig in contigs]
 
+        log_likelihood_arr.append(lk_old)
+
     get_ordering(new_contigs, pairs, contigs)
 
-    return new_contigs
+    return log_likelihood_arr
