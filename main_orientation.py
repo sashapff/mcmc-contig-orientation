@@ -21,46 +21,46 @@ if __name__ == "__main__":
     min_contig_length = 50_000
     min_contig_length_name = '50k'
 
-    # path_to_output = f'/lustre/groups/cbi/Users/aeliseev/aivanova/data/{min_contig_length_name}'
-    path_to_output = f'/Users/alexandra/bioinf/mcmc/output/{min_contig_length_name}'
+    path_to_output = f'/lustre/groups/cbi/Users/aeliseev/aivanova/data/{min_contig_length_name}'
+    # path_to_output = f'/Users/alexandra/bioinf/mcmc/output/{min_contig_length_name}'
 
     with open(f"{path_to_output}/stat.txt", "w") as file:
         pass
 
     for chr_ind in chromosomes:
         print(f'Chromosome {chr_ind}')
-        #
-        # path_layout = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/layouts/chr" + chr_ind + ".layout.txt"
-        #
-        # # if chr_ind == '9':
-        # # path_layout = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/layouts/chr9.partial_layout.txt"
-        #
-        # path_lens = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/contig_length/contig.length." + chr_ind + ".txt"
-        # path_pairs = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/pairs/chr_pairs" + chr_ind + ".txt"
-        #
-        # # longest_contig
-        # pairs, contigs, id_contig, longest_contig_pairs, longest_contig = get_contigs_and_pairs(path_layout, path_lens,
-        #                                                                                         path_pairs,
-        #                                                                                         long_contig=True,
-        #                                                                                         min_len=min_contig_length)
+
+        path_layout = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/layouts/chr" + chr_ind + ".layout.txt"
+
+        # if chr_ind == '9':
+        # path_layout = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/layouts/chr9.partial_layout.txt"
+
+        path_lens = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/contig_length/contig.length." + chr_ind + ".txt"
+        path_pairs = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/pairs/chr_pairs" + chr_ind + ".txt"
+
+        # longest_contig
+        pairs, contigs, id_contig, longest_contig_pairs, longest_contig = get_contigs_and_pairs(path_layout, path_lens,
+                                                                                                path_pairs,
+                                                                                                long_contig=True,
+                                                                                                min_len=min_contig_length)
 
         # # path_layout = "/Users/alexandra/bioinf/mcmc/data/chr1.layout.txt"
-        path_layout = "/Users/alexandra/bioinf/mcmc/data/simulation.layout.txt"
+        # path_layout = "/Users/alexandra/bioinf/mcmc/data/simulation.layout.txt"
         #
         # # path_lens = "/Users/alexandra/bioinf/mcmc/data/comp18_lens.tsv"
-        path_lens = "/Users/alexandra/bioinf/mcmc/data/simulation.lens.tsv"
+        # path_lens = "/Users/alexandra/bioinf/mcmc/data/simulation.lens.tsv"
         #
         # # path_pairs = "/Users/alexandra/bioinf/mcmc/data/pairs18.txt"
-        path_pairs = "/Users/alexandra/bioinf/mcmc/data/simulation.pairs.txt"
+        # path_pairs = "/Users/alexandra/bioinf/mcmc/data/simulation.pairs.txt"
         #
         # # longest_contig
         # pairs, contigs, id_contig, longest_contig_pairs, longest_contig = get_contigs_and_pairs(path_layout, path_lens,
         #                                                                                         path_pairs,
         #                                                                                         long_contig=True)
-        pairs, contigs, id_contig, longest_contig_pairs, longest_contig, in_contigs = get_contigs_and_pairs(path_layout, path_lens, path_pairs,
-                                                                                      long_contig=True,
-                                                                                      all_contigs=True,
-                                                                                      min_len=0)
+        # pairs, contigs, id_contig, longest_contig_pairs, longest_contig, in_contigs = get_contigs_and_pairs(path_layout, path_lens, path_pairs,
+        #                                                                               long_contig=True,
+        #                                                                               all_contigs=True,
+        #                                                                               min_len=0)
 
         correct_contigs = [contig.o for contig in contigs]
 
@@ -73,8 +73,8 @@ if __name__ == "__main__":
 
     print("Estimation of density...")
 
-    # P, f = density(get_longest_contig(longest_contig_pairs_arr, longest_contig_arr))
-    P, f = toy_density(get_longest_contig(longest_contig_pairs_arr, longest_contig_arr))
+    P, f = density(get_longest_contig(longest_contig_pairs_arr, longest_contig_arr))
+    # P, f = toy_density(get_longest_contig(longest_contig_pairs_arr, longest_contig_arr))
     print("Estimation of density is done")
 
     for (j, chr_ind) in enumerate(chromosomes):
