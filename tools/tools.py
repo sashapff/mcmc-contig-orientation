@@ -1,6 +1,17 @@
 import numpy as np
 
 
+def get_longest_contig(longest_contig_pairs_arr, longest_contig_arr):
+    j = 0
+    longest_contig_length = 0
+    for i in range(len(longest_contig_arr)):
+        if longest_contig_arr[i].length > longest_contig_length:
+            longest_contig_length = longest_contig_arr[i].length
+            j = i
+
+    return longest_contig_pairs_arr[j]
+
+
 def _get_distance_bw_contig(i, j, contigs):
     """
     Calculating distance between 2 contigs
@@ -44,4 +55,3 @@ def log_likelihood(pairs, contigs, P):
     """
     log_likelihood = P(get_distance(pairs, contigs)).sum()
     return log_likelihood
-

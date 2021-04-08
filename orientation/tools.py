@@ -29,7 +29,7 @@ def change_orientation(number_changed_contig, pairs, contigs):
     pairs[ind[indx_1], 4] = -pairs[ind[indx_1], 4] + 1
     pairs[ind[indx_2], 5] = -pairs[ind[indx_2], 5] + 1
 
-def change_log_likelihood(last_log_likelihood, number_changed_contig, pairs, contigs, P):
+def change_orientation_log_likelihood(last_log_likelihood, number_changed_contig, pairs, contigs, P):
     """
     P(new_orientation) = P(old_orientation) + P(difference in orientation)
     """
