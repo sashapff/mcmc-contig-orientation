@@ -11,10 +11,10 @@ if __name__ == "__main__":
 
     correct_total = 0
     contigs_total = 0
-    # chromosomes = ['1', '2', '3', '4', '5', '6', '7', '8', '10', '11', '12', '13',
-    #                '14', '15', '16', '17', '18', '19', '20', '21', '22']
+    chromosomes = ['1', '2', '3', '4', '5', '6', '7', '8', '10', '11', '12', '13',
+                   '14', '15', '16', '17', '18', '19', '20', '21', '22']
 
-    chromosomes = ['1', '2', '3', '4', '5']
+    # chromosomes = ['1', '2', '3', '4', '5']
 
     pairs_arr, contigs_arr, id_contig_arr, longest_contig_pairs_arr, longest_contig_arr, correct_contigs_arr = [], [], [], [], [], []
 
@@ -83,7 +83,7 @@ if __name__ == "__main__":
 
         print("MCMC is running...")
         get_orientation([0 for i in range(len(contigs))], pairs, contigs)
-        accuracy_arr, log_likelihood_arr = MCMC(pairs, contigs, P, number_it=100, n_chains=1,
+        accuracy_arr, log_likelihood_arr = MCMC(pairs, contigs, P, number_it=200, n_chains=1,
                                                 correct_contigs=correct_contigs)
         print("Have found follow orientation:", [contigs[i].o for i in range(len(contigs))])
 
