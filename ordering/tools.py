@@ -109,8 +109,9 @@ def change_position_log_likelihood(last_log_likelihood, number_changed_contig, p
     else:
         left = position_changed_contig
         right = contigs[number_changed_contig].pos + 1
-    last_log_likelihood -= P(get_distance(pairs[contigs[left:right].reads_ind], contigs)).sum()
+    for i in range(left, right):
+        last_log_likelihood -= P(get_distance(pairs[contigs[i].reads_ind], contigs)).sum()
     change_position(number_changed_contig, position_changed_contig, pairs, contigs)
-    new_lk = last_log_likelihood + P(get_distance(pairs[contigs[left:right].reads_ind], contigs)).sum()
-
+    for i in range(left, right):
+        new_lk = last_log_likelihood + P(get_distance(pairs[contigs[i].reads_ind], contigs)).sum()
     return new_lk

@@ -112,12 +112,14 @@ if __name__ == "__main__":
         plt.plot(accuracy_arr, label=f'{len(contigs)} contigs')
         plt.xlabel('iteration number')
         plt.ylabel('accuracy')
+        plt.legend()
         plt.savefig(f'{path_to_output}/plots/accuracy_chr{chr_ind}.png')
 
         plt.clf()
         plt.plot(log_likelihood_arr, label=f'{len(contigs)} contigs')
         plt.xlabel('iteration number')
         plt.ylabel('log_likelihood')
+        plt.legend()
         plt.savefig(f'{path_to_output}/plots/log_likelihood_chr{chr_ind}.png')
 
     with open(f"{path_to_output}/stat.txt", "a") as file:
