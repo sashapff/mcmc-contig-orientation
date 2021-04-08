@@ -42,6 +42,6 @@ def MCMC(pairs, contigs, P, correct_contigs, number_it=500, n_chains=1):
         log_likelihood_arr.append(lk_old)
 
     assert new_contigs == [contig.o for contig in contigs]
-    # get_orientation(new_contigs, pairs, contigs)
+    get_orientation(new_contigs, pairs, contigs)
 
     return accuracy_arr, log_likelihood_arr

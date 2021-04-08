@@ -40,28 +40,28 @@ if __name__ == "__main__":
     print("Estimation of density is done")
 
     print("MCMC is running...")
-    # get_ordering(np.random.choice(len(contigs), len(contigs), replace=False), pairs, contigs)
+    get_ordering(np.random.choice(len(contigs), len(contigs), replace=False), pairs, contigs)
 
-    lk_old = log_likelihood(pairs, contigs, P)
-    print(lk_old, [contigs[i].pos for i in range(len(contigs))])
-    lk_new = change_position_log_likelihood(lk_old, 0, 2, pairs, contigs, P)
-    print(lk_new, [contigs[i].pos for i in range(len(contigs))])
+    # lk_old = log_likelihood(pairs, contigs, P)
+    # print(lk_old, [contigs[i].pos for i in range(len(contigs))])
+    # lk_new = change_position_log_likelihood(lk_old, 0, 2, pairs, contigs, P)
+    # print(lk_new, [contigs[i].pos for i in range(len(contigs))])
     # lk_new = change_position_log_likelihood(lk_new, 3, 1, pairs, contigs, P)
     # print(lk_new, [contigs[i].pos for i in range(len(contigs))])
     # assert lk_old == lk_new
 
 
 
-    # log_likelihood_arr = MCMC(pairs, contigs, P, 100)
-    # print("Have found follow ordering:", [contigs[i].pos for i in range(len(contigs))])
-    #
-    # plt.clf()
-    # plt.plot(log_likelihood_arr, label=f'{len(contigs)} contigs')
-    # plt.xlabel('iteration number')
-    # plt.ylabel('log_likelihood')
-    # plt.legend()
-    # plt.title(f'Ordering log likelihood')
-    # plt.savefig(f'{path_to_output}/plots/log_likelihood.png')
+    log_likelihood_arr = MCMC(pairs, contigs, P, 100)
+    print("Have found follow ordering:", [contigs[i].pos for i in range(len(contigs))])
+
+    plt.clf()
+    plt.plot(log_likelihood_arr, label=f'{len(contigs)} contigs')
+    plt.xlabel('iteration number')
+    plt.ylabel('log_likelihood')
+    plt.legend()
+    plt.title(f'Ordering log likelihood')
+    plt.savefig(f'{path_to_output}/plots/log_likelihood.png')
 
     # with open("/Users/alexandra/bioinf/mcmc/data/final1.layout.txt", "w") as file:
     #     sign = lambda x: "+" if x == 1 else "-"
