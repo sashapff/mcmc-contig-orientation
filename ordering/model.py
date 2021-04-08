@@ -5,7 +5,7 @@ from ordering.tools import get_ordering, change_position, change_position_log_li
 from tools.tools import log_likelihood
 
 
-def MCMC(pairs, contigs, P, number_it=500, n_chains=1):
+def MCMC(pairs, contigs, P, number_it=500):
     """
     Changing orientation for better likelihood
     :param pairs: array of reads
@@ -21,25 +21,27 @@ def MCMC(pairs, contigs, P, number_it=500, n_chains=1):
     log_likelihood_arr = []
 
     for _ in tqdm(range(number_it)):
-        numbers_changed_contig = np.random.randint(0, len(contigs), n_chains)
-        shifts_changed_contig = np.random.randint(-5, 5, n_chains)
+        number_changed_contig = np.random.randint(0, len(contigs))
+        shifts_changed_contig = np.random.randint(-5, 5)
+        if shifts_changed_contig >= 0:
+            shifts_changed_contig += 1
 
-        for (i, number) in enumerate(numbers_changed_contig):
-            shift = shifts_changed_contig[i]
-            lk_new = change_position_log_likelihood(lk_old, number,
-                                                    min(len(contigs) - 1, max(0, contigs[number].pos + shift)), pairs,
-                                                    contigs, P)
+        new_position = min(len(contigs) - 1, max(0, contigs[number_changed_contig].pos + shifts_changed_contig))
+        actual_shifts = contigs[number_changed_contig].pos - new_position
+        lk_new = change_position_log_likelihood(lk_old, number_changed_contig, new_position, pairs, contigs, P)
 
         if random.random() > np.exp(lk_new - lk_old):
-            for (i, number) in enumerate(numbers_changed_contig):
-                shift = shifts_changed_contig[i]
-                change_position(number, min(len(contigs) - 1, max(0, contigs[number].pos + shift)), pairs, contigs)
+            # Decline
+            assert 0 <= contigs[number_changed_contig].pos + actual_shifts < len(contigs)
+            change_position(number_changed_contig, contigs[number_changed_contig].pos + actual_shifts, pairs, contigs)
         else:
+            # Accept
             lk_old = lk_new
             new_contigs = [contig.pos for contig in contigs]
 
         log_likelihood_arr.append(lk_old)
 
+    assert new_contigs == [contig.pos for contig in contigs]
     get_ordering(new_contigs, pairs, contigs)
 
     return log_likelihood_arr

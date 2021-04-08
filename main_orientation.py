@@ -14,7 +14,7 @@ if __name__ == "__main__":
     chromosomes = ['1', '2', '3', '4', '5', '6', '7', '8', '10', '11', '12', '13',
                    '14', '15', '16', '17', '18', '19', '20', '21', '22']
 
-    # chromosomes = ['1', '2', '3', '4', '5']
+    # chromosomes = ['1']
 
     pairs_arr, contigs_arr, id_contig_arr, longest_contig_pairs_arr, longest_contig_arr, correct_contigs_arr = [], [], [], [], [], []
 
@@ -44,23 +44,26 @@ if __name__ == "__main__":
                                                                                                 long_contig=True,
                                                                                                 min_len=min_contig_length)
 
-        # # path_layout = "/Users/alexandra/bioinf/mcmc/data/chr1.layout.txt"
-        # path_layout = "/Users/alexandra/bioinf/mcmc/data/simulation.layout.txt"
+        # path_layout = "/Users/alexandra/bioinf/mcmc/data/chr1.layout.txt"
+        # # path_layout = "/Users/alexandra/bioinf/mcmc/data/simulation.layout.txt"
         #
-        # # path_lens = "/Users/alexandra/bioinf/mcmc/data/comp18_lens.tsv"
-        # path_lens = "/Users/alexandra/bioinf/mcmc/data/simulation.lens.tsv"
+        # path_lens = "/Users/alexandra/bioinf/mcmc/data/comp18_lens.tsv"
+        # # path_lens = "/Users/alexandra/bioinf/mcmc/data/simulation.lens.tsv"
         #
-        # # path_pairs = "/Users/alexandra/bioinf/mcmc/data/pairs18.txt"
-        # path_pairs = "/Users/alexandra/bioinf/mcmc/data/simulation.pairs.txt"
+        # path_pairs = "/Users/alexandra/bioinf/mcmc/data/pairs18.txt"
+        # # path_pairs = "/Users/alexandra/bioinf/mcmc/data/simulation.pairs.txt"
         #
         # # longest_contig
         # pairs, contigs, id_contig, longest_contig_pairs, longest_contig = get_contigs_and_pairs(path_layout, path_lens,
         #                                                                                         path_pairs,
         #                                                                                         long_contig=True)
-        # pairs, contigs, id_contig, longest_contig_pairs, longest_contig, in_contigs = get_contigs_and_pairs(path_layout, path_lens, path_pairs,
-        #                                                                               long_contig=True,
-        #                                                                               all_contigs=True,
-        #                                                                               min_len=0)
+        # # pairs, contigs, id_contig, longest_contig_pairs, longest_contig, in_contigs \
+        # #     = get_contigs_and_pairs(path_layout,
+        # #                             path_lens,
+        # #                             path_pairs,
+        # #                             long_contig=True,
+        # #                             all_contigs=True,
+        # #                             min_len=0)
 
         correct_contigs = [contig.o for contig in contigs]
 
@@ -83,7 +86,7 @@ if __name__ == "__main__":
 
         print("MCMC is running...")
         get_orientation([0 for i in range(len(contigs))], pairs, contigs)
-        accuracy_arr, log_likelihood_arr = MCMC(pairs, contigs, P, number_it=200, n_chains=1,
+        accuracy_arr, log_likelihood_arr = MCMC(pairs, contigs, P, number_it=100, n_chains=1,
                                                 correct_contigs=correct_contigs)
         print("Have found follow orientation:", [contigs[i].o for i in range(len(contigs))])
 
@@ -106,18 +109,16 @@ if __name__ == "__main__":
         contigs_total += len(contigs)
 
         plt.clf()
-        plt.plot(accuracy_arr)
+        plt.plot(accuracy_arr, label=f'{len(contigs)} contigs')
         plt.xlabel('iteration number')
         plt.ylabel('accuracy')
-        plt.savefig(
-            f'{path_to_output}/plots/accuracy_chr{chr_ind}.png')
+        plt.savefig(f'{path_to_output}/plots/accuracy_chr{chr_ind}.png')
 
         plt.clf()
-        plt.plot(log_likelihood_arr)
+        plt.plot(log_likelihood_arr, label=f'{len(contigs)} contigs')
         plt.xlabel('iteration number')
         plt.ylabel('log_likelihood')
-        plt.savefig(
-            f'{path_to_output}/plots/log_likelihood_chr{chr_ind}.png')
+        plt.savefig(f'{path_to_output}/plots/log_likelihood_chr{chr_ind}.png')
 
     with open(f"{path_to_output}/stat.txt", "a") as file:
         file.write(f"TOTAL ACCURACY\n")
