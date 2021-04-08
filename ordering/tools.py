@@ -109,9 +109,11 @@ def change_position_log_likelihood(last_log_likelihood, number_changed_contig, p
     else:
         left = position_changed_contig
         right = contigs[number_changed_contig].pos + 1
+    changed_contigs = set()
     for i in range(left, right):
-        last_log_likelihood -= P(get_distance(pairs[contigs[i].reads_ind], contigs)).sum()
+        changed_contigs = changed_contigs.union(set(contigs[i].reads_ind))
+    changed_contigs = np.array(list(changed_contigs))
+    last_log_likelihood -= P(get_distance(pairs[changed_contigs], contigs)).sum()
     change_position(number_changed_contig, position_changed_contig, pairs, contigs)
-    for i in range(left, right):
-        new_lk = last_log_likelihood + P(get_distance(pairs[contigs[i].reads_ind], contigs)).sum()
+    new_lk = last_log_likelihood + P(get_distance(pairs[changed_contigs], contigs)).sum()
     return new_lk

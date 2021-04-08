@@ -44,26 +44,26 @@ if __name__ == "__main__":
                                                                                                 long_contig=True,
                                                                                                 min_len=min_contig_length)
 
-        # path_layout = "/Users/alexandra/bioinf/mcmc/data/chr1.layout.txt"
-        # # path_layout = "/Users/alexandra/bioinf/mcmc/data/simulation.layout.txt"
+        # # path_layout = "/Users/alexandra/bioinf/mcmc/data/chr1.layout.txt"
+        # path_layout = "/Users/alexandra/bioinf/mcmc/data/simulation.layout.txt"
         #
-        # path_lens = "/Users/alexandra/bioinf/mcmc/data/comp18_lens.tsv"
-        # # path_lens = "/Users/alexandra/bioinf/mcmc/data/simulation.lens.tsv"
+        # # path_lens = "/Users/alexandra/bioinf/mcmc/data/comp18_lens.tsv"
+        # path_lens = "/Users/alexandra/bioinf/mcmc/data/simulation.lens.tsv"
         #
-        # path_pairs = "/Users/alexandra/bioinf/mcmc/data/pairs18.txt"
-        # # path_pairs = "/Users/alexandra/bioinf/mcmc/data/simulation.pairs.txt"
+        # # path_pairs = "/Users/alexandra/bioinf/mcmc/data/pairs18.txt"
+        # path_pairs = "/Users/alexandra/bioinf/mcmc/data/simulation.pairs.txt"
         #
         # # longest_contig
-        # pairs, contigs, id_contig, longest_contig_pairs, longest_contig = get_contigs_and_pairs(path_layout, path_lens,
-        #                                                                                         path_pairs,
-        #                                                                                         long_contig=True)
-        # # pairs, contigs, id_contig, longest_contig_pairs, longest_contig, in_contigs \
-        # #     = get_contigs_and_pairs(path_layout,
-        # #                             path_lens,
-        # #                             path_pairs,
-        # #                             long_contig=True,
-        # #                             all_contigs=True,
-        # #                             min_len=0)
+        # # pairs, contigs, id_contig, longest_contig_pairs, longest_contig = get_contigs_and_pairs(path_layout, path_lens,
+        # #                                                                                         path_pairs,
+        # #                                                                                         long_contig=True)
+        # pairs, contigs, id_contig, longest_contig_pairs, longest_contig, in_contigs \
+        #     = get_contigs_and_pairs(path_layout,
+        #                             path_lens,
+        #                             path_pairs,
+        #                             long_contig=True,
+        #                             all_contigs=True,
+        #                             min_len=0)
 
         correct_contigs = [contig.o for contig in contigs]
 
@@ -76,8 +76,8 @@ if __name__ == "__main__":
 
     print("Estimation of density...")
 
-    P, f = density(get_longest_contig(longest_contig_pairs_arr, longest_contig_arr))
-    # P, f = toy_density(get_longest_contig(longest_contig_pairs_arr, longest_contig_arr))
+    # P, f = density(get_longest_contig(longest_contig_pairs_arr, longest_contig_arr))
+    P, f = toy_density(get_longest_contig(longest_contig_pairs_arr, longest_contig_arr))
     print("Estimation of density is done")
 
     for (j, chr_ind) in enumerate(chromosomes):
@@ -108,19 +108,19 @@ if __name__ == "__main__":
         correct_total += correct_number
         contigs_total += len(contigs)
 
-        plt.clf()
-        plt.plot(accuracy_arr, label=f'{len(contigs)} contigs')
-        plt.xlabel('iteration number')
-        plt.ylabel('accuracy')
-        plt.legend()
-        plt.savefig(f'{path_to_output}/plots/accuracy_chr{chr_ind}.png')
+        fig, axs = plt.subplots(2)
 
-        plt.clf()
-        plt.plot(log_likelihood_arr, label=f'{len(contigs)} contigs')
-        plt.xlabel('iteration number')
-        plt.ylabel('log_likelihood')
-        plt.legend()
-        plt.savefig(f'{path_to_output}/plots/log_likelihood_chr{chr_ind}.png')
+        axs[0].plot(accuracy_arr, label=f'{len(contigs)} contigs')
+        axs[0].set_title(f'Orientation for chromosome {chr_ind}, {len(contigs)} contigs')
+        axs[1].set(xlabel='iteration number', ylabel='accuracy')
+        axs[1].label_outer()
+        # plt.savefig(f'{path_to_output}/plots/accuracy_chr{chr_ind}.png')
+
+        # plt.clf()
+        axs[1].plot(log_likelihood_arr)
+        axs[1].set(xlabel='iteration number', )
+        axs[1].label_outer()
+        plt.savefig(f'{path_to_output}/plots/chr{chr_ind}.png')
 
     with open(f"{path_to_output}/stat.txt", "a") as file:
         file.write(f"TOTAL ACCURACY\n")
