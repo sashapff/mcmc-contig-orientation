@@ -14,7 +14,7 @@ def get_ordering(ordering, pairs, contigs):
                 break
 
 
-def change_position(number_changed_contig, position_changed_contig, pairs, contigs):
+def change_position(number_changed_contig, position_changed_contig, pairs, contigs, delta):
     """
     TODO
     """
@@ -32,6 +32,10 @@ def change_position(number_changed_contig, position_changed_contig, pairs, conti
 
                 pairs[ind[indx_1], 6] -= contigs[number_changed_contig].length
                 pairs[ind[indx_2], 6] += contigs[number_changed_contig].length
+
+                delta -= contigs[number_changed_contig].length * len(pairs[ind[indx_1], 6])
+                delta += contigs[number_changed_contig].length * len(pairs[ind[indx_2], 6])
+
                 shift_length += contigs[i].length
 
         ind = contigs[number_changed_contig].reads_ind
@@ -42,6 +46,9 @@ def change_position(number_changed_contig, position_changed_contig, pairs, conti
         pairs[ind[indx_1], 6] += shift_length
         pairs[ind[indx_2], 6] -= shift_length
 
+        delta += shift_length * len(pairs[ind[indx_1], 6])
+        delta -= shift_length * len(pairs[ind[indx_2], 6])
+
         for i in range(len(contigs)):
             if position_changed_contig < contigs[i].pos <= previous_pos and i != number_changed_contig:
                 ind = contigs[i].reads_ind
@@ -50,7 +57,10 @@ def change_position(number_changed_contig, position_changed_contig, pairs, conti
                 b = (pairs[ind[indx0]][:, 2] == number_changed_contig)
                 indx = np.where(b)[0]
 
+                delta -= 2 * len(pairs[ind[indx], 6])
+
                 pairs[ind[indx], 6] = -pairs[ind[indx], 6]
+
 
                 pairs[ind[indx], 0], pairs[ind[indx], 2] = pairs[ind[indx], 2], pairs[ind[indx], 0]
                 pairs[ind[indx], 1], pairs[ind[indx], 3] = pairs[ind[indx], 3], pairs[ind[indx], 1]
@@ -71,6 +81,10 @@ def change_position(number_changed_contig, position_changed_contig, pairs, conti
 
                 pairs[ind[indx_1], 6] += contigs[number_changed_contig].length
                 pairs[ind[indx_2], 6] -= contigs[number_changed_contig].length
+
+                delta -= contigs[number_changed_contig].length * len(pairs[ind[indx_1], 6])
+                delta += contigs[number_changed_contig].length * len(pairs[ind[indx_2], 6])
+
                 shift_length += contigs[i].length
 
         ind = contigs[number_changed_contig].reads_ind
@@ -81,6 +95,9 @@ def change_position(number_changed_contig, position_changed_contig, pairs, conti
         pairs[ind[indx_1], 6] -= shift_length
         pairs[ind[indx_2], 6] += shift_length
 
+        delta += shift_length * len(pairs[ind[indx_1], 6])
+        delta -= shift_length * len(pairs[ind[indx_2], 6])
+
         for i in range(len(contigs)):
             if position_changed_contig > contigs[i].pos >= previous_pos and i != number_changed_contig:
                 ind = contigs[i].reads_ind
@@ -89,6 +106,8 @@ def change_position(number_changed_contig, position_changed_contig, pairs, conti
                 b = (pairs[ind[indx0]][:, 0] == number_changed_contig)
                 indx = np.where(b)[0]
 
+                delta -= 2 * len(pairs[ind[indx], 6])
+
                 pairs[ind[indx], 6] = -pairs[ind[indx], 6]
 
                 pairs[ind[indx], 0], pairs[ind[indx], 2] = pairs[ind[indx], 2], pairs[ind[indx], 0]
@@ -96,6 +115,7 @@ def change_position(number_changed_contig, position_changed_contig, pairs, conti
                 pairs[ind[indx], 4], pairs[ind[indx], 5] = pairs[ind[indx], 5], pairs[ind[indx], 4]
 
         contigs[number_changed_contig].pos = position_changed_contig
+    return delta
 
 
 def change_position_log_likelihood(last_log_likelihood, number_changed_contig, position_changed_contig, pairs, contigs,
@@ -114,6 +134,9 @@ def change_position_log_likelihood(last_log_likelihood, number_changed_contig, p
         changed_contigs = changed_contigs.union(set(contigs[i].reads_ind))
     changed_contigs = np.array(list(changed_contigs))
     last_log_likelihood -= P(get_distance(pairs[changed_contigs], contigs)).sum()
-    change_position(number_changed_contig, position_changed_contig, pairs, contigs)
+    old_pos = contigs[number_changed_contig].pos
+    delta = change_position(number_changed_contig, position_changed_contig, pairs, contigs, 0)
+    delta = change_position(number_changed_contig, old_pos, pairs, contigs, delta)
+    print(delta)
     new_lk = last_log_likelihood + P(get_distance(pairs[changed_contigs], contigs)).sum()
     return new_lk

@@ -112,13 +112,13 @@ if __name__ == "__main__":
 
         axs[0].plot(accuracy_arr, label=f'{len(contigs)} contigs')
         axs[0].set_title(f'Orientation for chromosome {chr_ind}, {len(contigs)} contigs')
-        axs[1].set(xlabel='iteration number', ylabel='accuracy')
-        axs[1].label_outer()
+        axs[0].set(xlabel='iteration number', ylabel='accuracy')
+        axs[0].label_outer()
         # plt.savefig(f'{path_to_output}/plots/accuracy_chr{chr_ind}.png')
 
         # plt.clf()
         axs[1].plot(log_likelihood_arr)
-        axs[1].set(xlabel='iteration number', )
+        axs[1].set(xlabel='iteration number', ylabel='log likelihood')
         axs[1].label_outer()
         plt.savefig(f'{path_to_output}/plots/chr{chr_ind}.png')
 
