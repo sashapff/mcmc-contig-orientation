@@ -47,7 +47,7 @@ def MCMC(pairs, contigs, P, number_it=500):
         log_likelihood_arr.append(lk_old)
         print([contig.pos for contig in contigs], lk_old)
 
-    assert new_contigs == [contig.pos for contig in contigs]
-    get_ordering(new_contigs, pairs, contigs)
+    # assert new_contigs == [contig.pos for contig in contigs]
+    # get_ordering(new_contigs, pairs, contigs)
 
     return log_likelihood_arr

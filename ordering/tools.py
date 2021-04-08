@@ -1,6 +1,6 @@
 import numpy as np
 
-from tools.tools import get_distance
+from tools.tools import get_distance, _get_distance_bw_contig
 
 
 def get_ordering(ordering, pairs, contigs):
@@ -23,21 +23,45 @@ def swap(number_contig_1, number_contig_2, pairs, contigs):
     if contigs[number_contig_1].pos > contigs[number_contig_2].pos:
         number_contig_1, number_contig_2 = number_contig_2, number_contig_1
 
-    middle_contigs = []
-    middle_length = 0
-    for (i, contig) in enumerate(contigs):
-        if contigs[number_contig_1].pos < contig.pos < contigs[number_contig_2].pos:
-            middle_contigs.append(i)
-            middle_length += contig.length
-    middle_contigs = np.array(middle_contigs)
+    # middle_contigs = []
+    middle_length = _get_distance_bw_contig(number_contig_1, number_contig_2, contigs)
+    # for (i, contig) in enumerate(contigs):
+    #     if contigs[number_contig_1].pos < contig.pos < contigs[number_contig_2].pos:
+    #         # middle_contigs.append(i)
+    #         middle_length += contig.length
+    # middle_contigs = np.array(middle_contigs)
 
-    ind_1 = contigs[number_contig_1].reads_ind
-    indx_1_left = np.where((pairs[ind_1][:, 2] == number_contig_1))[0]
-    indx_1_right = np.where((pairs[ind_1][:, 0] == number_contig_1))[0]
-    ind_2 = contigs[number_contig_2].reads_ind
-    indx_2_left = np.where((pairs[ind_2][:, 2] == number_contig_2))[0]
-    indx_2_right = np.where((pairs[ind_2][:, 0] == number_contig_2))[0]
-    pairs[ind_1[indx_1_left], 6] -=
+    # ind_1 = contigs[number_contig_1].reads_ind
+    # ind_2 = contigs[number_contig_2].reads_ind
+    #
+    # indx_1_left = np.where((pairs[ind_1][:, 2] == number_contig_1))[0]
+    # indx_1_right = np.where((pairs[ind_1][:, 0] == number_contig_1))[0]
+    # indx_2_left = np.where((pairs[ind_2][:, 2] == number_contig_2))[0]
+    # indx_2_right = np.where((pairs[ind_2][:, 0] == number_contig_2))[0]
+    # #
+    # # indx_1_2 = np.where((pairs[ind_1][:, 0] == number_contig_1) and (pairs[ind_1][:, 2] == number_contig_2))[0]
+    # #
+    # pairs[ind_1[indx_1_left], 6] += middle_length
+    # pairs[ind_2[indx_2_right], 6] += middle_length
+    #
+    # pairs[ind_1[indx_1_right], 6] -= middle_length
+    # pairs[ind_2[indx_2_left], 6] -= middle_length
+
+    for pair in pairs:
+        if pair[0] == number_contig_1 and pair[2] == number_contig_2:
+            pass
+        if pair[0] == number_contig_1 and contigs[pair[2]].pos < contigs[number_contig_2].pos:
+            pair[6] = -(pair[6] + contigs[pair[2]].length)
+        if pair[0] == number_contig_1 and contigs[pair[2]].pos > contigs[number_contig_2].pos:
+            pair[6] -= middle_length
+        if pair[2] == number_contig_1:
+            pair[6] += middle_length
+        if pair[2] == number_contig_2 and contigs[pair[0]].pos > contigs[number_contig_1].pos:
+            pair[6] = -(pair[6] + contigs[pair[0]].length)
+        if pair[2] == number_contig_2 and contigs[pair[0]].pos < contigs[number_contig_1].pos:
+            pair[6] -= middle_length
+        if pair[0] == number_contig_2:
+            pair[6] += middle_length
 
 
 def change_position(number_changed_contig, position_changed_contig, pairs, contigs):
