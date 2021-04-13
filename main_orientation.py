@@ -90,7 +90,7 @@ if __name__ == "__main__":
                                                 correct_contigs=correct_contigs)
         print("Have found follow orientation:", [contigs[i].o for i in range(len(contigs))])
 
-        with open(f"{path_to_output}/final_chr{chr_ind}.layout.txt", "w") as file:
+        with open(f"{path_to_output}/final/final_chr{chr_ind}.layout.txt", "w") as file:
             sign = lambda x: "+" if x == 1 else "-"
             file.write(",".join([contig.name + sign(contig.o) for contig in contigs]))
         print("Result has been saved")
