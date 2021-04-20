@@ -51,6 +51,14 @@ def _clear_layout(path_layout, path_lens, min_len=10e+5):
             i += 1
     return s
 
+def check_reads(path_pairs):
+    with open(path_pairs, "r") as f:
+        s_lines = f.read().splitlines()
+
+    for line in s_lines:
+        line = line.split('\t')
+        print(line)
+
 
 def get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=False, all_contigs=False, min_len=100_000):
     """
@@ -106,7 +114,9 @@ def get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=False,
         answer.append(contigs_list)
 
     pairs = pairs[pairs["X1"] != pairs["X2"]]
-    pairs = pairs[pairs["X1"].apply(lambda x: x in id_contig) & pairs["X2"].apply(lambda x: x in id_contig)].reset_index(drop=True)
+    pairs = pairs[
+        pairs["X1"].apply(lambda x: x in id_contig) & pairs["X2"].apply(lambda x: x in id_contig)].reset_index(
+        drop=True)
 
     print("Counting distance...")
     D = _distance_matrix(contigs)
