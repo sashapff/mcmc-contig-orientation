@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from tools.tools import _distance_matrix
+from tqdm import tqdm
 
 
 class Contig():
@@ -55,9 +56,13 @@ def check_reads(path_pairs):
     with open(path_pairs, "r") as f:
         s_lines = f.read().splitlines()
 
-    for line in s_lines:
+    cnt = 0
+    for line in tqdm(s_lines):
         line = line.split('\t')
-        print(line)
+        if line[1] != line[3]:
+            cnt += 1
+            print("kek")
+    return cnt
 
 
 def get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=False, all_contigs=False, min_len=100_000):
