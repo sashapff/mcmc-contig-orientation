@@ -1,16 +1,17 @@
 import numpy as np
 
-from tools.tools import get_distance, _get_distance_bw_contig
+from tools.tools import get_distance, _get_distance_bw_contig, log_likelihood
 
 
-def get_ordering(ordering, pairs, contigs):
+def shuffle_ordering(pairs, contigs, P, n_iterations=10):
     """
     TODO
     """
-    for i in range(len(contigs)):
-        for j in range(i + 1, len(contigs)):
-            if ordering[i] > ordering[j]:
-                swap(i, j, pairs, contigs)
+    for _ in range(n_iterations):
+        number_contig_1 = np.random.randint(0, len(contigs))
+        number_contig_2 = np.random.randint(0, len(contigs))
+        swap(number_contig_1, number_contig_2, pairs, contigs)
+        # swap_neigh(number_contig_1, pairs, contigs)
 
     # for pos in range(len(contigs)):
     #     for i in range(len(contigs)):
@@ -20,48 +21,83 @@ def get_ordering(ordering, pairs, contigs):
 
 
 def swap(number_contig_1, number_contig_2, pairs, contigs):
+    if number_contig_1 == number_contig_2:
+        return
     if contigs[number_contig_1].pos > contigs[number_contig_2].pos:
         number_contig_1, number_contig_2 = number_contig_2, number_contig_1
 
-    # middle_contigs = []
-    middle_length = _get_distance_bw_contig(number_contig_1, number_contig_2, contigs)
-    # for (i, contig) in enumerate(contigs):
-    #     if contigs[number_contig_1].pos < contig.pos < contigs[number_contig_2].pos:
-    #         # middle_contigs.append(i)
-    #         middle_length += contig.length
-    # middle_contigs = np.array(middle_contigs)
-
-    # ind_1 = contigs[number_contig_1].reads_ind
-    # ind_2 = contigs[number_contig_2].reads_ind
-    #
-    # indx_1_left = np.where((pairs[ind_1][:, 2] == number_contig_1))[0]
-    # indx_1_right = np.where((pairs[ind_1][:, 0] == number_contig_1))[0]
-    # indx_2_left = np.where((pairs[ind_2][:, 2] == number_contig_2))[0]
-    # indx_2_right = np.where((pairs[ind_2][:, 0] == number_contig_2))[0]
-    # #
-    # # indx_1_2 = np.where((pairs[ind_1][:, 0] == number_contig_1) and (pairs[ind_1][:, 2] == number_contig_2))[0]
-    # #
-    # pairs[ind_1[indx_1_left], 6] += middle_length
-    # pairs[ind_2[indx_2_right], 6] += middle_length
-    #
-    # pairs[ind_1[indx_1_right], 6] -= middle_length
-    # pairs[ind_2[indx_2_left], 6] -= middle_length
+    middle_length = 0
+    for contig in contigs:
+        if contigs[number_contig_1].pos < contig.pos < contigs[number_contig_2].pos:
+            middle_length += contig.length
 
     for pair in pairs:
         if pair[0] == number_contig_1 and pair[2] == number_contig_2:
-            pass
-        if pair[0] == number_contig_1 and contigs[pair[2]].pos < contigs[number_contig_2].pos:
-            pair[6] = -(pair[6] + contigs[pair[2]].length)
-        if pair[0] == number_contig_1 and contigs[pair[2]].pos > contigs[number_contig_2].pos:
-            pair[6] -= middle_length
-        if pair[2] == number_contig_1:
-            pair[6] += middle_length
-        if pair[2] == number_contig_2 and contigs[pair[0]].pos > contigs[number_contig_1].pos:
-            pair[6] = -(pair[6] + contigs[pair[0]].length)
-        if pair[2] == number_contig_2 and contigs[pair[0]].pos < contigs[number_contig_1].pos:
-            pair[6] -= middle_length
-        if pair[0] == number_contig_2:
-            pair[6] += middle_length
+            pair[0], pair[2] = pair[2], pair[0]
+            pair[1], pair[3] = pair[3], pair[1]
+            pair[4], pair[5] = pair[5], pair[4]
+        elif pair[0] == number_contig_1 and contigs[int(pair[2])].pos < contigs[number_contig_2].pos:
+            pair[6] = middle_length - contigs[int(pair[2])].length - pair[6]
+            pair[0], pair[2] = pair[2], pair[0]
+            pair[1], pair[3] = pair[3], pair[1]
+            pair[4], pair[5] = pair[5], pair[4]
+        elif pair[0] == number_contig_1 and contigs[int(pair[2])].pos > contigs[number_contig_2].pos:
+            pair[6] -= middle_length + contigs[number_contig_2].length
+        elif pair[2] == number_contig_1:
+            pair[6] += middle_length + contigs[number_contig_2].length
+        elif pair[2] == number_contig_2 and contigs[int(pair[0])].pos > contigs[number_contig_1].pos:
+            pair[6] = middle_length - contigs[int(pair[0])].length - pair[6]
+            pair[0], pair[2] = pair[2], pair[0]
+            pair[1], pair[3] = pair[3], pair[1]
+            pair[4], pair[5] = pair[5], pair[4]
+        elif pair[2] == number_contig_2 and contigs[int(pair[0])].pos < contigs[number_contig_1].pos:
+            pair[6] -= middle_length + contigs[number_contig_1].length
+        elif pair[0] == number_contig_2:
+            pair[6] += middle_length + contigs[number_contig_1].length
+
+    contigs[number_contig_1].pos, contigs[number_contig_2].pos = \
+        contigs[number_contig_2].pos, contigs[number_contig_1].pos
+
+
+def swap_neigh(number_contig_1, pairs, contigs):
+    number_contig_2 = number_contig_1
+
+    if contigs[number_contig_1].pos != len(contigs) - 1:
+        for (i, contig) in enumerate(contigs):
+            if contig.pos == contigs[number_contig_1].pos + 1:
+                number_contig_2 = i
+    else:
+        for (i, contig) in enumerate(contigs):
+            if contig.pos == contigs[number_contig_1].pos - 1:
+                number_contig_2 = i
+        number_contig_1, number_contig_2 = number_contig_2, number_contig_1
+
+    for pair in pairs:
+        if pair[0] == number_contig_1 and pair[2] == number_contig_2:
+            pair[0], pair[2] = pair[2], pair[0]
+            pair[1], pair[3] = pair[3], pair[1]
+            pair[4], pair[5] = pair[5], pair[4]
+        # elif pair[0] == number_contig_1 and contigs[int(pair[2])].pos < contigs[number_contig_2].pos:
+        #     pair[6] = middle_length - contigs[int(pair[2])].length - pair[6]
+        #     pair[0], pair[2] = pair[2], pair[0]
+        #     pair[1], pair[3] = pair[3], pair[1]
+        #     pair[4], pair[5] = pair[5], pair[4]
+        elif pair[0] == number_contig_1 and contigs[int(pair[2])].pos > contigs[number_contig_2].pos:
+            pair[6] -= contigs[number_contig_2].length
+        elif pair[2] == number_contig_1:
+            pair[6] += contigs[number_contig_2].length
+        # elif pair[2] == number_contig_2 and contigs[int(pair[0])].pos > contigs[number_contig_1].pos:
+        #     pair[6] = middle_length - contigs[int(pair[0])].length - pair[6]
+        #     pair[0], pair[2] = pair[2], pair[0]
+        #     pair[1], pair[3] = pair[3], pair[1]
+        #     pair[4], pair[5] = pair[5], pair[4]
+        elif pair[2] == number_contig_2 and contigs[int(pair[0])].pos < contigs[number_contig_1].pos:
+            pair[6] -= contigs[number_contig_1].length
+        elif pair[0] == number_contig_2:
+            pair[6] += contigs[number_contig_1].length
+
+    contigs[number_contig_1].pos, contigs[number_contig_2].pos = \
+        contigs[number_contig_2].pos, contigs[number_contig_1].pos
 
 
 def change_position(number_changed_contig, position_changed_contig, pairs, contigs):
@@ -166,6 +202,22 @@ def change_position(number_changed_contig, position_changed_contig, pairs, conti
         contigs[number_changed_contig].pos = position_changed_contig
 
     # return delta
+
+
+def swap_log_likelihood(last_log_likelihood, number_contig_1, number_contig_2, pairs, contigs, P):
+    """
+    P(new_orientation) = P(old_orientation) + P(difference in orientation)
+    """
+    last_log_likelihood -= P(get_distance(pairs[contigs[number_contig_1].reads_ind], contigs)).sum()
+    last_log_likelihood -= P(get_distance(pairs[contigs[number_contig_2].reads_ind], contigs)).sum()
+
+    swap(number_contig_1, number_contig_2, pairs, contigs)
+
+    new_lk = last_log_likelihood
+    new_lk += P(get_distance(pairs[contigs[number_contig_1].reads_ind], contigs)).sum()
+    new_lk += P(get_distance(pairs[contigs[number_contig_2].reads_ind], contigs)).sum()
+
+    return new_lk
 
 
 def change_position_log_likelihood(last_log_likelihood, number_changed_contig, position_changed_contig, pairs, contigs,

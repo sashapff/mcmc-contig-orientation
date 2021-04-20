@@ -1,6 +1,6 @@
 from tools.load import get_contigs_and_pairs
 from ordering.model import MCMC
-from ordering.tools import get_ordering, change_position, change_position_log_likelihood
+from ordering.tools import shuffle_ordering, change_position, change_position_log_likelihood, swap, swap_log_likelihood
 from tools.prob import density, toy_density
 import numpy as np
 import matplotlib.pyplot as plt
@@ -40,19 +40,10 @@ if __name__ == "__main__":
     print("Estimation of density is done")
 
     print("MCMC is running...")
-    get_ordering(np.random.choice(len(contigs), len(contigs), replace=False), pairs, contigs)
 
-    # lk_old = log_likelihood(pairs, contigs, P)
-    # print(lk_old, [contigs[i].pos for i in range(len(contigs))])
-    # lk_new = change_position_log_likelihood(lk_old, 0, 2, pairs, contigs, P)
-    # print(lk_new, [contigs[i].pos for i in range(len(contigs))])
-    # lk_new = change_position_log_likelihood(lk_new, 3, 1, pairs, contigs, P)
-    # print(lk_new, [contigs[i].pos for i in range(len(contigs))])
-    # assert lk_old == lk_new
+    shuffle_ordering(pairs, contigs, P, n_iterations=10)
 
-
-
-    log_likelihood_arr = MCMC(pairs, contigs, P, 100)
+    log_likelihood_arr = MCMC(pairs, contigs, P, number_it=100)
     print("Have found follow ordering:", [contigs[i].pos for i in range(len(contigs))])
 
     plt.clf()
