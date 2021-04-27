@@ -52,19 +52,31 @@ def _clear_layout(path_layout, path_lens, min_len=10e+5):
             i += 1
     return s
 
-def check_reads(path_pairs):
+
+def check_reads(path_pairs, output_path, chr_ind):
     with open(path_pairs, "r") as f:
         s_lines = f.read().splitlines()
 
     cnt = 0
-    contigs = set()
+    left_contigs = set()
+    right_contigs = set()
+    # left_pos = []
+    # right_pos = []
+
     for line in tqdm(s_lines):
         line = line.split('\t')
         if line[1] != line[3]:
             cnt += 1
-            contigs.add(line[1])
-    print(contigs)
-    return cnt
+            left_contigs.add(line[1])
+            right_contigs.add(line[3])
+            # left_pos.append(line[2])
+            # right_pos.append(line[4])
+
+    with open(output_path, "w") as f:
+        f.write(f'Analyse chr{chr_ind}')
+        f.write(f'Number of pairs from different contigs: {cnt}')
+        f.write(f'Set of left contigs: {left_contigs}')
+        f.write(f'Set of left contigs: {right_contigs}')
 
 
 def get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=False, all_contigs=False, min_len=100_000):
