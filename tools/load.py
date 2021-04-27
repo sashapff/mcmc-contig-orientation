@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from tools.tools import _distance_matrix
 from tqdm import tqdm
+from matplotlib import pyplot as plt
 
 
 class Contig():
@@ -59,21 +60,37 @@ def check_reads(path_pairs, output_path, chr_ind):
 
     cnt = 0
     contigs = set()
-    # left_pos = []
-    # right_pos = []
+    pos = {}
 
     for line in tqdm(s_lines):
         line = line.split('\t')
         if line[1] != line[3]:
             cnt += 1
             contigs.add((line[1], line[3]))
-            # left_pos.append(line[2])
-            # right_pos.append(line[4])
+            if not line[1] in pos:
+                pos[line[1]] = []
+            if not line[3] in pos:
+                pos[line[3]] = []
+            pos[line[1]].append(line[2])
+            pos[line[3]].append(line[4])
 
     with open(output_path, "w") as f:
         f.write(f'Analyse chr{chr_ind}\n')
         f.write(f'Number of pairs from different contigs: {cnt}\n')
         f.write(f'Set of contigs: {contigs}\n')
+
+        fig, axs = plt.subplots(len(pos))
+
+        i = 0
+        for k in pos:
+            axs[i].plot(pos[k], label=f'bnk')
+            axs[i].set(xlabel='fghjk', ylabel='lkjhb')
+            axs[i].label_outer()
+            i += 1
+
+        plt.savefig(f'{output_path}/plots_check/chr{chr_ind}.png')
+
+
 
 
 def get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=False, all_contigs=False, min_len=100_000):
