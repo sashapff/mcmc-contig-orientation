@@ -79,16 +79,15 @@ def check_reads(path_pairs, output_path, chr_ind):
         f.write(f'Number of pairs from different contigs: {cnt}\n')
         f.write(f'Set of contigs: {contigs}\n')
 
-        fig, axs = plt.subplots(len(pos))
+    fig, axs = plt.subplots(len(pos))
+    i = 0
+    for k in pos:
+        axs[i].hist(pos[k], label=f'bnk')
+        axs[i].set(xlabel='fghjk', ylabel='lkjhb')
+        axs[i].label_outer()
+        i += 1
 
-        i = 0
-        for k in pos:
-            axs[i].hist(pos[k], label=f'bnk')
-            axs[i].set(xlabel='fghjk', ylabel='lkjhb')
-            axs[i].label_outer()
-            i += 1
-
-        plt.savefig(f'{output_path}/plots_check/chr{chr_ind}.png')
+    plt.savefig(f'{output_path}/plots_check/chr{chr_ind}.png')
 
 
 
