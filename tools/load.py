@@ -83,7 +83,7 @@ def check_reads(path_pairs, output_path, chr_ind):
 
         i = 0
         for k in pos:
-            axs[i].plot(pos[k], label=f'bnk')
+            axs[i].hist(pos[k], label=f'bnk')
             axs[i].set(xlabel='fghjk', ylabel='lkjhb')
             axs[i].label_outer()
             i += 1
