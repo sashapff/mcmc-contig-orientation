@@ -61,7 +61,6 @@ def check_reads(path_pairs):
         line = line.split('\t')
         if line[1] != line[3]:
             cnt += 1
-            print("kek")
     return cnt
 
 
