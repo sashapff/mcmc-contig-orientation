@@ -57,10 +57,13 @@ def check_reads(path_pairs):
         s_lines = f.read().splitlines()
 
     cnt = 0
+    contigs = {}
     for line in tqdm(s_lines):
         line = line.split('\t')
         if line[1] != line[3]:
             cnt += 1
+            contigs.add(line[1])
+    print(contigs)
     return cnt
 
 
