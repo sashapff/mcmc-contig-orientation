@@ -3,5 +3,5 @@
 #SBATCH -p debug-cpu
 #SBATCH -o output.txt
 
-python ch3 r.py
+python chr3.py
 
