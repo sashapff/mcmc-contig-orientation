@@ -88,7 +88,7 @@ def check_reads(path_pairs, output_path, chr_ind):
         i += 1
 
     plt.savefig(f'{output_path}/plots_check/chr{chr_ind}.png')
-
+    print('Finish checking')
 
 
 
