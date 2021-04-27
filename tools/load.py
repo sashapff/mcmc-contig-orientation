@@ -74,7 +74,7 @@ def check_reads(path_pairs, output_path, chr_ind):
             pos[line[1]].append(line[2])
             pos[line[3]].append(line[4])
 
-    with open(output_path, "w") as f:
+    with open(output_path + f'check_chr{chr_ind}.txt', "w") as f:
         f.write(f'Analyse chr{chr_ind}\n')
         f.write(f'Number of pairs from different contigs: {cnt}\n')
         f.write(f'Set of contigs: {contigs}\n')
