@@ -58,8 +58,7 @@ def check_reads(path_pairs, output_path, chr_ind):
         s_lines = f.read().splitlines()
 
     cnt = 0
-    left_contigs = set()
-    right_contigs = set()
+    contigs = set()
     # left_pos = []
     # right_pos = []
 
@@ -67,16 +66,14 @@ def check_reads(path_pairs, output_path, chr_ind):
         line = line.split('\t')
         if line[1] != line[3]:
             cnt += 1
-            left_contigs.add(line[1])
-            right_contigs.add(line[3])
+            contigs.add((line[1], line[3]))
             # left_pos.append(line[2])
             # right_pos.append(line[4])
 
     with open(output_path, "w") as f:
         f.write(f'Analyse chr{chr_ind}\n')
         f.write(f'Number of pairs from different contigs: {cnt}\n')
-        f.write(f'Set of left contigs: {left_contigs}\n')
-        f.write(f'Set of left contigs: {right_contigs}\n')
+        f.write(f'Set of contigs: {contigs}\n')
 
 
 def get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=False, all_contigs=False, min_len=100_000):
