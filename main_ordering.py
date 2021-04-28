@@ -12,8 +12,8 @@ if __name__ == "__main__":
     min_contig_length = 100_000
     min_contig_length_name = '100k'
 
-    # path_to_output = f'/lustre/groups/cbi/Users/aeliseev/aivanova/data/{min_contig_length_name}'
-    path_to_output = f'/Users/alexandra/bioinf/mcmc/output/{min_contig_length_name}'
+    path_to_output = f'/lustre/groups/cbi/Users/aeliseev/aivanova/data/{min_contig_length_name}'
+    # path_to_output = f'/Users/alexandra/bioinf/mcmc/output/{min_contig_length_name}'
 
     # chromosomes = ['1', '2', '3', '4', '5', '6', '7', '8', '10', '11', '12', '13',
     #                '14', '15', '16', '17', '18', '19', '20', '21', '22']
@@ -66,7 +66,7 @@ if __name__ == "__main__":
         plt.ylabel('log_likelihood')
         plt.legend()
         plt.title(f'Ordering log likelihood')
-        plt.savefig(f'{path_to_output}/plots_ordering/log_likelihood.png')
+        plt.savefig(f'{path_to_output}/plots_ordering/log_likelihood_chr{chr_ind}.png')
 
         # with open("/Users/alexandra/bioinf/mcmc/data/final1.layout.txt", "w") as file:
         #     sign = lambda x: "+" if x == 1 else "-"
