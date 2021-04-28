@@ -9,29 +9,6 @@ from tools.tools import log_likelihood
 
 if __name__ == "__main__":
     print("Start!")
-    # chr_ind = sys.argv[1]
-    # Example
-    #
-    # path_layout = "/Users/alexandra/bioinf/mcmc/data/chr1.layout.txt"
-    # # path_layout = "/Users/alexandra/bioinf/mcmc/data/simulation.layout.txt"
-    # #
-    # path_lens = "/Users/alexandra/bioinf/mcmc/data/comp18_lens.tsv"
-    # # path_lens = "/Users/alexandra/bioinf/mcmc/data/simulation.lens.tsv"
-    # #
-    # path_pairs = "/Users/alexandra/bioinf/mcmc/data/pairs18.txt"
-    # # path_pairs = "/Users/alexandra/bioinf/mcmc/data/simulation.pairs.txt"
-    #
-    # path_to_output = "/Users/alexandra/bioinf/mcmc/output"
-
-    # longest_contig
-    # pairs, contigs, id_contig, longest_contig, longest_contig_name = get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=True)
-    # pairs, contigs, id_contig, longest_contig, longest_contig_name, in_contigs = get_contigs_and_pairs(path_layout,
-    #                                                                                                    path_lens,
-    #                                                                                                    path_pairs,
-    #                                                                                                    long_contig=True,
-    #                                                                                                    all_contigs=True,
-    #                                                                                                    min_len=0)
-
     min_contig_length = 100_000
     min_contig_length_name = '100k'
 
@@ -61,11 +38,7 @@ if __name__ == "__main__":
         # path_pairs = "/Users/alexandra/bioinf/mcmc/data/simulation.pairs.txt"
 
         # # longest_contig
-        pairs, contigs, id_contig, longest_contig_pairs, longest_contig = get_contigs_and_pairs(path_layout, path_lens,
-                                                                                                path_pairs,
-                                                                                                long_contig=True,
-                                                                                                min_len=min_contig_length)
-
+        pairs, contigs, id_contig, longest_contig, longest_contig_name = get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=True)
         # pairs, contigs, id_contig, longest_contig, longest_contig_name, in_contigs = get_contigs_and_pairs(path_layout,
         #                                                                                                    path_lens,
         #                                                                                                    path_pairs,
