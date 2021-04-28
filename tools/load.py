@@ -82,8 +82,8 @@ def check_reads(path_pairs, output_path, chr_ind):
     fig, axs = plt.subplots(len(pos))
     i = 0
     for k in pos:
-        axs[i].hist(pos[k], label=f'bnk')
-        axs[i].set(xlabel='fghjk', ylabel='lkjhb')
+        axs[i].hist(pos[k])
+        axs[i].set(xlabel='position in contig', ylabel=f'number of reads for chr{chr_ind}')
         axs[i].label_outer()
         i += 1
 
