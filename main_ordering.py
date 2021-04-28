@@ -38,7 +38,9 @@ if __name__ == "__main__":
         # path_pairs = "/Users/alexandra/bioinf/mcmc/data/simulation.pairs.txt"
 
         # # longest_contig
-        pairs, contigs, id_contig, longest_contig, longest_contig_name = get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=True)
+        pairs, contigs, id_contig, longest_contig, longest_contig_name = get_contigs_and_pairs(path_layout, path_lens,
+                                                                                               path_pairs,
+                                                                                               long_contig=True)
         # pairs, contigs, id_contig, longest_contig, longest_contig_name, in_contigs = get_contigs_and_pairs(path_layout,
         #                                                                                                    path_lens,
         #                                                                                                    path_pairs,
@@ -57,7 +59,7 @@ if __name__ == "__main__":
 
         shuffle_ordering(pairs, contigs, P, n_iterations=len(contigs) * 5)
 
-        log_likelihood_arr = MCMC(pairs, contigs, P, number_it=500)
+        log_likelihood_arr = MCMC(pairs, contigs, P, number_it=5000)
         print("Have found follow ordering:", [contigs[i].pos for i in range(len(contigs))])
 
         plt.clf()
