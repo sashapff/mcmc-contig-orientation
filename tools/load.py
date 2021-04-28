@@ -83,11 +83,11 @@ def check_reads(path_pairs, output_path, chr_ind):
     i = 0
     for k in pos:
         axs[i].hist(pos[k])
-        axs[i].set(xlabel='position in contig', ylabel=f'number of reads for chr{chr_ind}')
+        axs[i].set(xlabel='position', ylabel=f'contig {k}')
         axs[i].label_outer()
         i += 1
 
-    plt.savefig(f'{output_path}/plots_check/chr{chr_ind}.png')
+    plt.savefig(f'{output_path}/plots_check/positions_chr{chr_ind}.png')
     print('Finish checking')
 
 
