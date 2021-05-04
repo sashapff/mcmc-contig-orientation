@@ -45,16 +45,22 @@ if __name__ == "__main__":
         for j in range(2):
             get_orientation([i, j], pairs, contigs)
             correct_number = np.array([contig.o == correct_contigs[id_contig[contig.name]] for contig in contigs]).sum()
-            print(
-                f"{[contig.o for contig in contigs]}: {correct_number}/{len(contigs)} ({correct_number / len(contigs) * 100}%); log_likelihood: {log_likelihood(pairs, contigs, P)}")
+            print(f"{[contig.o for contig in contigs]}:\n")
+            print(f'correctness: \t{correct_number}/{len(contigs)} ({correct_number / len(contigs) * 100}%)\n')
+            print(f'\tlog_likelihood: {log_likelihood(pairs, contigs, P)}\n')
 
             distances = get_distance(pairs, contigs)
             lengths = []
+            min_left = 10 ** 10
+            max_left = 0
+            min_right = 10 ** 10
+            max_right = 0
             for (k, pair) in enumerate(pairs):
                 lengths.append(distances[k])
-                print(pair, pair[0], pair[1], pair[2], pair[3], pair[4], pair[5], pair[6])
-                break
-                # assert pair[1] == '0' and pair[3] == '1'
+                min_left = min(min_left, pair[1])
+                max_left = max(max_left, pair[1])
+                min_right = min(min_right, pair[3])
+                max_right = max(max_right, pair[3])
 
             plt.hist(lengths)
             plt.title(f'Orientation [contig.o for contig in contigs], {correct_number / len(contigs) * 100}%')
