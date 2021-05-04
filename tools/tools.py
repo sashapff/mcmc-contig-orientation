@@ -53,5 +53,4 @@ def log_likelihood(pairs, contigs, P):
     """
     Calculating full log_likelihood for our orientation
     """
-    log_likelihood = P(get_distance(pairs, contigs)).sum()
-    return log_likelihood
+    return P(get_distance(pairs, contigs)).sum()

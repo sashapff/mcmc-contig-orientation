@@ -40,6 +40,7 @@ if __name__ == "__main__":
         # # longest_contig
         pairs, contigs, id_contig, longest_contig, longest_contig_name = get_contigs_and_pairs(path_layout, path_lens,
                                                                                                path_pairs,
+                                                                                               min_len=min_contig_length,
                                                                                                long_contig=True)
         # pairs, contigs, id_contig, longest_contig, longest_contig_name, in_contigs = get_contigs_and_pairs(path_layout,
         #                                                                                                    path_lens,
