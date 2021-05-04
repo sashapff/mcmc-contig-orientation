@@ -66,7 +66,7 @@ if __name__ == "__main__":
                 f'\tmin pos in right read: {min_right}, max pos in right read: {max_right}, contig total length: {contigs[1].length}')
 
             plt.hist(lengths)
-            plt.title(f'Orientation [contig.o for contig in contigs], {correct_number / len(contigs) * 100}%')
+            plt.title(f'Orientation {[contig.o for contig in contigs]}, {correct_number / len(contigs) * 100}%')
             plt.xlabel('distance between reads')
             plt.ylabel(f'number of reads')
             plt.savefig(f'{output_path}/plots_check/distances{[contig.o for contig in contigs]}.png')
