@@ -13,18 +13,18 @@ if __name__ == "__main__":
     # path_to_output = f'/Users/alexandra/bioinf/mcmc/output/{min_contig_length_name}'
 
     chr_ind = '1'
-    # path_layout = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/layouts/chr" + chr_ind + ".layout.txt"
-    # path_lens = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/contig_length/contig.length." + chr_ind + ".txt"
-    # path_pairs = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/pairs/chr_pairs" + chr_ind + ".txt"
+    path_layout = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/layouts/chr" + chr_ind + ".layout.txt"
+    path_lens = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/contig_length/contig.length." + chr_ind + ".txt"
+    path_pairs = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/pairs/chr_pairs" + chr_ind + ".txt"
 
-    # path_layout = "/Users/alexandra/bioinf/mcmc/data/chr1.layout.txt"
-    path_layout = "/Users/alexandra/bioinf/mcmc/data/simulation.layout.txt"
-
-    # path_lens = "/Users/alexandra/bioinf/mcmc/data/comp18_lens.tsv"
-    path_lens = "/Users/alexandra/bioinf/mcmc/data/simulation.lens.tsv"
-
-    # path_pairs = "/Users/alexandra/bioinf/mcmc/data/pairs18.txt"
-    path_pairs = "/Users/alexandra/bioinf/mcmc/data/simulation.pairs.txt"
+    # # path_layout = "/Users/alexandra/bioinf/mcmc/data/chr1.layout.txt"
+    # path_layout = "/Users/alexandra/bioinf/mcmc/data/simulation.layout.txt"
+    #
+    # # path_lens = "/Users/alexandra/bioinf/mcmc/data/comp18_lens.tsv"
+    # path_lens = "/Users/alexandra/bioinf/mcmc/data/simulation.lens.tsv"
+    #
+    # # path_pairs = "/Users/alexandra/bioinf/mcmc/data/pairs18.txt"
+    # path_pairs = "/Users/alexandra/bioinf/mcmc/data/simulation.pairs.txt"
 
     # longest_contig
     pairs, contigs, id_contig, longest_contig_pairs, longest_contig = get_contigs_and_pairs(path_layout, path_lens,
@@ -39,9 +39,10 @@ if __name__ == "__main__":
     right = left + d
 
     filtered_pairs = filter_pairs(pairs, id_contig[longest_contig.name], left, right)
-    print(filtered_pairs)
 
-    # print(log_likelihood(filtered_pairs, contigs, P))
+    for i in range(0, 5):
+        filtered_pairs[:, 6] = i
+        print(log_likelihood(filtered_pairs, contigs, P))
 
 
 
