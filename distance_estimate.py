@@ -12,7 +12,7 @@ if __name__ == "__main__":
     path_to_output = f'/lustre/groups/cbi/Users/aeliseev/aivanova/data/distance'
     # path_to_output = f'/Users/alexandra/bioinf/mcmc/output/{min_contig_length_name}'
 
-    chr_ind = '1'
+    chr_ind = '4'
     path_layout = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/layouts/chr" + chr_ind + ".layout.txt"
     path_lens = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/contig_length/contig.length." + chr_ind + ".txt"
     path_pairs = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/pairs/chr_pairs" + chr_ind + ".txt"
@@ -45,7 +45,7 @@ if __name__ == "__main__":
 
     filtered_pairs = filter_pairs(pairs, id_contig[longest_contig.name], left, right)
 
-    for i in [10, 100, 1000, 10_000, 100_000, 1_000_000]:
+    for i in [1, 10, 100, 1000, 10_000, 100_000, 1_000_000, 10_000_000, 100_000_000]:
         filtered_pairs[:, 6] = i
         print(f'likelihood for d={i} is {log_likelihood(filtered_pairs, contigs, P)}')
 
