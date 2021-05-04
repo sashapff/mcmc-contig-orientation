@@ -44,7 +44,7 @@ if __name__ == "__main__":
             get_orientation([i, j], pairs, contigs)
             correct_number = np.array([contig.o == correct_contigs[id_contig[contig.name]] for contig in contigs]).sum()
             print(f"{[contig.o for contig in contigs]}:")
-            print(f'correctness: \t{correct_number}/{len(contigs)} ({correct_number / len(contigs) * 100}%)')
+            print(f'\tcorrectness: {correct_number}/{len(contigs)} ({correct_number / len(contigs) * 100}%)')
             print(f'\tlog_likelihood: {log_likelihood(pairs, contigs, P)}')
 
             distances = get_distance(pairs, contigs)
