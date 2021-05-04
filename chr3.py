@@ -1,7 +1,8 @@
 import numpy as np
 from orientation.tools import get_orientation
 from tools.load import check_reads, get_contigs_and_pairs
-from tools.tools import get_distance
+from tools.prob import density
+from tools.tools import get_distance, log_likelihood
 import matplotlib.pyplot as plt
 
 if __name__ == "__main__":
@@ -38,17 +39,19 @@ if __name__ == "__main__":
     print(
         f"{[contig.o for contig in contigs]}: {correct_number}/{len(contigs)} ({correct_number / len(contigs) * 100}%)")
 
+    P, f = density(longest_contig)
+
     for i in range(2):
         for j in range(2):
             get_orientation([i, j], pairs, contigs)
             correct_number = np.array([contig.o == correct_contigs[id_contig[contig.name]] for contig in contigs]).sum()
             print(
-                f"{[contig.o for contig in contigs]}: {correct_number}/{len(contigs)} ({correct_number / len(contigs) * 100}%)")
+                f"{[contig.o for contig in contigs]}: {correct_number}/{len(contigs)} ({correct_number / len(contigs) * 100}%); likelihood: {log_likelihood(pairs, contigs, P)}")
 
             distances = get_distance(pairs, contigs)
             lengths = []
-            for (i, pair) in enumerate(pairs):
-                lengths.append(distances[i])
+            for (k, pair) in enumerate(pairs):
+                lengths.append(distances[k])
 
             plt.hist(lengths)
             plt.xlabel('distance between reads')
