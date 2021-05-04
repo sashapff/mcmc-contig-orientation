@@ -45,12 +45,12 @@ if __name__ == "__main__":
             print(
                 f"{[contig.o for contig in contigs]}: {correct_number}/{len(contigs)} ({correct_number / len(contigs) * 100}%)")
 
-    distances = get_distance(pairs, contigs)
-    lengths = []
-    for (i, pair) in enumerate(pairs):
-        lengths.append(distances[i])
+            distances = get_distance(pairs, contigs)
+            lengths = []
+            for (i, pair) in enumerate(pairs):
+                lengths.append(distances[i])
 
-    plt.hist(lengths)
-    plt.xlabel('distance between reads')
-    plt.ylabel(f'number of reads')
-    plt.savefig(f'{output_path}/plots_check/distances.png')
+            plt.hist(lengths)
+            plt.xlabel('distance between reads')
+            plt.ylabel(f'number of reads')
+            plt.savefig(f'{output_path}/plots_check/distances{[contig.o for contig in contigs]}.png')
