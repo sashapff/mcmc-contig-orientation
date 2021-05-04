@@ -45,9 +45,9 @@ if __name__ == "__main__":
 
     filtered_pairs = filter_pairs(pairs, id_contig[longest_contig.name], left, right)
 
-    for i in range(0, 5):
+    for i in [10, 100, 1000, 10_000, 100_000, 1_000_000]:
         filtered_pairs[:, 6] = i
-        print(log_likelihood(filtered_pairs, contigs, P))
+        print(f'likehood for d={i} is {log_likelihood(filtered_pairs, contigs, P)}')
 
 
 
