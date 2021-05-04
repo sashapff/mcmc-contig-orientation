@@ -62,6 +62,11 @@ if __name__ == "__main__":
                 min_right = min(min_right, pair[3])
                 max_right = max(max_right, pair[3])
 
+            print(
+                f'\tmin pos in left read: {min_left}, max pos in left read: {max_left}, contig total length: {contigs[0].length}\n')
+            print(
+                f'\tmin pos in right read: {min_right}, max pos in right read: {max_right}, contig total length: {contigs[1].length}\n')
+
             plt.hist(lengths)
             plt.title(f'Orientation [contig.o for contig in contigs], {correct_number / len(contigs) * 100}%')
             plt.xlabel('distance between reads')
