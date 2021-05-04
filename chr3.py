@@ -48,8 +48,7 @@ if __name__ == "__main__":
     distances = get_distance(pairs, contigs)
     lengths = []
     for (i, pair) in enumerate(pairs):
-        if pair[0] == chr_ind or pair[2] == chr_ind:
-            lengths.append(distances[i])
+        lengths.append(distances[i])
 
     plt.hist(lengths)
     plt.xlabel('distance between reads')
