@@ -56,5 +56,9 @@ def log_likelihood(pairs, contigs, P):
     return P(get_distance(pairs, contigs)).sum()
 
 
-def filter_pairs(pairs, left, right):
-    return pairs[pairs[0] < left and pairs[2] >= right]
+def filter_pairs(pairs, contig_id, left, right):
+    print(pairs, contig_id)
+    indx = (pairs[:, 0] == contig_id) & (pairs[:, 2] == contig_id)
+    # pairs_1 = pairs[pairs[:, 0] == contig_id]
+    # pairs_2 = pairs_1[pairs_1[:, 2] == contig_id]
+    return pairs[indx]

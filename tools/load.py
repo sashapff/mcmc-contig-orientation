@@ -150,7 +150,7 @@ def get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=False,
     print("Counting distance...")
     D = _distance_matrix(contigs)
 
-    np_pairs = np.zeros((len(pairs), 7))
+    np_pairs = np.zeros((len(pairs), 7), dtype=np.int64)
     np_pairs[:, 0] = pairs["X1"].apply(lambda x: id_contig[x]).to_numpy()
     np_pairs[:, 1] = pairs["P1"].to_numpy()
     np_pairs[:, 2] = pairs["X2"].apply(lambda x: id_contig[x]).to_numpy()

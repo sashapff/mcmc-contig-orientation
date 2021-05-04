@@ -73,15 +73,5 @@ if __name__ == "__main__":
         plt.title(f'Ordering log likelihood')
         plt.savefig(f'{path_to_output}/plots_ordering/log_likelihood_chr{chr_ind}.png')
 
-        # with open("/Users/alexandra/bioinf/mcmc/data/final1.layout.txt", "w") as file:
-        #     sign = lambda x: "+" if x == 1 else "-"
-        #     file.write(",".join([contig.name + sign(contig.o) for contig in sorted(contigs, key=lambda contig: contig.pos)]))
-        # print("Result has been saved")
-
-        # print("Count correctness...")
-        # correct_number = np.array([contig.o == correct_contigs[id_contig[contig.name]] for contig in contigs]).sum()
-        # print(f"{correct_number}/{len(contigs)} contigs were oriented correctly ({correct_number / len(contigs) * 100}%)")
-        #
-        # with open("/lustre/groups/cbi/Users/aeliseev/aivanova/data/stat." + chr_ind + ".txt", "w") as file:
-        #     file.write(f"CHROMOSOME {chr_ind}\n")
-        #     file.write(f"{correct_number}/{len(contigs)} contigs were oriented correctly ({correct_number / len(contigs) * 100}%)\n")
+        with open(f"{path_to_output}/final_ordering/final_chr{chr_ind}.layout.txt", "w") as file:
+            file.write(",".join([contigs[i].pos for i in range(len(contigs))]))
