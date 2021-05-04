@@ -9,8 +9,8 @@ from tools.tools import log_likelihood
 
 if __name__ == "__main__":
     print("Start!")
-    min_contig_length = 25_000
-    min_contig_length_name = '25k'
+    min_contig_length = 100_000
+    min_contig_length_name = '100k'
 
     path_to_output = f'/lustre/groups/cbi/Users/aeliseev/aivanova/data/{min_contig_length_name}'
     # path_to_output = f'/Users/alexandra/bioinf/mcmc/output/{min_contig_length_name}'

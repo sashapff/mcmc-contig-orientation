@@ -54,3 +54,7 @@ def log_likelihood(pairs, contigs, P):
     Calculating full log_likelihood for our orientation
     """
     return P(get_distance(pairs, contigs)).sum()
+
+
+def filter_pairs(pairs, left, right):
+    return pairs[pairs[0] < left and pairs[2] >= right]
