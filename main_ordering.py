@@ -60,7 +60,7 @@ if __name__ == "__main__":
 
         shuffle_ordering(pairs, contigs, P, n_iterations=len(contigs) * 5)
 
-        log_likelihood_arr = MCMC(pairs, contigs, P, number_it=250)
+        log_likelihood_arr = MCMC(pairs, contigs, P, number_it=500)
         print("Have found follow ordering:", [contigs[i].pos for i in range(len(contigs))])
 
         print(log_likelihood_arr)
