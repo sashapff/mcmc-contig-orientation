@@ -36,8 +36,6 @@ if __name__ == "__main__":
     correct_contigs = [contig.o for contig in contigs]
 
     correct_number = np.array([contig.o == correct_contigs[id_contig[contig.name]] for contig in contigs]).sum()
-    print(
-        f"{[contig.o for contig in contigs]}: {correct_number}/{len(contigs)} ({correct_number / len(contigs) * 100}%)")
 
     P, f = density(longest_contig)
 
@@ -45,9 +43,9 @@ if __name__ == "__main__":
         for j in range(2):
             get_orientation([i, j], pairs, contigs)
             correct_number = np.array([contig.o == correct_contigs[id_contig[contig.name]] for contig in contigs]).sum()
-            print(f"{[contig.o for contig in contigs]}:\n")
-            print(f'correctness: \t{correct_number}/{len(contigs)} ({correct_number / len(contigs) * 100}%)\n')
-            print(f'\tlog_likelihood: {log_likelihood(pairs, contigs, P)}\n')
+            print(f"{[contig.o for contig in contigs]}:")
+            print(f'correctness: \t{correct_number}/{len(contigs)} ({correct_number / len(contigs) * 100}%)')
+            print(f'\tlog_likelihood: {log_likelihood(pairs, contigs, P)}')
 
             distances = get_distance(pairs, contigs)
             lengths = []
@@ -63,9 +61,9 @@ if __name__ == "__main__":
                 max_right = max(max_right, pair[3])
 
             print(
-                f'\tmin pos in left read: {min_left}, max pos in left read: {max_left}, contig total length: {contigs[0].length}\n')
+                f'\tmin pos in left read: {min_left}, max pos in left read: {max_left}, contig total length: {contigs[0].length}')
             print(
-                f'\tmin pos in right read: {min_right}, max pos in right read: {max_right}, contig total length: {contigs[1].length}\n')
+                f'\tmin pos in right read: {min_right}, max pos in right read: {max_right}, contig total length: {contigs[1].length}')
 
             plt.hist(lengths)
             plt.title(f'Orientation [contig.o for contig in contigs], {correct_number / len(contigs) * 100}%')
