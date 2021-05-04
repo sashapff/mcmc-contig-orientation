@@ -47,7 +47,7 @@ if __name__ == "__main__":
 
     for i in [10, 100, 1000, 10_000, 100_000, 1_000_000]:
         filtered_pairs[:, 6] = i
-        print(f'likehood for d={i} is {log_likelihood(filtered_pairs, contigs, P)}')
+        print(f'likelihood for d={i} is {log_likelihood(filtered_pairs, contigs, P)}')
 
 
 
