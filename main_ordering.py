@@ -17,7 +17,7 @@ if __name__ == "__main__":
 
     # chromosomes = ['1', '2', '3', '4', '5', '6', '7', '8', '10', '11', '12', '13',
     #                '14', '15', '16', '17', '18', '19', '20', '21', '22']
-    chromosomes = ['1']
+    chromosomes = ['11']
 
     for chr_ind in chromosomes:
         print(f'Chromosome {chr_ind}')
@@ -59,7 +59,7 @@ if __name__ == "__main__":
 
         shuffle_ordering(pairs, contigs, P, n_iterations=len(contigs) * 5)
 
-        log_likelihood_arr = MCMC(pairs, contigs, P, number_it=5000)
+        log_likelihood_arr = MCMC(pairs, contigs, P, number_it=1000)
         print("Have found follow ordering:", [contigs[i].pos for i in range(len(contigs))])
 
         plt.clf()
