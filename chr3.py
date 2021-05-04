@@ -57,3 +57,4 @@ if __name__ == "__main__":
             plt.xlabel('distance between reads')
             plt.ylabel(f'number of reads')
             plt.savefig(f'{output_path}/plots_check/distances{[contig.o for contig in contigs]}.png')
+            plt.clf()
