@@ -53,17 +53,21 @@ if __name__ == "__main__":
             max_left = 0
             min_right = 10 ** 10
             max_right = 0
+            pos_left = []
+            pos_right = []
             for (k, pair) in enumerate(pairs):
                 lengths.append(distances[k])
                 min_left = min(min_left, pair[1])
                 max_left = max(max_left, pair[1])
                 min_right = min(min_right, pair[3])
                 max_right = max(max_right, pair[3])
+                pos_left.append(pair[1])
+                pos_right.append(pair[3])
 
             print(
-                f'\tmin read pos in left contig: {min_left}, max read pos in left contig: {max_left}, contig total length: {contigs[0].length}')
+                f'\tmin read pos in left contig: {min_left}, max read pos in left contig: {max_left} ({contigs[0].length - max_left}), contig total length: {contigs[0].length}')
             print(
-                f'\tmin read pos in right contig: {min_right}, max read pos in right contig: {max_right}, contig total length: {contigs[1].length}')
+                f'\tmin read pos in right contig: {min_right}, max read pos in right contig: {max_right} ({contigs[1].length - max_right}), contig total length: {contigs[1].length}')
 
             plt.hist(lengths)
             plt.title(f'Orientation {[contig.o for contig in contigs]}, {correct_number / len(contigs) * 100}%')
@@ -71,3 +75,18 @@ if __name__ == "__main__":
             plt.ylabel(f'number of reads')
             plt.savefig(f'{output_path}/plots_check/distances{[contig.o for contig in contigs]}.png')
             plt.clf()
+
+            plt.hist(pos_left)
+            plt.title(f'Orientation {[contig.o for contig in contigs]}, {correct_number / len(contigs) * 100}%')
+            plt.xlabel('read position in the first contig')
+            plt.ylabel(f'number of reads')
+            plt.savefig(f'{output_path}/plots_check/positions_{[contig.o for contig in contigs]}_0.png')
+            plt.clf()
+
+            plt.hist(pos_left)
+            plt.title(f'Orientation {[contig.o for contig in contigs]}, {correct_number / len(contigs) * 100}%')
+            plt.xlabel('read position in the second contig')
+            plt.ylabel(f'number of reads')
+            plt.savefig(f'{output_path}/plots_check/positions_{[contig.o for contig in contigs]}_1.png')
+            plt.clf()
+
