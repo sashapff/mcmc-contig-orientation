@@ -1,3 +1,5 @@
+import numpy as np
+from orientation.tools import get_orientation
 from tools.load import check_reads, get_contigs_and_pairs
 from tools.tools import get_distance
 import matplotlib.pyplot as plt
@@ -28,7 +30,21 @@ if __name__ == "__main__":
     pairs, contigs, id_contig, longest_contig, longest_contig_name = get_contigs_and_pairs(path_layout, path_lens,
                                                                                            path_pairs,
                                                                                            long_contig=True)
-    print(f"Analyse {len(contigs)} contigs")
+    print(f"Analyse {len(contigs)} contigs..")
+
+    correct_contigs = [contig.o for contig in contigs]
+
+    correct_number = np.array([contig.o == correct_contigs[id_contig[contig.name]] for contig in contigs]).sum()
+    print(
+        f"{[contig.o for contig in contigs]}: {correct_number}/{len(contigs)} ({correct_number / len(contigs) * 100}%)")
+
+    for i in range(2):
+        for j in range(2):
+            get_orientation([i, j], pairs, contigs)
+            correct_number = np.array([contig.o == correct_contigs[id_contig[contig.name]] for contig in contigs]).sum()
+            print(
+                f"{[contig.o for contig in contigs]}: {correct_number}/{len(contigs)} ({correct_number / len(contigs) * 100}%)")
+
     distances = get_distance(pairs, contigs)
     lengths = []
     for (i, pair) in enumerate(pairs):
@@ -39,4 +55,3 @@ if __name__ == "__main__":
     plt.xlabel('distance between reads')
     plt.ylabel(f'number of reads')
     plt.savefig(f'{output_path}/plots_check/distances.png')
-
