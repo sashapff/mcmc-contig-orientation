@@ -6,7 +6,7 @@ from scipy.optimize import curve_fit
 def density(reads, K0=3000, K1=100_000, K2=100_000, kde_method="linear"):
     """
     Estimating density of distances between peace of reads
-    :param reads: reads[i,0] - pisition first peace of read; reads[i,1] - pisition second peace of read
+    :param reads: reads[i,0] - position first peace of read; reads[i,1] - position second peace of read
     :param K0: end of poly approximation
     :param K1: end of first log approximation
     :param K2: end of second log approximation
