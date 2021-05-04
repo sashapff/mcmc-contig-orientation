@@ -46,15 +46,18 @@ if __name__ == "__main__":
             get_orientation([i, j], pairs, contigs)
             correct_number = np.array([contig.o == correct_contigs[id_contig[contig.name]] for contig in contigs]).sum()
             print(
-                f"{[contig.o for contig in contigs]}: {correct_number}/{len(contigs)} ({correct_number / len(contigs) * 100}%); likelihood: {log_likelihood(pairs, contigs, P)}")
+                f"{[contig.o for contig in contigs]}: {correct_number}/{len(contigs)} ({correct_number / len(contigs) * 100}%); log_likelihood: {log_likelihood(pairs, contigs, P)}")
 
             distances = get_distance(pairs, contigs)
             lengths = []
             for (k, pair) in enumerate(pairs):
                 lengths.append(distances[k])
-                assert pair[1] == 0 and pair[3] == 1
+                print(pair, pair[0], pair[1], pair[2], pair[3], pair[4], pair[5], pair[6])
+                break
+                # assert pair[1] == '0' and pair[3] == '1'
 
             plt.hist(lengths)
+            plt.title(f'Orientation [contig.o for contig in contigs], {correct_number / len(contigs) * 100}%')
             plt.xlabel('distance between reads')
             plt.ylabel(f'number of reads')
             plt.savefig(f'{output_path}/plots_check/distances{[contig.o for contig in contigs]}.png')
