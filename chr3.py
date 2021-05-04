@@ -52,6 +52,7 @@ if __name__ == "__main__":
             lengths = []
             for (k, pair) in enumerate(pairs):
                 lengths.append(distances[k])
+                assert pair[1] == 0 and pair[3] == 1
 
             plt.hist(lengths)
             plt.xlabel('distance between reads')
