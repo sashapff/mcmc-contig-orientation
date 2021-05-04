@@ -7,7 +7,8 @@ if __name__ == "__main__":
     path_pairs = f'/lustre/groups/cbi/Users/aeliseev/aivanova/data/pairs/chr_pairs{chr_ind}.txt'
     output_path = f'/lustre/groups/cbi/Users/aeliseev/aivanova/data/'
     # path_pairs = '/Users/alexandra/bioinf/mcmc/chr3/chr_pairs3.txt'
-    check_reads(path_pairs, output_path, chr_ind)
+
+    # check_reads(path_pairs, output_path, chr_ind)
 
     path_layout = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/layouts/chr" + chr_ind + ".layout.txt"
     # path_layout = "/Users/alexandra/bioinf/mcmc/data/chr1.layout.txt"
@@ -27,6 +28,7 @@ if __name__ == "__main__":
     pairs, contigs, id_contig, longest_contig, longest_contig_name = get_contigs_and_pairs(path_layout, path_lens,
                                                                                            path_pairs,
                                                                                            long_contig=True)
+    print(f"Analyse {len(contigs)} contigs")
     distances = get_distance(pairs, contigs)
     lengths = []
     for (i, pair) in enumerate(pairs):
