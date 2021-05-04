@@ -63,6 +63,8 @@ if __name__ == "__main__":
         log_likelihood_arr = MCMC(pairs, contigs, P, number_it=1000)
         print("Have found follow ordering:", [contigs[i].pos for i in range(len(contigs))])
 
+        print(log_likelihood_arr)
+
         plt.clf()
         plt.plot(log_likelihood_arr, label=f'{len(contigs)} contigs')
         plt.xlabel('iteration number')
