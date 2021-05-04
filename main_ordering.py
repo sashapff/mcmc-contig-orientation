@@ -9,8 +9,8 @@ from tools.tools import log_likelihood
 
 if __name__ == "__main__":
     print("Start!")
-    min_contig_length = 100_000
-    min_contig_length_name = '100k'
+    min_contig_length = 50_000
+    min_contig_length_name = '50k'
 
     path_to_output = f'/lustre/groups/cbi/Users/aeliseev/aivanova/data/{min_contig_length_name}'
     # path_to_output = f'/Users/alexandra/bioinf/mcmc/output/{min_contig_length_name}'
@@ -52,8 +52,8 @@ if __name__ == "__main__":
         correct_contigs = [contig.pos for contig in contigs]
 
         print("Estimation of density...")
-        P, f = density(longest_contig)
-        # P, f = toy_density(longest_contig)
+        P = density(longest_contig)
+        # P = toy_density(longest_contig)
         print("Estimation of density is done")
 
         print("MCMC is running...")

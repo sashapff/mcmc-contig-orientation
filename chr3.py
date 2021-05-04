@@ -37,7 +37,7 @@ if __name__ == "__main__":
 
     correct_number = np.array([contig.o == correct_contigs[id_contig[contig.name]] for contig in contigs]).sum()
 
-    P, f = density(longest_contig)
+    P = density(longest_contig)
 
     for i in range(2):
         for j in range(2):

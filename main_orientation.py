@@ -76,8 +76,8 @@ if __name__ == "__main__":
 
     print("Estimation of density...")
 
-    P, f = density(get_longest_contig(longest_contig_pairs_arr, longest_contig_arr))
-    # P, f = toy_density(get_longest_contig(longest_contig_pairs_arr, longest_contig_arr))
+    P = density(get_longest_contig(longest_contig_pairs_arr, longest_contig_arr))
+    # P = toy_density(get_longest_contig(longest_contig_pairs_arr, longest_contig_arr))
     print("Estimation of density is done")
 
     for (j, chr_ind) in enumerate(chromosomes):

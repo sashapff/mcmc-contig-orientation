@@ -36,7 +36,7 @@ def density(reads, K0=3000, K1=100_000, K2=100_000, kde_method="linear"):
                    np.where(x < K2, param2[0] + param2[1] * np.log(x),
                                     param2[0] + param2[1] * np.log(1 / x)))))
 
-    return P, f
+    return P
 
 
 def toy_density(longest_contig):
@@ -47,7 +47,7 @@ def toy_density(longest_contig):
     Lambda = 1 / distances.mean()
     P = lambda x: Lambda * np.exp(-Lambda * x)
 
-    return P, P
+    return P
 
 
 def destiny_b(longest_contig_b, bins, contigs, resolution="100_000"):
