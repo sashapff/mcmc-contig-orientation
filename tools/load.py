@@ -89,7 +89,7 @@ def check_reads(path_pairs, output_path, chr_ind):
 
 
 
-def get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=False, all_contigs=False, min_len=100_000):
+def get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=False, all_contigs=False, min_len=100_000, from_one_contig=False):
     """
     Reading all data from file in essential format
     :param path_layout: the path to the start layout
@@ -142,7 +142,10 @@ def get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=False,
             contigs_list.append(pairs_numpy)
         answer.append(contigs_list)
 
-    pairs = pairs[pairs["X1"] != pairs["X2"]]
+    if not from_one_contig:
+        pairs = pairs[pairs["X1"] != pairs["X2"]]
+    else:
+        pairs = pairs[pairs["X1"] == pairs["X2"]]
     pairs = pairs[
         pairs["X1"].apply(lambda x: x in id_contig) & pairs["X2"].apply(lambda x: x in id_contig)].reset_index(
         drop=True)

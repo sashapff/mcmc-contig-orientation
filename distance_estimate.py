@@ -19,10 +19,10 @@ if __name__ == "__main__":
 
     # # path_layout = "/Users/alexandra/bioinf/mcmc/data/chr1.layout.txt"
     # path_layout = "/Users/alexandra/bioinf/mcmc/data/simulation.layout.txt"
-    #
+    # #
     # # path_lens = "/Users/alexandra/bioinf/mcmc/data/comp18_lens.tsv"
     # path_lens = "/Users/alexandra/bioinf/mcmc/data/simulation.lens.tsv"
-    #
+    # #
     # # path_pairs = "/Users/alexandra/bioinf/mcmc/data/pairs18.txt"
     # path_pairs = "/Users/alexandra/bioinf/mcmc/data/simulation.pairs.txt"
 
@@ -30,11 +30,16 @@ if __name__ == "__main__":
     pairs, contigs, id_contig, longest_contig_pairs, longest_contig = get_contigs_and_pairs(path_layout, path_lens,
                                                                                             path_pairs,
                                                                                             long_contig=True,
-                                                                                            min_len=0)
+                                                                                            min_len=0,
+                                                                                            from_one_contig=True)
 
-    P = toy_density(longest_contig_pairs)
+    # P = toy_density(longest_contig_pairs)
+    P = density(longest_contig_pairs)
 
-    d = longest_contig.length / 10
+    ind = (pairs[:, 1] >= pairs[:, 3])
+    pairs[ind, 1], pairs[ind, 3] = pairs[ind, 3], pairs[ind, 1]
+
+    d = 10_000
     left = longest_contig.length // 2 - d // 2
     right = left + d
 
