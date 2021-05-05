@@ -1,6 +1,6 @@
 from tools.load import get_contigs_and_pairs
 from tools.prob import density, toy_density
-from tools.tools import get_longest_contig, filter_pairs, log_likelihood
+from tools.tools import get_longest_contig, filter_pairs, log_likelihood, get_distance_one_contig
 import matplotlib.pyplot as plt
 
 if __name__ == "__main__":
@@ -42,16 +42,13 @@ if __name__ == "__main__":
 
     filtered_pairs = filter_pairs(pairs, id_contig[longest_contig.name], left, right)
     filtered_pairs[:, 3] -= right
-    filtered_pairs[:, 2] += 1
-    filtered_pairs[:, 4] = 1
-    filtered_pairs[:, 5] = 1
 
     log_likelihood_arr = []
     log_likelihood_range = [1, 10, 100, 1000, 10_000, 100_000, 1_000_000, 10_000_000, 100_000_000]
 
     for i in log_likelihood_range:
         filtered_pairs[:, 6] = i
-        ll = log_likelihood(filtered_pairs, contigs, P)
+        ll = P(get_distance_one_contig(filtered_pairs, left, longest_contig.length - right)).sum()
         log_likelihood_arr.append(ll)
         print(f'likelihood for d={i} is {ll}')
 
