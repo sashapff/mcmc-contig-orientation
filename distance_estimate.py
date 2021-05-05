@@ -10,18 +10,18 @@ if __name__ == "__main__":
     # path_to_output = f'/Users/alexandra/bioinf/mcmc/output/{min_contig_length_name}'
 
     chr_ind = '4'
-    path_layout = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/layouts/chr" + chr_ind + ".layout.txt"
-    path_lens = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/contig_length/contig.length." + chr_ind + ".txt"
-    path_pairs = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/pairs/chr_pairs" + chr_ind + ".txt"
+    # path_layout = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/layouts/chr" + chr_ind + ".layout.txt"
+    # path_lens = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/contig_length/contig.length." + chr_ind + ".txt"
+    # path_pairs = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/pairs/chr_pairs" + chr_ind + ".txt"
 
-    # # path_layout = "/Users/alexandra/bioinf/mcmc/data/chr1.layout.txt"
-    # path_layout = "/Users/alexandra/bioinf/mcmc/data/simulation.layout.txt"
-    # #
-    # # path_lens = "/Users/alexandra/bioinf/mcmc/data/comp18_lens.tsv"
-    # path_lens = "/Users/alexandra/bioinf/mcmc/data/simulation.lens.tsv"
-    # #
-    # # path_pairs = "/Users/alexandra/bioinf/mcmc/data/pairs18.txt"
-    # path_pairs = "/Users/alexandra/bioinf/mcmc/data/simulation.pairs.txt"
+    # path_layout = "/Users/alexandra/bioinf/mcmc/data/chr1.layout.txt"
+    path_layout = "/Users/alexandra/bioinf/mcmc/data/simulation.layout.txt"
+    #
+    # path_lens = "/Users/alexandra/bioinf/mcmc/data/comp18_lens.tsv"
+    path_lens = "/Users/alexandra/bioinf/mcmc/data/simulation.lens.tsv"
+    #
+    # path_pairs = "/Users/alexandra/bioinf/mcmc/data/pairs18.txt"
+    path_pairs = "/Users/alexandra/bioinf/mcmc/data/simulation.pairs.txt"
 
     # longest_contig
     pairs, contigs, id_contig, longest_contig_pairs, longest_contig = get_contigs_and_pairs(path_layout, path_lens,
@@ -30,13 +30,14 @@ if __name__ == "__main__":
                                                                                             min_len=0,
                                                                                             from_one_contig=True)
 
-    # P = toy_density(longest_contig_pairs)
-    P = density(longest_contig_pairs)
+    P = toy_density(longest_contig_pairs)
+    # P = density(longest_contig_pairs)
 
     ind = (pairs[:, 1] >= pairs[:, 3])
     pairs[ind, 1], pairs[ind, 3] = pairs[ind, 3], pairs[ind, 1]
 
-    d = 10_000
+    # d = 10_000
+    d = 5
     left = longest_contig.length // 2 - d // 2
     right = left + d
 
@@ -53,10 +54,10 @@ if __name__ == "__main__":
         print(f'likelihood for d={i} is {ll}')
 
     plt.plot(log_likelihood_range, log_likelihood_arr)
-    plt.xlabel('log_10(d), distance estimate')
+    plt.xlabel('d, distance estimate')
     plt.ylabel('log likelihood')
     plt.legend()
-    plt.yscale('log')
+    plt.xscale('log')
     plt.savefig(f'{path_to_output}/plots_distance/log_likelihood.png')
 
 
