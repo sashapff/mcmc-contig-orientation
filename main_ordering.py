@@ -74,4 +74,4 @@ if __name__ == "__main__":
         plt.savefig(f'{path_to_output}/plots_ordering/log_likelihood_chr{chr_ind}.png')
 
         with open(f"{path_to_output}/final_ordering/final_chr{chr_ind}.layout.txt", "w") as file:
-            file.write(",".join([contigs[i].pos for i in range(len(contigs))]))
+            file.write(",".join([str(contigs[i].pos) for i in range(len(contigs))]))
