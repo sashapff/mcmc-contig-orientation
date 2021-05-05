@@ -1,6 +1,6 @@
 #!/bin/sh
-#SBATCH --time 4:00:00
-#SBATCH -p debug
+#SBATCH --time 8:00:00
+#SBATCH -p tiny
 #SBATCH -o output.txt
 
 #python main_orientation.py
