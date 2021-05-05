@@ -1,9 +1,6 @@
 from tools.load import get_contigs_and_pairs
-from orientation.model import MCMC
-from orientation.tools import get_orientation
 from tools.prob import density, toy_density
 from tools.tools import get_longest_contig, filter_pairs, log_likelihood
-import numpy as np
 import matplotlib.pyplot as plt
 
 if __name__ == "__main__":
@@ -46,9 +43,22 @@ if __name__ == "__main__":
     filtered_pairs = filter_pairs(pairs, id_contig[longest_contig.name], left, right)
     filtered_pairs[:, 3] -= right
 
-    for i in [1, 10, 100, 1000, 10_000, 100_000, 1_000_000, 10_000_000, 100_000_000]:
+    log_likelihood_arr = []
+    log_likelihood_range = [1, 10, 100, 1000, 10_000, 100_000, 1_000_000, 10_000_000, 100_000_000]
+
+    for i in log_likelihood_range:
         filtered_pairs[:, 6] = i
-        print(f'likelihood for d={i} is {log_likelihood(filtered_pairs, contigs, P)}')
+        ll = log_likelihood(filtered_pairs, contigs, P)
+        log_likelihood_arr.append(ll)
+        print(f'likelihood for d={i} is {ll}')
+
+    plt.plot(log_likelihood_range, log_likelihood_arr)
+    plt.xlabel('d, distance estimate')
+    plt.ylabel('log_likelihood')
+    plt.legend()
+    plt.title(f'Ordering log likelihood')
+    plt.savefig(f'{path_to_output}/plots_distance/log_likelihood.png')
+
 
 
 
