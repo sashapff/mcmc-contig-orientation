@@ -36,7 +36,7 @@ if __name__ == "__main__":
     ind = (pairs[:, 1] >= pairs[:, 3])
     pairs[ind, 1], pairs[ind, 3] = pairs[ind, 3], pairs[ind, 1]
 
-    d = 10_000
+    d = 1000
     # d = 5
     left = longest_contig.length // 2 - d // 2
     right = left + d
