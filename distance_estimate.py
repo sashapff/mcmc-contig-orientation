@@ -44,6 +44,7 @@ if __name__ == "__main__":
     right = left + d
 
     filtered_pairs = filter_pairs(pairs, id_contig[longest_contig.name], left, right)
+    filtered_pairs[:, 3] -= right
 
     for i in [1, 10, 100, 1000, 10_000, 100_000, 1_000_000, 10_000_000, 100_000_000]:
         filtered_pairs[:, 6] = i
