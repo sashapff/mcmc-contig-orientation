@@ -18,8 +18,8 @@ if __name__ == "__main__":
 
     pairs_arr, contigs_arr, id_contig_arr, longest_contig_pairs_arr, longest_contig_arr, correct_contigs_arr = [], [], [], [], [], []
 
-    min_contig_length = 50_000
-    min_contig_length_name = '50k'
+    min_contig_length = 100_000
+    min_contig_length_name = '100k'
 
     path_to_output = f'/lustre/groups/cbi/Users/aeliseev/aivanova/data/{min_contig_length_name}'
     # path_to_output = f'/Users/alexandra/bioinf/mcmc/output/{min_contig_length_name}'
