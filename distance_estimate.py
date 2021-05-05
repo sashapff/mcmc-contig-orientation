@@ -44,19 +44,19 @@ if __name__ == "__main__":
     filtered_pairs[:, 3] -= right
 
     log_likelihood_arr = []
-    log_likelihood_range = [1, 10, 100, 1000, 10_000, 100_000, 1_000_000, 10_000_000, 100_000_000]
+    log_likelihood_range = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 
-    for i in log_likelihood_range:
+    for log_i in log_likelihood_range:
+        i = 10 ** log_i
         filtered_pairs[:, 6] = i
         ll = P(get_distance_one_contig(filtered_pairs, left, longest_contig.length - right)).sum()
         log_likelihood_arr.append(ll)
         print(f'likelihood for d={i} is {ll}')
 
     plt.plot(log_likelihood_range, log_likelihood_arr)
-    plt.xlabel('d, distance estimate')
-    plt.ylabel('log_likelihood')
+    plt.xlabel('log_10(d), distance estimate')
+    plt.ylabel('log likelihood')
     plt.legend()
-    plt.title(f'Ordering log likelihood')
     plt.savefig(f'{path_to_output}/plots_distance/log_likelihood.png')
 
 
