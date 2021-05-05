@@ -43,6 +43,8 @@ if __name__ == "__main__":
     filtered_pairs = filter_pairs(pairs, id_contig[longest_contig.name], left, right)
     filtered_pairs[:, 3] -= right
     filtered_pairs[:, 2] += 1
+    filtered_pairs[:, 4] = 1
+    filtered_pairs[:, 5] = 1
 
     log_likelihood_arr = []
     log_likelihood_range = [1, 10, 100, 1000, 10_000, 100_000, 1_000_000, 10_000_000, 100_000_000]
