@@ -25,4 +25,4 @@ if __name__ == "__main__":
     plt.xlabel('x')
     plt.ylabel('P(x)')
     plt.legend()
-    plt.savefig(f'{path_to_output}/plots_density/log_likelihood.png')
+    plt.savefig(f'{path_to_output}/log_likelihood.png')

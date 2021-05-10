@@ -58,7 +58,7 @@ if __name__ == "__main__":
     plt.ylabel('log likelihood')
     plt.legend()
     plt.xscale('log')
-    plt.savefig(f'{path_to_output}/plots_distance/log_likelihood.png')
+    plt.savefig(f'{path_to_output}/log_likelihood.png')
 
 
 
