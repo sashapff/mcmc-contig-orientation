@@ -19,10 +19,20 @@ if __name__ == "__main__":
 
     P = density(longest_contig_pairs)
 
-    p_range = range(100000 + 100)
+    p_range = range(110000)
     plt.title('The density of distance between pair of reads')
     plt.plot(p_range, [P(x) for x in p_range])
-    plt.xlabel('x')
-    plt.ylabel('P(x)')
+    plt.xlabel('x, distance')
+    plt.ylabel('p(x), density in distance x')
     plt.legend()
-    plt.savefig(f'{path_to_output}/log_likelihood.png')
+    plt.savefig(f'{path_to_output}/density_100k.png')
+
+    plt.clf()
+
+    p_range = range(5000)
+    plt.title('The density of distance between pair of reads')
+    plt.plot(p_range, [P(x) for x in p_range])
+    plt.xlabel('x, distance')
+    plt.ylabel('p(x), density in distance x')
+    plt.legend()
+    plt.savefig(f'{path_to_output}/density_5k.png')
