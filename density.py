@@ -3,7 +3,7 @@ from tools.prob import density
 import matplotlib.pyplot as plt
 
 if __name__ == "__main__":
-    path_to_output = f'/lustre/groups/cbi/Users/aeliseev/aivanova/data/distance'
+    path_to_output = f'/lustre/groups/cbi/Users/aeliseev/aivanova/data/density'
     # path_to_output = f'/Users/alexandra/bioinf/mcmc/output/{min_contig_length_name}'
 
     chr_ind = '4'
@@ -19,10 +19,10 @@ if __name__ == "__main__":
 
     P = density(longest_contig_pairs)
 
-    p_range = range(0, 10000000, 100)
+    p_range = range(10000000)
+    plt.title('The density of distance between pair of reads')
     plt.plot(p_range, [P(x) for x in p_range])
-    plt.xlabel('d, distance estimate')
-    plt.ylabel('log likelihood')
+    plt.xlabel('x')
+    plt.ylabel('P(x)')
     plt.legend()
-    plt.xscale('log')
-    plt.savefig(f'{path_to_output}/plots_distance/log_likelihood.png')
+    plt.savefig(f'{path_to_output}/plots_density/log_likelihood.png')
