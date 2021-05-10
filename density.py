@@ -19,7 +19,7 @@ if __name__ == "__main__":
 
     P = density(longest_contig_pairs)
 
-    p_range = range(10000000)
+    p_range = range(100000 + 100)
     plt.title('The density of distance between pair of reads')
     plt.plot(p_range, [P(x) for x in p_range])
     plt.xlabel('x')
