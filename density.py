@@ -20,7 +20,7 @@ if __name__ == "__main__":
     P = density(longest_contig_pairs)
 
     p_range = range(0, 10000000, 100)
-    plt.plot(p_range, P(p_range))
+    plt.plot(p_range, [P(x) for x in p_range])
     plt.xlabel('d, distance estimate')
     plt.ylabel('log likelihood')
     plt.legend()
