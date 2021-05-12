@@ -19,12 +19,11 @@ if __name__ == "__main__":
 
     P, f = density(longest_contig_pairs)
 
-    p_range = range(110000)
+    p_range = range(200000)
     plt.title('The density of distance between pair of reads')
     plt.plot(p_range, [P(x) for x in p_range])
     plt.xlabel('x, distance')
     plt.ylabel('p(x), density in distance x')
-    plt.legend()
     plt.savefig(f'{path_to_output}/density_100k.png')
 
     plt.clf()
@@ -34,15 +33,13 @@ if __name__ == "__main__":
     plt.plot(p_range, [P(x) for x in p_range])
     plt.xlabel('x, distance')
     plt.ylabel('p(x), density in distance x')
-    plt.legend()
     plt.savefig(f'{path_to_output}/density_5k.png')
 
     plt.clf()
 
-    p_range = range(110000)
+    p_range = range(200000)
     plt.title('The density of distance between pair of reads')
-    plt.plot(p_range, [f(x) for x in p_range])
+    plt.plot(p_range, f(p_range))
     plt.xlabel('x, distance')
     plt.ylabel('p(x), density in distance x')
-    plt.legend()
     plt.savefig(f'{path_to_output}/density_f.png')
