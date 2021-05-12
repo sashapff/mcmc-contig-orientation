@@ -1,6 +1,7 @@
 from tools.load import get_contigs_and_pairs
 from tools.prob import density
 import matplotlib.pyplot as plt
+import numpy as np
 
 if __name__ == "__main__":
     path_to_output = f'/lustre/groups/cbi/Users/aeliseev/aivanova/data/density'
@@ -39,7 +40,7 @@ if __name__ == "__main__":
 
     p_range = range(200000)
     plt.title('The density of distance between pair of reads')
-    plt.plot(p_range, f(p_range))
+    plt.plot(p_range, f(np.array(p_range)))
     plt.xlabel('x, distance')
     plt.ylabel('p(x), density in distance x')
     plt.savefig(f'{path_to_output}/density_f.png')

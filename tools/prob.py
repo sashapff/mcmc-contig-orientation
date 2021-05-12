@@ -3,7 +3,7 @@ from sklearn.neighbors.kde import KernelDensity
 from scipy.optimize import curve_fit
 
 
-def density(reads, K0=3000, K1=100_000, K2=100_000, kde_method="linear"):
+def density(reads, K0=3000, K1=100_000, kde_method="linear"):
     """
     Estimating density of distances between peace of reads
     :param reads: reads[i,0] - position first peace of read; reads[i,1] - position second peace of read
@@ -27,14 +27,9 @@ def density(reads, K0=3000, K1=100_000, K2=100_000, kde_method="linear"):
     p = lambda x, a, b: a + b * np.log(x)
     param1, cov = curve_fit(p, x1, f(x1))
 
-    x2 = np.logspace(np.log10(K1 - 1000), np.log10(K2), 500)
-    p = lambda x, a, b: a + b * np.log(x)
-    param2, cov = curve_fit(p, x2, f(x2))
-
     P = (lambda x: np.where(x < K0, np.poly1d(param0)(x),
                    np.where(x < K1, param1[0] + param1[1] * np.log(x),
-                   np.where(x < K2, param2[0] + param2[1] * np.log(x),
-                                    param2[0] + param2[1] * np.log(K2)))))
+                                    param1[0] + param1[1] * np.log(K1))))
 
     return P, f
 
