@@ -39,7 +39,7 @@ if __name__ == "__main__":
 
     plt.clf()
 
-    p_range = range(5000)
+    p_range = range(110000)
     plt.title('The density of distance between pair of reads')
     plt.plot(p_range, [f(x) for x in p_range])
     plt.xlabel('x, distance')
