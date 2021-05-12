@@ -38,12 +38,11 @@ def get_distance(pairs, contigs):
     S = S1 + S2 + pairs[:, 6]
     return S
 
-def get_distance_one_contig(filtered_pairs, left_len, right_len):
+def get_distance_one_contig(filtered_pairs, left_len):
     """
     Calculating distances between all reads
     """
     L1 = left_len
-    L2 = right_len
 
     S1 = (L1 - filtered_pairs[:, 1] + 1)
     S2 = filtered_pairs[:, 3] + 1

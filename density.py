@@ -5,7 +5,6 @@ import numpy as np
 
 if __name__ == "__main__":
     path_to_output = f'/lustre/groups/cbi/Users/aeliseev/aivanova/data/density'
-    # path_to_output = f'/Users/alexandra/bioinf/mcmc/output/{min_contig_length_name}'
 
     chr_ind = '4'
     path_layout = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/layouts/chr" + chr_ind + ".layout.txt"

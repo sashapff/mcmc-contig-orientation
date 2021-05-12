@@ -31,7 +31,7 @@ if __name__ == "__main__":
                                                                                             from_one_contig=True)
 
     # P = toy_density(longest_contig_pairs)
-    P = density(longest_contig_pairs)
+    P, f = density(longest_contig_pairs)
 
     ind = (pairs[:, 1] >= pairs[:, 3])
     pairs[ind, 1], pairs[ind, 3] = pairs[ind, 3], pairs[ind, 1]
@@ -49,7 +49,7 @@ if __name__ == "__main__":
 
     for i in log_likelihood_range:
         filtered_pairs[:, 6] = i
-        ll = P(get_distance_one_contig(filtered_pairs, left, longest_contig.length - right)).sum()
+        ll = P(get_distance_one_contig(filtered_pairs, left)).sum()
         log_likelihood_arr.append(ll)
         print(f'likelihood for d={i} is {ll}')
 

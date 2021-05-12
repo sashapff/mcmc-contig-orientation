@@ -29,7 +29,7 @@ def density(reads, K0=3000, K1=100_000, kde_method="linear"):
 
     P = (lambda x: np.where(x < K0, np.poly1d(param0)(x),
                    np.where(x < K1, param1[0] + param1[1] * np.log(x),
-                                    (param1[0] + param1[1] * np.log(K1)) * K1 / x)))
+                                    param1[0] + param1[1] * np.log(x))))
 
     return P, f
 
