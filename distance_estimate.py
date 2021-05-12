@@ -51,7 +51,7 @@ if __name__ == "__main__":
 
     for d in log_likelihood_range:
         filtered_pairs[:, 6] = d
-        coeff = quad(np.exp(P), d, 10**10)
+        coeff = np.log(quad(np.exp(P), d, 10**10))
         print(f'd={d}, coeff={coeff}')
         ll = P(get_distance_one_contig(filtered_pairs, left)).sum() * coeff
         log_likelihood_arr.append(ll)
