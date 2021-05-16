@@ -65,7 +65,7 @@ def simulation(max_len=1000, n_reads=10, n_contigs=2, p_distr=expon, output_path
         sym = "+"
         s.append("name{0}{1}".format(i, sym))
     with open(output_path + "simulation.layout.txt", "w") as f:
-        f.write('kek')
+        f.write('* ')
         f.writelines(",".join(s))
 
     # creating lens

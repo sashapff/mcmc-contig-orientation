@@ -1,5 +1,5 @@
 from tools.load import get_contigs_and_pairs
-from tools.prob import density
+from tools.prob import density, toy_density
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -17,7 +17,8 @@ if __name__ == "__main__":
                                                                                             min_len=0,
                                                                                             from_one_contig=True)
 
-    P, f = density(longest_contig_pairs)
+    # P, f = density(longest_contig_pairs)
+    P = toy_density(longest_contig_pairs)
 
     p_range = range(200000)
     plt.title('The approximate log density')

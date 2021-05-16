@@ -24,15 +24,15 @@ if __name__ == "__main__":
 
         # path_layout = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/layouts/chr" + chr_ind + ".layout.txt"
         # path_layout = "/Users/alexandra/bioinf/mcmc/data/chr1.layout.txt"
-        path_layout = "/Users/alexandra/bioinf/mcmc/data/simulation.layout.txt"
+        path_layout = "/Users/alexandra/bioinf/mcmc/data_sim/simulation.layout.txt"
 
         # path_lens = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/contig_length/contig.length." + chr_ind + ".txt"
         # path_lens = "/Users/alexandra/bioinf/mcmc/data/comp18_lens.tsv"
-        path_lens = "/Users/alexandra/bioinf/mcmc/data/simulation.lens.tsv"
+        path_lens = "/Users/alexandra/bioinf/mcmc/data_sim/simulation.lens.tsv"
 
         # path_pairs = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/pairs/chr_pairs" + chr_ind + ".txt"
         # path_pairs = "/Users/alexandra/bioinf/mcmc/data/pairs18.txt"
-        path_pairs = "/Users/alexandra/bioinf/mcmc/data/simulation.pairs.txt"
+        path_pairs = "/Users/alexandra/bioinf/mcmc/data_sim/simulation.pairs.txt"
 
         # # longest_contig
         # pairs, contigs, id_contig, longest_contig, longest_contig_name = get_contigs_and_pairs(path_layout, path_lens,
