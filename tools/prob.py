@@ -53,7 +53,7 @@ def toy_density(reads):
     Lambda = 1 / distances.mean()
     P = lambda x: Lambda * np.exp(-Lambda * x)
 
-    return P
+    return P, P
 
 
 def destiny_b(longest_contig_b, bins, contigs, resolution="100_000"):
