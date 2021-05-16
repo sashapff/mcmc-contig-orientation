@@ -29,7 +29,7 @@ if __name__ == "__main__":
     pairs, contigs, id_contig, longest_contig_pairs, longest_contig = get_contigs_and_pairs(path_layout, path_lens,
                                                                                             path_pairs,
                                                                                             long_contig=True,
-                                                                                            min_len=0,
+                                                                                            # min_len=0,
                                                                                             from_one_contig=True)
 
     # P = toy_density(longest_contig_pairs)
@@ -53,7 +53,7 @@ if __name__ == "__main__":
         filtered_pairs[:, 6] = d
         coeff = np.log(quad(np.exp(P), d, 10**10))
         print(f'd={d}, coeff={coeff}')
-        ll = P(get_distance_one_contig(filtered_pairs, left)).sum() * coeff
+        ll = P(get_distance_one_contig(filtered_pairs, left)).sum() / coeff
         log_likelihood_arr.append(ll)
         print(f'likelihood for d={d} is {ll}')
 
