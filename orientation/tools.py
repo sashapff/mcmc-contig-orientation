@@ -41,7 +41,7 @@ def change_orientation_log_likelihood(last_log_likelihood, number_changed_contig
     return new_lk
 
 
-def simulation(max_len=1000, n_reads=10, n_contigs=2, p_distr=expon):
+def simulation(max_len=1000, n_reads=10, n_contigs=2, p_distr=expon, output_path='../data'):
     """
     Creating data for simulation with our density
     :param max_len: max_len of genome
@@ -64,7 +64,8 @@ def simulation(max_len=1000, n_reads=10, n_contigs=2, p_distr=expon):
     for i in range(n_contigs):
         sym = "+"
         s.append("name{0}{1}".format(i, sym))
-    with open("../data/simulation.layout.txt", "w") as f:
+    with open(output_path + "simulation.layout.txt", "w") as f:
+        f.write('kek')
         f.writelines(",".join(s))
 
     # creating lens
@@ -73,7 +74,7 @@ def simulation(max_len=1000, n_reads=10, n_contigs=2, p_distr=expon):
         s.append("name{0}".format(i))
     z = [max_len // n_contigs for i in range(n_contigs)]
     df = pd.DataFrame([s, z]).T
-    df.to_csv("../data/simulation.lens.tsv", sep="\t", index=False, header=False)
+    df.to_csv(output_path + "simulation.lens.tsv", sep="\t", index=False, header=False)
 
     # creating pairs
     d = ["\t".join(map(str, ["*",
@@ -83,5 +84,5 @@ def simulation(max_len=1000, n_reads=10, n_contigs=2, p_distr=expon):
                              all_pos[i][1] % len_cont,
                              "-", "-"])) + "\n"
          for i in range(len(all_pos))]
-    with open("../data/simulation.pairs.txt", "w") as f:
+    with open(output_path + "simulation.pairs.txt", "w") as f:
         f.writelines(d)

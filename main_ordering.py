@@ -12,48 +12,45 @@ if __name__ == "__main__":
     min_contig_length = 100_000
     min_contig_length_name = '100k'
 
-    path_to_output = f'/lustre/groups/cbi/Users/aeliseev/aivanova/data/{min_contig_length_name}'
-    # path_to_output = f'/Users/alexandra/bioinf/mcmc/output/{min_contig_length_name}'
+    # path_to_output = f'/lustre/groups/cbi/Users/aeliseev/aivanova/data/{min_contig_length_name}'
+    path_to_output = f'/Users/alexandra/bioinf/mcmc/ordering_sim/'
 
     # chromosomes = ['1', '2', '3', '4', '5', '6', '7', '8', '10', '11', '12', '13',
     #                '14', '15', '16', '17', '18', '19', '20', '21', '22']
-    chromosomes = ['11']
+    chromosomes = ['Sim']
 
     for chr_ind in chromosomes:
         print(f'Chromosome {chr_ind}')
 
-        path_layout = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/layouts/chr" + chr_ind + ".layout.txt"
+        # path_layout = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/layouts/chr" + chr_ind + ".layout.txt"
         # path_layout = "/Users/alexandra/bioinf/mcmc/data/chr1.layout.txt"
-        # path_layout = "/Users/alexandra/bioinf/mcmc/data/simulation.layout.txt"
+        path_layout = "/Users/alexandra/bioinf/mcmc/data/simulation.layout.txt"
 
-        # if chr_ind == '9':
-        # path_layout = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/layouts/chr9.partial_layout.txt"
-
-        path_lens = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/contig_length/contig.length." + chr_ind + ".txt"
+        # path_lens = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/contig_length/contig.length." + chr_ind + ".txt"
         # path_lens = "/Users/alexandra/bioinf/mcmc/data/comp18_lens.tsv"
-        # path_lens = "/Users/alexandra/bioinf/mcmc/data/simulation.lens.tsv"
+        path_lens = "/Users/alexandra/bioinf/mcmc/data/simulation.lens.tsv"
 
-        path_pairs = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/pairs/chr_pairs" + chr_ind + ".txt"
+        # path_pairs = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/pairs/chr_pairs" + chr_ind + ".txt"
         # path_pairs = "/Users/alexandra/bioinf/mcmc/data/pairs18.txt"
-        # path_pairs = "/Users/alexandra/bioinf/mcmc/data/simulation.pairs.txt"
+        path_pairs = "/Users/alexandra/bioinf/mcmc/data/simulation.pairs.txt"
 
         # # longest_contig
-        pairs, contigs, id_contig, longest_contig, longest_contig_name = get_contigs_and_pairs(path_layout, path_lens,
-                                                                                               path_pairs,
-                                                                                               min_len=min_contig_length,
-                                                                                               long_contig=True)
-        # pairs, contigs, id_contig, longest_contig, longest_contig_name, in_contigs = get_contigs_and_pairs(path_layout,
-        #                                                                                                    path_lens,
-        #                                                                                                    path_pairs,
-        #                                                                                                    long_contig=True,
-        #                                                                                                    all_contigs=True,
-        #                                                                                                    min_len=0)
+        # pairs, contigs, id_contig, longest_contig, longest_contig_name = get_contigs_and_pairs(path_layout, path_lens,
+        #                                                                                        path_pairs,
+        #                                                                                        min_len=min_contig_length,
+        #                                                                                        long_contig=True)
+        pairs, contigs, id_contig, longest_contig, longest_contig_name, in_contigs = get_contigs_and_pairs(path_layout,
+                                                                                                           path_lens,
+                                                                                                           path_pairs,
+                                                                                                           long_contig=True,
+                                                                                                           all_contigs=True,
+                                                                                                           min_len=0)
 
         correct_contigs = [contig.pos for contig in contigs]
 
         print("Estimation of density...")
-        P = density(longest_contig)
-        # P = toy_density(longest_contig)
+        # P = density(longest_contig)
+        P = toy_density(longest_contig)
         print("Estimation of density is done")
 
         print("MCMC is running...")

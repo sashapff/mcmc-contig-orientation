@@ -84,7 +84,8 @@ def check_reads(path_pairs, output_path, chr_ind):
         plt.hist(pos[k])
         plt.xlabel(xlabel='position')
         plt.ylabel(f'contig {k}')
-        plt.savefig(f'{output_path}/plots_check/positions_chr{chr_ind}_{k}.png')
+        plt.savefig(f'{output_path}/positions_chr{chr_ind}_{k}.png')
+        plt.clf()
     print('Finish checking')
 
 
