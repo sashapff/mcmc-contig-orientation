@@ -11,8 +11,6 @@ if __name__ == "__main__":
     # output_path = f'/lustre/groups/cbi/Users/aeliseev/aivanova/data/'
     output_path = '/Users/alexandra/bioinf/mcmc/simulate/'
 
-    # check_reads(path_pairs, output_path, chr_ind)
-
     # path_layout = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/layouts/chr" + chr_ind + ".layout.txt"
     # path_layout = "/Users/alexandra/bioinf/mcmc/data/chr1.layout.txt"
     path_layout = "/Users/alexandra/bioinf/mcmc/data/simulation.layout.txt"
@@ -92,3 +90,5 @@ if __name__ == "__main__":
     plt.ylabel(f'number of reads')
     plt.savefig(f'{output_path}/positions_1.png')
     plt.clf()
+
+    check_reads(path_pairs, output_path, 'sim')
