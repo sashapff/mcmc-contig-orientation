@@ -51,7 +51,7 @@ if __name__ == "__main__":
     filtered_pairs = filter_pairs(pairs, id_contig[longest_contig.name], left, right)
 
     # P, f = simulate_distance(filtered_pairs, longest_contig_len)
-    P, f = density(longest_contig_pairs)
+    P, f = density(filtered_pairs)
     P = normalize(P, 0, np.inf)
 
     p_range = range(1000)
