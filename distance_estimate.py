@@ -4,6 +4,7 @@ from tools.tools import get_longest_contig, filter_pairs, log_likelihood, get_di
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.integrate import quad
+import math
 
 if __name__ == "__main__":
     print("Start!")
@@ -51,9 +52,10 @@ if __name__ == "__main__":
 
     for d in log_likelihood_range:
         filtered_pairs[:, 6] = d
-        coeff = np.log(quad(lambda x : np.exp(P(x)), d, 10**10))
+        quad, _ = quad(lambda x: np.exp(P(x)), d, 10**10)
+        coeff = np.log(quad)
         print(f'd={d}, coeff={coeff}')
-        ll = P(get_distance_one_contig(filtered_pairs, left)).sum() / coeff
+        ll = (P(get_distance_one_contig(filtered_pairs, left)) - np.log(coeff)).sum()
         log_likelihood_arr.append(ll)
         print(f'likelihood for d={d} is {ll}')
 
