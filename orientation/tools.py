@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
-from scipy.stats import expon
+from scipy.stats import expon, uniform
+from tqdm import tqdm
 
 from tools.tools import get_distance
 
@@ -53,9 +54,9 @@ def simulation(max_len=1000, n_reads=10, n_contigs=2, p_distr=expon, output_path
     max_len = max_len - max_len % n_contigs
     len_cont = int(max_len / n_contigs)
 
-    for i in range(n_reads):
+    for i in tqdm(range(n_reads)):
         first = np.random.randint(0, max_len)
-        second = first + int(p_distr.rvs() * 15)  # 4000
+        second = first + int(p_distr.rvs() * 100)  # 4000
         if second < max_len:
             all_pos.append([first, second])
 

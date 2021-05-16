@@ -5,12 +5,12 @@ from scipy.optimize import curve_fit
 
 
 def normalize(P, a=0, b=10 ** 10):
-    print('before', quad(lambda x: np.exp(P(x)), 0, 10 ** 10))
+    # print('before', quad(lambda x: np.exp(P(x)), a, b))
     quad_value, _ = quad(lambda x: np.exp(P(x)), a, b)
     coeff = np.log(quad_value)
-    print(f'coeff={coeff}')
-    P_norm = lambda x: P(x) - np.log(coeff)
-    print('after', quad(lambda x: np.exp(P_norm(x)), 0, 10 ** 10))
+    # print(f'coeff={coeff}')
+    P_norm = lambda x: P(x) - coeff
+    # print('after', quad(lambda x: np.exp(P_norm(x)), a, b))
     return P_norm
 
 
@@ -50,9 +50,20 @@ def toy_density(reads):
     Function for estimating simulation density
     """
     distances = np.abs(reads[:, 0] - reads[:, 1])
-    Lambda = 1 / distances.mean()
-    P = lambda x: Lambda * np.exp(-Lambda * x)
+    Lambda = 1 / distances.umean()
+    P = lambda x: np.log(Lambda) - Lambda * x
 
+    return P, P
+
+
+def simulate_distance(pairs, contig_len):
+    """
+    Function for estimating simulation density
+    """
+    distances = np.abs(pairs[:, 1] - pairs[:, 3])
+    Lambda = 1 / distances.mean()
+    P = lambda x: np.log(Lambda) - Lambda * x
+    # P = lambda x: np.where(x < 0, 0, np.where(x < contig_len, np.log(1 / (2 * distances.mean())), 0))
     return P, P
 
 

@@ -49,8 +49,8 @@ if __name__ == "__main__":
         correct_contigs = [contig.pos for contig in contigs]
 
         print("Estimation of density...")
-        # P = density(longest_contig)
-        P = toy_density(longest_contig)
+        # P, f = density(longest_contig)
+        P, f = toy_density(longest_contig)
         print("Estimation of density is done")
 
         print("MCMC is running...")

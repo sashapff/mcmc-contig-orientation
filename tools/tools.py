@@ -69,4 +69,5 @@ def log_likelihood(pairs, contigs, P):
 
 def filter_pairs(pairs, contig_id, left, right):
     indx = (pairs[:, 0] == contig_id) & (pairs[:, 2] == contig_id) & (pairs[:, 1] < left) & (pairs[:, 3] >= right)
+    # indx = (pairs[:, 0] == contig_id) & (pairs[:, 2] == contig_id) & (pairs[:, 3] - pairs[:, 1] >= d)
     return pairs[indx]
