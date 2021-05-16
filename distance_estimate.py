@@ -1,7 +1,7 @@
 from scipy.stats import uniform
 from orientation.tools import simulation
 from tools.load import get_contigs_and_pairs
-from tools.prob import density, toy_density, normalize, simulate_distance
+from tools.prob import density, toy_density, normalize, simulate_distance, estimate_density
 from tools.tools import get_longest_contig, filter_pairs, log_likelihood, get_distance_one_contig
 import matplotlib.pyplot as plt
 import numpy as np
@@ -51,7 +51,7 @@ if __name__ == "__main__":
     filtered_pairs = filter_pairs(pairs, id_contig[longest_contig.name], left, right)
 
     # P, f = simulate_distance(filtered_pairs, longest_contig_len)
-    P, f = density(filtered_pairs)
+    P, f = estimate_density(filtered_pairs)
     P = normalize(P, 0, np.inf)
 
     p_range = range(1000)

@@ -66,6 +66,35 @@ def simulate_distance(pairs, contig_len):
     # P = lambda x: np.where(x < 0, 0, np.where(x < contig_len, np.log(1 / (2 * distances.mean())), 0))
     return P, P
 
+def estimate_density(reads, K0=3000, K1=100_000, kde_method="linear"):
+    """
+    Estimating density of distances between peace of reads
+    :param reads: reads[i,0] - position first peace of read; reads[i,1] - position second peace of read
+    :param K0: end of poly approximation
+    :param K1: end of first log approximation
+    :param K2: end of second log approximation
+    :param kde_method: type of kernel in KernelDensity
+    :return:
+    """
+    distances = np.abs(reads[:, 1] - reads[:, 3])
+
+    kde = KernelDensity(kernel=kde_method, bandwidth=200).fit(distances.reshape(-1, 1))
+    f = lambda x: kde.score_samples(x.reshape(-1, 1))
+
+    # proximal
+    degree = 30
+    x0 = np.logspace(0, np.log10(K0 + 1000), 500)
+    param0 = np.polyfit(x0, f(x0), degree)
+
+    x1 = np.logspace(np.log10(K0 - 1000), np.log10(K1), 500)
+    p = lambda x, a, b: a + b * np.log(x)
+    param1, cov = curve_fit(p, x1, f(x1))
+
+    P = (lambda x: np.where(x < K0, np.poly1d(param0)(x),
+                            np.where(x < K1, param1[0] + param1[1] * np.log(x),
+                                     param1[0] + param1[1] * np.log(x))))
+
+    return P, f
 
 def destiny_b(longest_contig_b, bins, contigs, resolution="100_000"):
     value, first_bins, second_bins = longest_contig_b
