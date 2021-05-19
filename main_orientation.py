@@ -38,11 +38,11 @@ if __name__ == "__main__":
             path_pairs = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/pairs/chr_pairs" + chr_ind + ".txt"
 
             # longest_contig
-            pairs, contigs, id_contig, longest_contig_pairs, longest_contig = get_contigs_and_pairs(path_layout, path_lens,
+            pairs, contigs, id_contig, longest_contig_pairs, longest_contig = get_contigs_and_pairs(path_layout,
+                                                                                                    path_lens,
                                                                                                     path_pairs,
                                                                                                     long_contig=True,
                                                                                                     min_len=min_contig_length)
-
 
             correct_contigs = [contig.o for contig in contigs]
 

@@ -1,8 +1,8 @@
 import numpy as np
 import random
 from tqdm import tqdm
-from ordering.tools import shuffle_ordering, change_position, change_position_log_likelihood, swap, swap_log_likelihood, \
-    swap_neigh
+from ordering.tools import shuffle_ordering, change_position, swap, swap_log_likelihood, \
+    swap_neigh, change_position_log_likelihood
 from tools.tools import log_likelihood
 
 
@@ -25,16 +25,18 @@ def MCMC(pairs, contigs, P, number_it=500):
         number_contig_1 = np.random.randint(0, len(contigs))
         number_contig_2 = np.random.randint(0, len(contigs))
 
+        last_contig_pos = contigs[number_contig_1].pos
+
         # lk_new = swap_log_likelihood(lk_old, number_contig_1, number_contig_2, pairs, contigs, P)
-        # swap_neigh(number_contig_1, pairs, contigs)
-        swap(number_contig_1, number_contig_2, pairs, contigs)
+        # lk_new = change_position_log_likelihood(lk_old, number_contig_1, number_contig_2, pairs, contigs, P)
+        change_position(number_contig_1, number_contig_2, pairs, contigs)
         lk_new = log_likelihood(pairs, contigs, P)
 
         if random.random() > np.exp(lk_new - lk_old):
             # Decline
             # print('decline')
-            # swap_neigh(number_contig_1, pairs, contigs)
-            swap(number_contig_1, number_contig_2, pairs, contigs)
+            # swap(number_contig_1, number_contig_2, pairs, contigs)
+            change_position(number_contig_1, last_contig_pos, pairs, contigs)
         else:
             # Accept
             # print('accept')

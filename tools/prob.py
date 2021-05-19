@@ -4,7 +4,7 @@ from sklearn.neighbors.kde import KernelDensity
 from scipy.optimize import curve_fit
 
 
-def normalize(P, a=0, b=10 ** 10):
+def normalize(P, a=0, b=np.inf):
     # print('before', quad(lambda x: np.exp(P(x)), a, b))
     quad_value, _ = quad(lambda x: np.exp(P(x)), a, b)
     coeff = np.log(quad_value)
@@ -50,13 +50,13 @@ def toy_density(reads):
     Function for estimating simulation density
     """
     distances = np.abs(reads[:, 0] - reads[:, 1])
-    Lambda = 1 / distances.umean()
+    Lambda = 1 / distances.mean()
     P = lambda x: np.log(Lambda) - Lambda * x
 
     return P, P
 
 
-def simulate_distance(pairs, contig_len):
+def simulate_density(pairs, contig_len):
     """
     Function for estimating simulation density
     """
