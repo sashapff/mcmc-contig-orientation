@@ -92,7 +92,7 @@ def simulation(max_len=1000, n_reads=10, n_contigs=2, p_distr=expon, output_path
 
     for i in tqdm(range(n_reads)):
         first = np.random.randint(0, max_len)
-        second = first + int(gamma.rvs(a=2) * 150)  # 4000
+        second = first + int(p_distr.rvs() * 150)  # 4000
         if second < max_len:
             all_pos.append([first, second])
 

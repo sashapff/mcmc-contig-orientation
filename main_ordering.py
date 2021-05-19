@@ -18,7 +18,7 @@ if __name__ == "__main__":
     # chromosomes = ['1', '2', '3', '4', '5', '6', '7', '8', '10', '11', '12', '13',
     #                '14', '15', '16', '17', '18', '19', '20', '21', '22']
     # chromosomes = ['Sim']
-    chromosomes = ['1']
+    chromosomes = ['11']
 
     # simulation(1_000, 10_000, 5, output_path='/Users/alexandra/bioinf/mcmc/data_sim/')
     #
@@ -39,17 +39,17 @@ if __name__ == "__main__":
         # path_pairs = "/Users/alexandra/bioinf/mcmc/data_sim/simulation.pairs.txt"
 
         # # longest_contig
-        # pairs, contigs, id_contig, longest_contig, longest_contig_name = get_contigs_and_pairs(path_layout, path_lens,
-        #                                                                                        path_pairs,
-        #                                                                                        min_len=min_contig_length,
-        #                                                                                        long_contig=True)
-        pairs, contigs, id_contig, longest_contig, longest_contig_name, in_contigs = get_contigs_and_pairs(
-            path_layout,
-            path_lens,
-            path_pairs,
-            long_contig=True,
-            all_contigs=True,
-            min_len=0)
+        pairs, contigs, id_contig, longest_contig, longest_contig_name = get_contigs_and_pairs(path_layout, path_lens,
+                                                                                               path_pairs,
+                                                                                               min_len=min_contig_length,
+                                                                                               long_contig=True)
+        # pairs, contigs, id_contig, longest_contig, longest_contig_name, in_contigs = get_contigs_and_pairs(
+        #     path_layout,
+        #     path_lens,
+        #     path_pairs,
+        #     long_contig=True,
+        #     all_contigs=True,
+        #     min_len=0)
 
         correct_contigs = [contig.pos for contig in contigs]
 
