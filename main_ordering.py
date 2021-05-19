@@ -9,8 +9,8 @@ from tools.tools import log_likelihood, simulation
 
 if __name__ == "__main__":
     print("Start!")
-    # min_contig_length = 100_000
-    # min_contig_length_name = '100k'
+    min_contig_length = 100_000
+    min_contig_length_name = '100k'
 
     path_to_output = f'/lustre/groups/cbi/Users/aeliseev/aivanova/data/{min_contig_length_name}'
     # path_to_output = f'/Users/alexandra/bioinf/mcmc/ordering_sim/'
