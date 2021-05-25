@@ -4,6 +4,7 @@
 Based on collected contigs and a Hi-C signal, it is necessary to assemble the genome, that is, to orient and order the contigs and estimate the distances between them.
 
 ## Methods
+### Monte Carlo Markov Chain method
 * Randomly choose the initial state (orientation or order)
 * Repeat iteratively
     1. Making a random change (changing orientation or order)
