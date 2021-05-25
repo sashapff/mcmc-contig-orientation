@@ -3,4 +3,4 @@
 #SBATCH -p debug
 #SBATCH -o output/orientation.txt
 
-python main_orientation.py
+python orientation.py
