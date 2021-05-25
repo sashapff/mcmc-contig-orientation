@@ -1,5 +1,4 @@
-# HiC_MCMC
-The orientation of contigs using Hi-C data
+# Contigs ordering using Hi-C data
 
 ## Purpose of the project:
 Existing scaffolding algorithms using Hi-C data is good in finding orders of contigs. However, this builds contain sufficient numbers of errors at orientations. We apply a probability model for resolving this problem.
