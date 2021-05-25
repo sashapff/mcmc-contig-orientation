@@ -6,8 +6,8 @@ Based on collected contigs and a Hi-C signal, it is necessary to assemble the ge
 ## Methods
 * Randomly choose the initial state (orientation or order)
 * Repeat iteratively
- * Making a random change (changing orientation or order)
- * If the likelihood function (P) has increased, then we accept the change, otherwise we accept with probability: P(new state)/P(old state)
+ - Making a random change (changing orientation or order)
+ - If the likelihood function (P) has increased, then we accept the change, otherwise we accept with probability: P(new state)/P(old state)
 
 ## Usage:
 
