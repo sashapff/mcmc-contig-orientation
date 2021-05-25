@@ -1,16 +1,10 @@
 # Contigs ordering using Hi-C data
 
 ## Purpose of the project:
-Existing scaffolding algorithms using Hi-C data is good in finding orders of contigs. However, this builds contain sufficient numbers of errors at orientations. We apply a probability model for resolving this problem.
+Based on collected contigs and a Hi-C signal, it is necessary to assemble the genome, that is, to orient and order the contigs and estimate the distances between them.
 
 ## Usage:
-I. load data with function get_contigs_and_pairs
 
-II. estimate density of distance between pieces of reads
-
-III. run the MSMS algorithm
-
-(see HiC_MCMC/main)
 
 ## Dependencies:
 * Python 3.7
@@ -22,7 +16,7 @@ Python dependencies can be installed with pip:
  `
 
 ## Input data:
-Data has to contain information about HiC reads in to follow a format
+Data has to contain information about Hi-C reads in to follow a format
 
 1) pairs.txt
 
