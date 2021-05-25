@@ -13,6 +13,9 @@ Based on collected contigs and a Hi-C signal, it is necessary to assemble the ge
 ## Usage:
 
 
+## Examples:
+
+
 ## Dependencies:
 * Python 3.7
 
