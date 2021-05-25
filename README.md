@@ -6,8 +6,8 @@ Based on collected contigs and a Hi-C signal, it is necessary to assemble the ge
 ## Methods
 * Randomly choose the initial state (orientation or order)
 * Repeat iteratively
- - Making a random change (changing orientation or order)
- - If the likelihood function (P) has increased, then we accept the change, otherwise we accept with probability: P(new state)/P(old state)
+    1. Making a random change (changing orientation or order)
+    2. If the likelihood function (P) has increased, then we accept the change, otherwise we accept with probability: P(new state)/P(old state)
 
 ## Usage:
 
@@ -30,7 +30,7 @@ Data has to contain information about Hi-C reads in to follow a format
 
 2) len.tsv
 
-| name of contig | his length |
+| name of contig | its length |
 
 3) layout.txt has to contain order of contigs with the current orientation
 
