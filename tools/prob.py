@@ -5,12 +5,9 @@ from scipy.optimize import curve_fit
 
 
 def normalize(P, a=0, b=np.inf):
-    # print('before', quad(lambda x: np.exp(P(x)), a, b))
     quad_value, _ = quad(lambda x: np.exp(P(x)), a, b)
     coeff = np.log(quad_value)
-    # print(f'coeff={coeff}')
     P_norm = lambda x: P(x) - coeff
-    # print('after', quad(lambda x: np.exp(P_norm(x)), a, b))
     return P_norm
 
 

@@ -14,14 +14,11 @@ if __name__ == "__main__":
     chromosomes = ['1', '2', '3', '4', '5', '6', '7', '8', '10', '11', '12', '13',
                    '14', '15', '16', '17', '18', '19', '20', '21', '22']
 
-    # chromosomes = ['1']
-
     for (min_contig_length, min_contig_length_name) in [(100_000, '100k'), (50_000, '50k'), (25_000, '25k')]:
 
         pairs_arr, contigs_arr, id_contig_arr, longest_contig_pairs_arr, longest_contig_arr, correct_contigs_arr = [], [], [], [], [], []
 
         path_to_output = f'/lustre/groups/cbi/Users/aeliseev/aivanova/data/{min_contig_length_name}'
-        # path_to_output = f'/Users/alexandra/bioinf/mcmc/output/{min_contig_length_name}'
 
         with open(f"{path_to_output}/stat.txt", "w") as file:
             pass
@@ -30,9 +27,6 @@ if __name__ == "__main__":
             print(f'Chromosome {chr_ind}')
 
             path_layout = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/layouts/chr" + chr_ind + ".layout.txt"
-
-            # if chr_ind == '9':
-            # path_layout = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/layouts/chr9.partial_layout.txt"
 
             path_lens = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/contig_length/contig.length." + chr_ind + ".txt"
             path_pairs = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/pairs/chr_pairs" + chr_ind + ".txt"
@@ -56,7 +50,6 @@ if __name__ == "__main__":
         print("Estimation of density...")
 
         P = density(get_longest_contig(longest_contig_pairs_arr, longest_contig_arr))
-        # P = toy_density(get_longest_contig(longest_contig_pairs_arr, longest_contig_arr))
         print("Estimation of density is done")
 
         for (j, chr_ind) in enumerate(chromosomes):

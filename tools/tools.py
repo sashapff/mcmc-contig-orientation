@@ -74,7 +74,6 @@ def log_likelihood(pairs, contigs, P):
 
 def filter_pairs(pairs, contig_id, left, right):
     indx = (pairs[:, 0] == contig_id) & (pairs[:, 2] == contig_id) & (pairs[:, 1] < left) & (pairs[:, 3] >= right)
-    # indx = (pairs[:, 0] == contig_id) & (pairs[:, 2] == contig_id) & (pairs[:, 3] - pairs[:, 1] >= d)
     return pairs[indx]
 
 
@@ -92,7 +91,7 @@ def simulation(max_len=1000, n_reads=10, n_contigs=2, p_distr=expon, output_path
 
     for i in tqdm(range(n_reads)):
         first = np.random.randint(0, max_len)
-        second = first + int(p_distr.rvs() * 150)  # 4000
+        second = first + int(p_distr.rvs() * 400)  # 4000
         if second < max_len:
             all_pos.append([first, second])
 

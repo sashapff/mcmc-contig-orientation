@@ -1,5 +1,4 @@
 from scipy.stats import uniform
-from orientation.tools import simulation
 from tools.load import get_contigs_and_pairs
 from tools.prob import density, toy_density, normalize, simulate_density, estimate_density
 from tools.tools import get_longest_contig, filter_pairs, log_likelihood, get_distance_one_contig
@@ -22,13 +21,13 @@ if __name__ == "__main__":
     # path_lens = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/contig_length/contig.length." + chr_ind + ".txt"
     # path_pairs = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/pairs/chr_pairs" + chr_ind + ".txt"
 
-    # # path_layout = "/Users/alexandra/bioinf/mcmc/data/chr1.layout.txt"
+    # path_layout = "/Users/alexandra/bioinf/mcmc/data/chr1.layout.txt"
     path_layout = "/Users/alexandra/bioinf/mcmc/data_sim/simulation.layout.txt"
-    # #
-    # # path_lens = "/Users/alexandra/bioinf/mcmc/data/comp18_lens.tsv"
+
+    # path_lens = "/Users/alexandra/bioinf/mcmc/data/comp18_lens.tsv"
     path_lens = "/Users/alexandra/bioinf/mcmc/data_sim/simulation.lens.tsv"
-    # #
-    # # path_pairs = "/Users/alexandra/bioinf/mcmc/data/pairs18.txt"
+
+    # path_pairs = "/Users/alexandra/bioinf/mcmc/data/pairs18.txt"
     path_pairs = "/Users/alexandra/bioinf/mcmc/data_sim/simulation.pairs.txt"
 
     # longest_contig
@@ -61,14 +60,12 @@ if __name__ == "__main__":
     plt.plot(p_range, [P(x) for x in p_range])
     plt.xlabel('x, distance')
     plt.ylabel('p(x), approximate log density')
-    # plt.savefig(f'{path_to_output}/approximate_5k.png')
     plt.show()
     plt.clf()
 
     filtered_pairs[:, 3] -= right
 
     log_likelihood_arr = []
-    # log_likelihood_range = [1, 10, 100, 1000, 10_000, 100_000, 1_000_000]
     log_likelihood_range = range(0, longest_contig_len, 100)
 
     for d in log_likelihood_range:
@@ -76,7 +73,6 @@ if __name__ == "__main__":
         P_norm = normalize(P, d, np.inf)
         ll = P_norm(get_distance_one_contig(filtered_pairs, left)).sum()
         log_likelihood_arr.append(ll)
-        # print(f'd={d} \tll={ll}')
     plt.plot(log_likelihood_range, log_likelihood_arr)
     plt.xlabel('d, distance estimate')
     plt.ylabel('log likelihood')

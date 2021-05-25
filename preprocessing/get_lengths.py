@@ -1,5 +1,4 @@
 import h5py
-import numpy as np
 
 if __name__ == "__main__":
     chr_indexes = ['MT', 'X']
@@ -12,11 +11,6 @@ if __name__ == "__main__":
     path_output = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/contig_length"
 
     matrix_filename = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/chm13.draft_v0.9.matrix.cool"
-
-    # path = "/Users/alexandra/bioinf/mcmc/data/"
-    #
-    # matrix_filename = path + "mat18_50k.cool"
-    # output_file = open(path + "contig_length.txt", "w")
 
     for ind in chr_indexes:
         if ind != "9":

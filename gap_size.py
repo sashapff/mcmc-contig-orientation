@@ -14,8 +14,6 @@ def uniform_naive_distribution(n_reads=10000, scale=100, D=50):
 
     distances_D = distances[distances > D]
 
-    # Lambda = 1 / distances.mean()
-    # P = lambda x: Lambda * np.exp(-Lambda * x)
     P = lambda x: np.where(x < 0, 0, np.where(x < scale, 1 / (2 * distances.mean()), 0))
 
     quad_value, _ = quad(lambda x: P(x), 0, np.inf)
@@ -38,9 +36,7 @@ def uniform_naive_distribution(n_reads=10000, scale=100, D=50):
         log_likelihood = 0
         quad_value, _ = quad(lambda x: P(x), d, np.inf)
         P_d = lambda x: np.where(x <= d, 0, P(x) / quad_value)
-        # quad_value_d, _ = quad(lambda x: P_d(x), d, np.inf)
-        # print(f'quad_value: {quad_value_d}')
-        for distance in distances_D:
+        for distance in distances_D - D + d:
             if distance > d:
                 log_likelihood += np.log(P_d(distance))
             else:
@@ -66,16 +62,6 @@ def expon_naive_distribution(n_reads=10000, scale=100, D=50):
     quad_value, _ = quad(lambda x: P(x), 0, np.inf)
     print(f'quad_value: {quad_value}')
 
-    # sns.distplot(distances, norm_hist=True, kde=False)
-    # plt.title(f'Real distances distribution')
-    # x_range = range(distances.max())
-    # plt.plot(x_range, [P(x) for x in x_range])
-    # plt.show()
-    #
-    # sns.distplot(distances_D, norm_hist=True, kde=False)
-    # plt.title(f'Distances distribution, d > {D}')
-    # plt.show()
-
     log_likelihoods = []
 
     d_range = range(0, 2 * D)
@@ -83,8 +69,6 @@ def expon_naive_distribution(n_reads=10000, scale=100, D=50):
         log_likelihood = 0
         quad_value, _ = quad(lambda x: P(x), d, np.inf)
         P_d = lambda x: np.where(x <= d, 0, P(x) / quad_value)
-        # quad_value_d, _ = quad(lambda x: P_d(x), d, np.inf)
-        # print(f'quad_value: {quad_value_d}')
         for distance in distances_D:
             if distance > d:
                 log_likelihood += np.log(P_d(distance))
@@ -129,9 +113,7 @@ def norm_naive_distribution(n_reads=10000, scale=100, D=50):
         log_likelihood = 0
         quad_value, _ = quad(lambda x: P(x), d, np.inf)
         P_d = lambda x: np.where(x <= d, 0, P(x) / quad_value)
-        # quad_value_d, _ = quad(lambda x: P_d(x), d, np.inf)
-        # print(f'quad_value: {quad_value_d}')
-        for distance in distances_D:
+        for distance in distances_D - D + d:
             if distance > d:
                 log_likelihood += np.log(P_d(distance))
             else:
@@ -149,26 +131,41 @@ def gamma_naive_distribution(n_reads=10000, scale=100, D=50):
             distance = int(gamma.rvs(a=2, scale=scale))
             distances[i] = distance
 
-        distances_D = distances[distances > D]
+        distances_D = []
+        for d in distances:
+            if d > D:
+                distances_D.append(d)
+            else:
+                distances_D.append(1500)
+        distances_D = np.array(distances_D)
 
         P = lambda x: gamma.pdf(x, a=2, scale=scale)
 
         quad_value, _ = quad(lambda x: P(x), -np.inf, np.inf)
         print(f'quad_value: {quad_value}')
 
+        sns.distplot(distances_D, norm_hist=True, kde=False)
+        plt.title(f'Observed distances distribution')
+        x_range = range(distances.min(), distances.max())
+        plt.plot(x_range, [P(x) for x in x_range], label='real probability density')
+        plt.xlabel('d, distance')
+        plt.axvline(x=50, label='correct distance', color='red')
+        plt.legend()
+        plt.xlim((distances.min(), distances.max()))
+        plt.ylabel('p(d), probability density')
+        plt.show()
+
         sns.distplot(distances, norm_hist=True, kde=False)
         plt.title(f'Real distances distribution')
         x_range = range(distances.max())
         plt.plot(x_range, [P(x) for x in x_range])
+        plt.xlabel('d, distance')
+        plt.ylabel('p(d), probability density')
+        plt.xlim((distances.min(), distances.max()))
         plt.show()
 
         quad_value, _ = quad(lambda x: P(x), D, np.inf)
         P_D = lambda x: np.where(x <= D, 0, P(x) / quad_value)
-
-        sns.distplot(distances_D, norm_hist=True, kde=False)
-        plt.title(f'Distances distribution, d > {D}')
-        x_range = range(distances_D.max())
-        plt.plot(x_range, [P_D(x) for x in x_range], label='correct')
 
         log_likelihoods = []
 
@@ -177,9 +174,7 @@ def gamma_naive_distribution(n_reads=10000, scale=100, D=50):
             log_likelihood = 0
             quad_value, _ = quad(lambda x: P(x), d, np.inf)
             P_d = lambda x: np.where(x <= d, 0, P(x) / quad_value)
-            # quad_value_d, _ = quad(lambda x: P_d(x), d, np.inf)
-            # print(f'quad_value: {quad_value_d}')
-            for distance in distances_D:
+            for distance in distances_D - D + d:
                 if distance > d:
                     log_likelihood += np.log(P_d(distance))
                 else:
@@ -192,7 +187,11 @@ def gamma_naive_distribution(n_reads=10000, scale=100, D=50):
         plt.show()
 
         plt.plot(d_range, log_likelihoods)
+        plt.axvline(x=50, label='correct distance', color='red')
         plt.title('Log likelihood')
+        plt.legend()
+        plt.ylabel('log_likelihood(d)')
+        plt.xlabel('d, distance estimate')
         plt.show()
 
 def expon_real_distribution(contig_length=10_000, n_reads=10000, scale=1000, D=500):
@@ -252,8 +251,6 @@ def expon_real_distribution(contig_length=10_000, n_reads=10000, scale=1000, D=5
         log_likelihood = 0
         quad_value, _ = quad(lambda x: P(x), d, np.inf)
         P_d = lambda x: np.where(x <= d, 0, P(x) / quad_value)
-        # quad_value_d, _ = quad(lambda x: P_d(x), d, np.inf)
-        # print(f'd: {d}\tquad_value: {quad_value}')
         for distance in (distances_D - D + d):
             if distance > d:
                 log_likelihood += np.log(P_d(distance))
@@ -292,33 +289,25 @@ def gamma_real_distribution(contig_length=10_000, n_reads=10000, scale=1000, D=5
     for i in range(len(lefts)):
         if lefts[i] < gap_start and rights[i] > gap_start + D:
             distances_D.append(distances[i])
-        # else:
-        #     distances_D.append(np.random.randint(contig_length, contig_length + 100))
 
     distances_D = np.array(distances_D)
 
-    # quad_D, _ = quad(lambda x: P(x), D, np.inf)
+    sns.distplot(distances, norm_hist=True, kde=False)
+    plt.title(f'Real distances distribution')
+    x_range = range(distances.min(), distances.max())
+    plt.plot(x_range, [P(x) for x in x_range])
+    plt.xlabel('d, distance')
+    plt.ylabel('p(d), probability density')
+    plt.show()
 
-    # sns.distplot(distances, norm_hist=True, kde=False)
-    # plt.title(f'Real distances distribution')
-    # x_range = range(distances.min(), distances.max())
-    # plt.plot(x_range, [P(x) for x in x_range])
-    # plt.xlabel('d, distance')
-    # plt.ylabel('p(d), probability density')
-    # plt.show()
-    #
-    # sns.distplot(distances_D, norm_hist=True, kde=False)
-    # plt.title(f'Real distances distribution')
-    # x_range = range(distances_D.min(), distances_D.max())
-    # plt.plot(x_range, [P(x) for x in x_range], label='real probability density')
-    # plt.xlabel('d, distance')
-    # plt.ylabel('p(d), probability density')
-    # plt.show()
+    sns.distplot(distances_D, norm_hist=True, kde=False)
+    plt.title(f'Real distances distribution')
+    x_range = range(distances_D.min(), distances_D.max())
+    plt.plot(x_range, [P(x) for x in x_range], label='real probability density')
+    plt.xlabel('d, distance')
+    plt.ylabel('p(d), probability density')
+    plt.show()
 
-
-    # sns.distplot(distances_D, norm_hist=True, kde=False)
-    # plt.title(f'Distances distribution, d > {D}')
-    x_range = range(distances_D.max())
 
     log_likelihoods = []
 
@@ -327,8 +316,6 @@ def gamma_real_distribution(contig_length=10_000, n_reads=10000, scale=1000, D=5
         log_likelihood = 0
         quad_value, _ = quad(lambda x: P(x), d, np.inf)
         P_d = lambda x: np.where(x <= d, 0, P(x) / quad_value)
-        # quad_value_d, _ = quad(lambda x: P_d(x), d, np.inf)
-        # print(f'd: {d}\tquad_value: {quad_value}')
         for distance in (distances_D - D + d):
             if distance > d:
                 log_likelihood += np.log(P_d(distance))
@@ -345,18 +332,11 @@ def gamma_real_distribution(contig_length=10_000, n_reads=10000, scale=1000, D=5
         plt.legend()
         plt.show()
 
-    # plt.xlabel('d, distance')
-    # plt.ylabel('p(d), probability density')
-    # plt.legend()
-    # plt.show()
-
     plt.plot(d_range, log_likelihoods)
     plt.title('Log likelihood')
     plt.show()
 
 if __name__ == "__main__":
-    # expon_real_distribution(contig_length=1000, n_reads=100_000, scale=100, D=50)
-    gamma_real_distribution(contig_length=1000, n_reads=100_000, scale=100, D=50)
-    # gamma_naive_distribution()
+    gamma_naive_distribution()
 
 

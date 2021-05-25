@@ -6,4 +6,4 @@
 
 module load python
 
-python get_contig_length.py
+python get_length.py

@@ -11,13 +11,6 @@ def shuffle_ordering(pairs, contigs, P, n_iterations=10):
         number_contig_1 = np.random.randint(0, len(contigs))
         number_contig_2 = np.random.randint(0, len(contigs))
         swap(number_contig_1, number_contig_2, pairs, contigs)
-        # swap_neigh(number_contig_1, pairs, contigs)
-
-    # for pos in range(len(contigs)):
-    #     for i in range(len(contigs)):
-    #         if ordering[i] == pos and contigs[i].pos != ordering[i]:
-    #             change_position(i, pos, pairs, contigs)
-    #             break
 
 
 def swap(number_contig_1, number_contig_2, pairs, contigs):
@@ -59,37 +52,6 @@ def swap(number_contig_1, number_contig_2, pairs, contigs):
         contigs[number_contig_2].pos, contigs[number_contig_1].pos
 
 
-def swap_neigh(number_contig_1, pairs, contigs):
-    number_contig_2 = number_contig_1
-
-    if contigs[number_contig_1].pos != len(contigs) - 1:
-        for (i, contig) in enumerate(contigs):
-            if contig.pos == contigs[number_contig_1].pos + 1:
-                number_contig_2 = i
-    else:
-        for (i, contig) in enumerate(contigs):
-            if contig.pos == contigs[number_contig_1].pos - 1:
-                number_contig_2 = i
-        number_contig_1, number_contig_2 = number_contig_2, number_contig_1
-
-    for pair in pairs:
-        if pair[0] == number_contig_1 and pair[2] == number_contig_2:
-            pair[0], pair[2] = pair[2], pair[0]
-            pair[1], pair[3] = pair[3], pair[1]
-            pair[4], pair[5] = pair[5], pair[4]
-        elif pair[0] == number_contig_1 and contigs[int(pair[2])].pos > contigs[number_contig_2].pos:
-            pair[6] -= contigs[number_contig_2].length
-        elif pair[2] == number_contig_1:
-            pair[6] += contigs[number_contig_2].length
-        elif pair[2] == number_contig_2 and contigs[int(pair[0])].pos < contigs[number_contig_1].pos:
-            pair[6] -= contigs[number_contig_1].length
-        elif pair[0] == number_contig_2:
-            pair[6] += contigs[number_contig_1].length
-
-    contigs[number_contig_1].pos, contigs[number_contig_2].pos = \
-        contigs[number_contig_2].pos, contigs[number_contig_1].pos
-
-
 def change_position(number_changed_contig, position_changed_contig, pairs, contigs):
     """
     TODO
@@ -108,105 +70,6 @@ def change_position(number_changed_contig, position_changed_contig, pairs, conti
                 if contigs[i].pos - 1 == contigs[number_changed_contig].pos:
                     swap(i, number_changed_contig, pairs, contigs)
                     break
-
-    # if position_changed_contig < contigs[number_changed_contig].pos:
-    #     previous_pos = contigs[number_changed_contig].pos
-    #     shift_length = 0
-    #     for i in range(len(contigs)):
-    #         if position_changed_contig <= contigs[i].pos < previous_pos:
-    #             contigs[i].pos += 1
-    #
-    #             ind = contigs[i].reads_ind
-    #             a = (pairs[ind][:, 0] == i)
-    #             indx_1 = np.where(a)[0]
-    #             indx_2 = np.where(~a)[0]
-    #
-    #             pairs[ind[indx_1], 6] -= contigs[number_changed_contig].length
-    #             pairs[ind[indx_2], 6] += contigs[number_changed_contig].length
-    #
-    #             # delta -= contigs[number_changed_contig].length * len(pairs[ind[indx_1], 6])
-    #             # delta += contigs[number_changed_contig].length * len(pairs[ind[indx_2], 6])
-    #
-    #             shift_length += contigs[i].length
-    #
-    #     ind = contigs[number_changed_contig].reads_ind
-    #     a = (pairs[ind][:, 0] == number_changed_contig)
-    #     indx_1 = np.where(a)[0]
-    #     indx_2 = np.where(~a)[0]
-    #
-    #     pairs[ind[indx_1], 6] += shift_length
-    #     pairs[ind[indx_2], 6] -= shift_length
-    #
-    #     # delta += shift_length * len(pairs[ind[indx_1], 6])
-    #     # delta -= shift_length * len(pairs[ind[indx_2], 6])
-    #
-    #     for i in range(len(contigs)):
-    #         if position_changed_contig < contigs[i].pos <= previous_pos and i != number_changed_contig:
-    #             ind = contigs[i].reads_ind
-    #             a = (pairs[ind][:, 0] == i)
-    #             indx0 = np.where(a)[0]
-    #             b = (pairs[ind[indx0]][:, 2] == number_changed_contig)
-    #             indx = np.where(b)[0]
-    #
-    #             # delta -= 2 * len(pairs[ind[indx], 6])
-    #
-    #             pairs[ind[indx], 6] = -pairs[ind[indx], 6]
-    #
-    #             pairs[ind[indx], 0], pairs[ind[indx], 2] = pairs[ind[indx], 2], pairs[ind[indx], 0]
-    #             pairs[ind[indx], 1], pairs[ind[indx], 3] = pairs[ind[indx], 3], pairs[ind[indx], 1]
-    #             pairs[ind[indx], 4], pairs[ind[indx], 5] = pairs[ind[indx], 5], pairs[ind[indx], 4]
-    #
-    #     contigs[number_changed_contig].pos = position_changed_contig
-    # else:
-    #     previous_pos = contigs[number_changed_contig].pos
-    #     shift_length = 0
-    #     for i in range(len(contigs)):
-    #         if position_changed_contig >= contigs[i].pos > previous_pos:
-    #             contigs[i].pos -= 1
-    #
-    #             ind = contigs[i].reads_ind
-    #             a = (pairs[ind][:, 0] == i)
-    #             indx_1 = np.where(a)[0]
-    #             indx_2 = np.where(~a)[0]
-    #
-    #             pairs[ind[indx_1], 6] += contigs[number_changed_contig].length
-    #             pairs[ind[indx_2], 6] -= contigs[number_changed_contig].length
-    #
-    #             # delta += contigs[number_changed_contig].length * len(pairs[ind[indx_1], 6])
-    #             # delta -= contigs[number_changed_contig].length * len(pairs[ind[indx_2], 6])
-    #
-    #             shift_length += contigs[i].length
-    #
-    #     ind = contigs[number_changed_contig].reads_ind
-    #     a = (pairs[ind][:, 0] == number_changed_contig)
-    #     indx_1 = np.where(a)[0]
-    #     indx_2 = np.where(~a)[0]
-    #
-    #     pairs[ind[indx_1], 6] -= shift_length
-    #     pairs[ind[indx_2], 6] += shift_length
-    #
-    #     # delta -= shift_length * len(pairs[ind[indx_1], 6])
-    #     # delta += shift_length * len(pairs[ind[indx_2], 6])
-    #
-    #     for i in range(len(contigs)):
-    #         if position_changed_contig > contigs[i].pos >= previous_pos and i != number_changed_contig:
-    #             ind = contigs[i].reads_ind
-    #             a = (pairs[ind][:, 2] == i)
-    #             indx0 = np.where(a)[0]
-    #             b = (pairs[ind[indx0]][:, 0] == number_changed_contig)
-    #             indx = np.where(b)[0]
-    #
-    #             # delta -= 2 * len(pairs[ind[indx], 6])
-    #
-    #             pairs[ind[indx], 6] = -pairs[ind[indx], 6]
-    #
-    #             pairs[ind[indx], 0], pairs[ind[indx], 2] = pairs[ind[indx], 2], pairs[ind[indx], 0]
-    #             pairs[ind[indx], 1], pairs[ind[indx], 3] = pairs[ind[indx], 3], pairs[ind[indx], 1]
-    #             pairs[ind[indx], 4], pairs[ind[indx], 5] = pairs[ind[indx], 5], pairs[ind[indx], 4]
-    #
-    #     contigs[number_changed_contig].pos = position_changed_contig
-
-    # return delta
 
 
 def swap_log_likelihood(last_log_likelihood, number_contig_1, number_contig_2, pairs, contigs, P):
