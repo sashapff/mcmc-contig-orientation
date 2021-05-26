@@ -22,7 +22,7 @@ if __name__ == "__main__":
                 contigs2chr[contig[:-1]] = ind
         chr_pairs[ind] = open(path_output + "/chr_pairs" + ind + ".txt", "w")
 
-    print("Reading pairs...")
+    print("Filtering pairs...")
 
     path_pairs = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/chm13.draft_v0.9.simplified.nodes.pairs"
     with open(path_pairs, "r") as f:

@@ -1,8 +1,9 @@
 import numpy as np
 import pandas as pd
-from tools.tools import _distance_matrix
-from tqdm import tqdm
 from matplotlib import pyplot as plt
+from tqdm import tqdm
+
+from utils.tools import _distance_matrix
 
 
 class Contig():
@@ -12,7 +13,7 @@ class Contig():
         :param name: name
         :param length: length of contig
         :param orientation: orientation of contig
-        TODO
+        :param position: position of contig
         """
         self.name = name
         self.length = length
@@ -36,7 +37,6 @@ def _clear_layout(path_layout, path_lens, min_len=10e+5):
         s_lines = f.read().splitlines()
 
     length = pd.read_csv(path_lens, sep="\t", header=None)
-    print("COULD ^C")
 
     # find the longest string with contigs
     s = s_lines[0]
@@ -56,6 +56,9 @@ def _clear_layout(path_layout, path_lens, min_len=10e+5):
 
 
 def check_reads(path_pairs, output_path, chr_ind):
+    """
+    Plot distribution of distances between reads and distributions of left position in each contig
+    """
     with open(path_pairs, "r") as f:
         s_lines = f.read().splitlines()
 
@@ -89,8 +92,8 @@ def check_reads(path_pairs, output_path, chr_ind):
     print('Finish checking')
 
 
-
-def get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=False, all_contigs=False, min_len=100_000, from_one_contig=False):
+def get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=False, all_contigs=False, min_len=100_000,
+                          from_one_contig=False):
     """
     Reading all data from file in essential format
     :param path_layout: the path to the start layout
@@ -99,6 +102,7 @@ def get_contigs_and_pairs(path_layout, path_lens, path_pairs, long_contig=False,
     :param long_contig: bool, return reads from longest contig separately?
     :param min_len: min length of contigs we will deal with
     :param all_contigs: return all reads in same contigs?
+    :param from_one_contig: return reads pairs in same contigs?
     :return: required reads, list of contigs, dict{"name": index contig in list},
              long_contig if True, all_contigs if True
     """

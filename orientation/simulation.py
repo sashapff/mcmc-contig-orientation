@@ -1,8 +1,8 @@
 from orientation.model import MCMC
 from orientation.tools import get_orientation
-from tools.load import get_contigs_and_pairs
-from tools.prob import toy_density
-from tools.tools import simulation
+from utils.load import get_contigs_and_pairs
+from utils.prob import toy_density
+from utils.tools import simulation
 
 if __name__ == "__main__":
     simulation(100, 5000, 5)

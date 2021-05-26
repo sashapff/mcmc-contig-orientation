@@ -12,6 +12,7 @@ if __name__ == "__main__":
 
     matrix_filename = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/chm13.draft_v0.9.matrix.cool"
 
+    print('Reading layouts...')
     for ind in chr_indexes:
         if ind != "9":
             filename = path_layouts + "/chr" + ind + ".layout.txt"
@@ -28,10 +29,11 @@ if __name__ == "__main__":
 
     print(len(contigs2chr))
 
+    print('Reading matrix...')
     with h5py.File(matrix_filename, "r") as f:
         for i in range(len(f['chroms']['length'][:])):
             contig_name = (f['chroms']['name'][:][i]).decode("utf-8")
-            string_to_write = contig_name  + '\t' + str(f['chroms']['length'][:][i]) + '\n'
+            string_to_write = contig_name + '\t' + str(f['chroms']['length'][:][i]) + '\n'
             if contig_name in contigs2chr:
                 output_files[contigs2chr[contig_name]].write(string_to_write)
             else:

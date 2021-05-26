@@ -3,4 +3,4 @@
 #SBATCH -p debug
 #SBATCH -o output/ordering_exp_swap.txt
 
-python ordering.py
+python main_ordering.py

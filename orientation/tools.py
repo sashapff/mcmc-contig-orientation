@@ -1,5 +1,6 @@
 import numpy as np
-from tools.tools import get_distance
+
+from utils.tools import get_distance
 
 
 def get_orientation(orientation, pairs, contigs):

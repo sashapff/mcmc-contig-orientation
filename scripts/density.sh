@@ -3,4 +3,4 @@
 #SBATCH -p debug
 #SBATCH -o output/density.txt
 
-python density.py
+python helpers/density.py

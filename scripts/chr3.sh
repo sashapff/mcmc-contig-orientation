@@ -3,5 +3,5 @@
 #SBATCH -p debug-cpu
 #SBATCH -o output/chr3.txt
 
-python chr3.py
+python helpers/chr3.py
 

@@ -1,10 +1,13 @@
 import numpy as np
-from scipy.stats import expon, gamma
-from tqdm import tqdm
 import pandas as pd
+from scipy.stats import expon
+from tqdm import tqdm
 
 
 def get_longest_contig(longest_contig_pairs_arr, longest_contig_arr):
+    """
+    Finding the longest contig and returning pairs mapped to this contig
+    """
     j = 0
     longest_contig_length = 0
     for i in range(len(longest_contig_arr)):
@@ -56,6 +59,9 @@ def get_distance_one_contig(filtered_pairs, left_len):
 
 
 def _distance_matrix(contigs):
+    """
+    Calculating distances between all contigs
+    """
     D = np.zeros((len(contigs), len(contigs)))
 
     for i in range(len(contigs)):
@@ -73,6 +79,9 @@ def log_likelihood(pairs, contigs, P):
 
 
 def filter_pairs(pairs, contig_id, left, right):
+    """
+    Filtering pairs and returning that are mapped to different parts of contig
+    """
     indx = (pairs[:, 0] == contig_id) & (pairs[:, 2] == contig_id) & (pairs[:, 1] < left) & (pairs[:, 3] >= right)
     return pairs[indx]
 
@@ -84,6 +93,7 @@ def simulation(max_len=1000, n_reads=10, n_contigs=2, p_distr=expon, output_path
     :param n_reads: number of reads
     :param n_contigs: number of contigs
     :param p_distr: density
+    :param output_path: path to output
     """
     all_pos = []
     max_len = max_len - max_len % n_contigs

@@ -1,8 +1,10 @@
-import numpy as np
 import random
+
+import numpy as np
 from tqdm import tqdm
-from orientation.tools import change_orientation_log_likelihood, change_orientation, get_orientation
-from tools.tools import log_likelihood
+
+from orientation.tools import change_orientation_log_likelihood, change_orientation
+from utils.tools import log_likelihood
 
 
 def MCMC(pairs, contigs, P, correct_contigs, number_it=500, n_chains=1):

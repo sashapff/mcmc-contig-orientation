@@ -1,11 +1,10 @@
-from tools.load import get_contigs_and_pairs
-from ordering.model import MCMC
-from ordering.tools import shuffle_ordering, change_position, swap, swap_log_likelihood
-from tools.prob import density, toy_density
-import numpy as np
 import matplotlib.pyplot as plt
 
-from tools.tools import log_likelihood, simulation
+from ordering.model import MCMC
+from ordering.tools import shuffle_ordering
+from utils.load import get_contigs_and_pairs
+from utils.prob import density
+from utils.tools import log_likelihood
 
 if __name__ == "__main__":
     print("Start!")
@@ -53,7 +52,7 @@ if __name__ == "__main__":
 
             print(log_likelihood_arr)
 
-            plt.clf()
+            print('Plots...')
             plt.plot(log_likelihood_arr, label=f'{len(contigs)} contigs')
             plt.plot([correct_log_likelihood for _ in range(len(log_likelihood_arr))], label='correct order')
             plt.xlabel('iteration number')
@@ -61,7 +60,9 @@ if __name__ == "__main__":
             plt.legend()
             plt.title(f'Ordering log likelihood')
             plt.savefig(f'{path_to_output}/plots_ordering/log_likelihood_chr{chr_ind}.png')
+            plt.clf()
 
+            print("Count correctness...")
             with open(f"{path_to_output}/final_ordering/final_chr{chr_ind}.layout.txt", "w") as file:
                 file.write(",".join([str(contigs[i].pos) for i in range(len(contigs))]))
 

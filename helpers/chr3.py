@@ -1,10 +1,10 @@
+import matplotlib.pyplot as plt
 import numpy as np
 
 from orientation.tools import get_orientation
-from tools.load import check_reads, get_contigs_and_pairs
-from tools.prob import density, toy_density
-from tools.tools import get_distance, log_likelihood
-import matplotlib.pyplot as plt
+from utils.load import check_reads, get_contigs_and_pairs
+from utils.prob import density
+from utils.tools import get_distance, log_likelihood
 
 if __name__ == "__main__":
     chr_ind = '3'

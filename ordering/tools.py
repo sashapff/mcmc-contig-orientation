@@ -1,11 +1,11 @@
 import numpy as np
 
-from tools.tools import get_distance, _get_distance_bw_contig, log_likelihood
+from utils.tools import get_distance
 
 
 def shuffle_ordering(pairs, contigs, P, n_iterations=10):
     """
-    TODO
+    Random shuffling order if contigs
     """
     for _ in range(n_iterations):
         number_contig_1 = np.random.randint(0, len(contigs))
@@ -14,6 +14,9 @@ def shuffle_ordering(pairs, contigs, P, n_iterations=10):
 
 
 def swap(number_contig_1, number_contig_2, pairs, contigs):
+    """
+    Swapping 2 contigs and updating pairs
+    """
     if number_contig_1 == number_contig_2:
         return
     if contigs[number_contig_1].pos > contigs[number_contig_2].pos:
@@ -54,7 +57,7 @@ def swap(number_contig_1, number_contig_2, pairs, contigs):
 
 def change_position(number_changed_contig, position_changed_contig, pairs, contigs):
     """
-    TODO
+    Changing position of contig and updating pairs
     """
     if position_changed_contig == contigs[number_changed_contig].pos:
         return

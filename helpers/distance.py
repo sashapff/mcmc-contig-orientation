@@ -1,35 +1,19 @@
-from scipy.stats import uniform
-from tools.load import get_contigs_and_pairs
-from tools.prob import density, toy_density, normalize, simulate_density, estimate_density
-from tools.tools import get_longest_contig, filter_pairs, log_likelihood, get_distance_one_contig
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy.integrate import quad
-import math
+
+from utils.load import get_contigs_and_pairs
+from utils.prob import normalize, estimate_density
+from utils.tools import filter_pairs, get_distance_one_contig
 
 if __name__ == "__main__":
     longest_contig_len = 20_000
-    # simulation(max_len=longest_contig_len, n_reads=50_000, n_contigs=1, output_path='../data_sim/')
 
-    print("Start!")
+    path_to_output = f'/lustre/groups/cbi/Users/aeliseev/aivanova/data/distance'
 
-    # path_to_output = f'/lustre/groups/cbi/Users/aeliseev/aivanova/data/distance'
-    path_to_output = f'/Users/alexandra/bioinf/mcmc/distance'
-
-    # chr_ind = '4'
-    # path_layout = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/layouts/chr" + chr_ind + ".layout.txt"
-    # path_lens = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/contig_length/contig.length." + chr_ind + ".txt"
-    # path_pairs = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/pairs/chr_pairs" + chr_ind + ".txt"
-
-    # path_layout = "/Users/alexandra/bioinf/mcmc/data/chr1.layout.txt"
-    path_layout = "/Users/alexandra/bioinf/mcmc/data_sim/simulation.layout.txt"
-
-    # path_lens = "/Users/alexandra/bioinf/mcmc/data/comp18_lens.tsv"
-    path_lens = "/Users/alexandra/bioinf/mcmc/data_sim/simulation.lens.tsv"
-
-    # path_pairs = "/Users/alexandra/bioinf/mcmc/data/pairs18.txt"
-    path_pairs = "/Users/alexandra/bioinf/mcmc/data_sim/simulation.pairs.txt"
-
+    chr_ind = '4'
+    path_layout = "/GWSPH/groups/cbi/Users/pavdeyev/HiCProject/layouts/chr" + chr_ind + ".layout.txt"
+    path_lens = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/contig_length/contig.length." + chr_ind + ".txt"
+    path_pairs = "/lustre/groups/cbi/Users/aeliseev/aivanova/data/pairs/chr_pairs" + chr_ind + ".txt"
     # longest_contig
     pairs, contigs, id_contig, longest_contig_pairs, longest_contig = get_contigs_and_pairs(path_layout, path_lens,
                                                                                             path_pairs,
@@ -39,20 +23,16 @@ if __name__ == "__main__":
 
     longest_contig_len = longest_contig.length
 
-
     ind = (pairs[:, 1] >= pairs[:, 3])
     pairs[ind, 1], pairs[ind, 3] = pairs[ind, 3], pairs[ind, 1]
 
     D = 1000
-    # D = 200
     left = longest_contig.length // 2 - D // 2
     right = left + D
 
     filtered_pairs = filter_pairs(pairs, id_contig[longest_contig.name], left, right)
 
-    P, f = toy_density(pairs)
-    # P, f = simulate_density(filtered_pairs, longest_contig_len)
-    # P, f = estimate_density(filtered_pairs)
+    P, f = estimate_density(filtered_pairs)
     P = normalize(P, 0, np.inf)
 
     p_range = range(1000)
@@ -77,9 +57,4 @@ if __name__ == "__main__":
     plt.xlabel('d, distance estimate')
     plt.ylabel('log likelihood')
     plt.legend()
-    # plt.xscale('log')
     plt.savefig(f'{path_to_output}/log_likelihood.png')
-
-
-
-

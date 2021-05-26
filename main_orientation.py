@@ -1,9 +1,11 @@
-from orientation.model import MCMC
-from tools.load import get_contigs_and_pairs
-from tools.prob import density
-from tools.tools import get_longest_contig
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
+
+from orientation.model import MCMC
+from orientation.tools import get_orientation
+from utils.load import get_contigs_and_pairs
+from utils.prob import density
+from utils.tools import get_longest_contig
 
 if __name__ == "__main__":
     print("Start!")
@@ -79,6 +81,7 @@ if __name__ == "__main__":
             correct_total += correct_number
             contigs_total += len(contigs)
 
+            print("Plots...")
             fig, axs = plt.subplots(2)
 
             axs[0].plot(accuracy_arr, label=f'{len(contigs)} contigs')

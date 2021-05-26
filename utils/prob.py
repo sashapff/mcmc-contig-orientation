@@ -1,10 +1,13 @@
 import numpy as np
 from scipy.integrate import quad
-from sklearn.neighbors.kde import KernelDensity
 from scipy.optimize import curve_fit
+from sklearn.neighbors.kde import KernelDensity
 
 
 def normalize(P, a=0, b=np.inf):
+    """
+    Normalize the tail of the distribution to the area value under plot 1.
+    """
     quad_value, _ = quad(lambda x: np.exp(P(x)), a, b)
     coeff = np.log(quad_value)
     P_norm = lambda x: P(x) - coeff
@@ -53,15 +56,15 @@ def toy_density(reads):
     return P, P
 
 
-def simulate_density(pairs, contig_len):
+def simulate_density(pairs):
     """
     Function for estimating simulation density
     """
     distances = np.abs(pairs[:, 1] - pairs[:, 3])
     Lambda = 1 / distances.mean()
     P = lambda x: np.log(Lambda) - Lambda * x
-    # P = lambda x: np.where(x < 0, 0, np.where(x < contig_len, np.log(1 / (2 * distances.mean())), 0))
     return P, P
+
 
 def estimate_density(reads, K0=3000, K1=100_000, kde_method="linear"):
     """
@@ -69,7 +72,6 @@ def estimate_density(reads, K0=3000, K1=100_000, kde_method="linear"):
     :param reads: reads[i,0] - position first peace of read; reads[i,1] - position second peace of read
     :param K0: end of poly approximation
     :param K1: end of first log approximation
-    :param K2: end of second log approximation
     :param kde_method: type of kernel in KernelDensity
     :return:
     """
@@ -92,6 +94,7 @@ def estimate_density(reads, K0=3000, K1=100_000, kde_method="linear"):
                                      param1[0] + param1[1] * np.log(x))))
 
     return P, f
+
 
 def destiny_b(longest_contig_b, bins, contigs, resolution="100_000"):
     value, first_bins, second_bins = longest_contig_b

@@ -1,7 +1,8 @@
-from tools.load import get_contigs_and_pairs
-from tools.prob import density, toy_density
 import matplotlib.pyplot as plt
 import numpy as np
+
+from utils.load import get_contigs_and_pairs
+from utils.prob import density
 
 if __name__ == "__main__":
     path_to_output = f'/lustre/groups/cbi/Users/aeliseev/aivanova/data/density'
