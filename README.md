@@ -17,8 +17,8 @@ Based on collected contigs and a Hi-C signal, it is necessary to assemble the ge
 
 
 ## Examples:
-* Orientation chr11 contigs (length > 25k) plots of accuracy and log_likelihood during MCMC running:
-![](https://github.com/sashapff/mcmc-scaffolding/blob/main/plots/chr11.png)
+* Orientation chr2 contigs (length > 25k) plots of accuracy and log_likelihood during MCMC running:
+![](https://github.com/sashapff/mcmc-scaffolding/blob/main/plots/chr2.png)
 
 
 ## Dependencies:
