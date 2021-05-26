@@ -11,14 +11,14 @@ Based on collected contigs and a Hi-C signal, it is necessary to assemble the ge
     * If the likelihood function (P) has increased, then we accept the change, otherwise we accept with probability: P(new state)/P(old state)
 
 ## Usage:
-* Run `orientation.py` to orient contigs.
-* Run `ordering.py` to order contigs.
+* Run `main_orientation.py` to orient contigs.
+* Run `main_ordering.py` to order contigs.
 * Run `gap_size.py` to simulate gap size estimating.
 
 
 ## Examples:
-* Orientation chr11 contigs (length > 25k) plots of accuracy and log_likelihood during MCMC running:
-![](https://github.com/sashapff/mcmc-scaffolding/blob/main/plots/chr11.png)
+* Orientation chr2 contigs (length > 25k) plots of accuracy and log_likelihood during MCMC running:
+![](https://github.com/sashapff/mcmc-scaffolding/blob/main/plots/chr2.png)
 
 
 ## Dependencies:
