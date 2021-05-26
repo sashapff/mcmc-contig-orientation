@@ -1,7 +1,6 @@
-from tools.load import get_contigs_and_pairs
 from orientation.model import MCMC
-from orientation.tools import get_orientation
-from tools.prob import density, toy_density
+from tools.load import get_contigs_and_pairs
+from tools.prob import density
 from tools.tools import get_longest_contig
 import numpy as np
 import matplotlib.pyplot as plt

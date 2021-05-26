@@ -1,7 +1,7 @@
 import numpy as np
 import random
 from tqdm import tqdm
-from orientation.tools import change_orientation, get_orientation, change_orientation_log_likelihood
+from orientation.tools import change_orientation_log_likelihood, change_orientation, get_orientation
 from tools.tools import log_likelihood
 
 
@@ -40,8 +40,5 @@ def MCMC(pairs, contigs, P, correct_contigs, number_it=500, n_chains=1):
         accuracy_arr.append(accuracy)
 
         log_likelihood_arr.append(lk_old)
-
-    assert new_contigs == [contig.o for contig in contigs]
-    get_orientation(new_contigs, pairs, contigs)
 
     return accuracy_arr, log_likelihood_arr
