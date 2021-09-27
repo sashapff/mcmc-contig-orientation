@@ -50,6 +50,6 @@ Data has to contain information about Hi-C reads in to follow a format
 http://statweb.stanford.edu/~cgates/PERSI/papers/MCMCRev.pdf
 
 ## Results
-Thesis: https://docs.google.com/document/d/1P-qAqT1ffWr7sG_5YgiwvGkjebmbUFC1QAmmI8iRNDE/edit?usp=sharing
+[Theses](https://docs.google.com/document/d/1P-qAqT1ffWr7sG_5YgiwvGkjebmbUFC1QAmmI8iRNDE/edit?usp=sharing)
 
-Presentation: https://docs.google.com/presentation/d/1iG7Kc27HDr0R_d2yh877EdsR0bCVdfCtnlO_jIrJQls/edit?usp=sharing
+[Presentation](https://docs.google.com/presentation/d/1iG7Kc27HDr0R_d2yh877EdsR0bCVdfCtnlO_jIrJQls/edit?usp=sharing)
